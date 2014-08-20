@@ -50,6 +50,7 @@
 		5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */; };
 		5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */; };
 		5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74B119A52C810095117F /* MJPStreamItem.m */; };
+		5C7F74B419A536B10095117F /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74B319A536B10095117F /* DummyData.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPStreamItemTableViewCell.xib; sourceTree = "<group>"; };
 		5C7F74B019A52C810095117F /* MJPStreamItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItem.h; sourceTree = "<group>"; };
 		5C7F74B119A52C810095117F /* MJPStreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItem.m; sourceTree = "<group>"; };
+		5C7F74B319A536B10095117F /* DummyData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				5C7F74A919A4F0A00095117F /* ProfileIcon.png */,
 				5C7F749919A4ED550095117F /* MapIcon.png */,
 				5C7F749A19A4ED550095117F /* StreamIcon.png */,
+				5C7F74B319A536B10095117F /* DummyData.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
 				5C7F749C19A4ED550095117F /* StreamIcon.png in Resources */,
+				5C7F74B419A536B10095117F /* DummyData.json in Resources */,
 				5C7F744619A3BB2A0095117F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

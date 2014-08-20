@@ -9,6 +9,7 @@
 #import "MJPStreamViewController.h"
 #import "MJPAppDelegate.h"
 #import "MJPStreamItemTableViewCell.h"
+#import "MJPStreamItem.h"
 
 @interface MJPStreamViewController ()
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -39,8 +40,7 @@ static NSInteger cellHeight = 80;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    
-    streamItemArray = [[NSMutableArray alloc] initWithArray:@[@"One", @"Two", @"Three"]];
+    streamItemArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
     streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -64,11 +64,12 @@ static NSInteger cellHeight = 80;
     if (cell == nil) {
         [streamItemView registerNib:[UINib nibWithNibName:@"MJPStreamItemTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
         cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
-        NSLog(@"DOING THIS");
     }
-    cell.userName.text = [streamItemArray objectAtIndex:indexPath.row];
-    NSLog(@"%@", [streamItemArray objectAtIndex:indexPath.row]);
-    NSLog(@"%@", cell);
+    MJPStreamItem *streamItem = ((MJPStreamItem*)[streamItemArray objectAtIndex:indexPath.row]);
+    cell.userName.text = streamItem.userName;
+    cell.postInfo.text = streamItem.postInfo;
+    cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
+    cell.userImage.image = streamItem.userImage;
     return cell;
 }
 
