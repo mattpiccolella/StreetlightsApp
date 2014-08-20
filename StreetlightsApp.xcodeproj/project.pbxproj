@@ -39,6 +39,12 @@
 		5C7F749019A439F80095117F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F748419A439F80095117F /* SystemConfiguration.framework */; };
 		5C7F749219A43B580095117F /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F749119A43B580095117F /* GoogleMaps.framework */; };
 		5C7F749419A43BB10095117F /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749319A43BB10095117F /* GoogleMaps.bundle */; };
+		5C7F749B19A4ED550095117F /* MapIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749919A4ED550095117F /* MapIcon.png */; };
+		5C7F749C19A4ED550095117F /* StreamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749A19A4ED550095117F /* StreamIcon.png */; };
+		5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */; };
+		5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */; };
+		5C7F74A519A4EF9A0095117F /* MJPNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */; };
+		5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +97,14 @@
 		5C7F748419A439F80095117F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5C7F749119A43B580095117F /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		5C7F749319A43BB10095117F /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "../../Downloads/GoogleMaps-iOS-1.8-2.1/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		5C7F749919A4ED550095117F /* MapIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapIcon.png; sourceTree = "<group>"; };
+		5C7F749A19A4ED550095117F /* StreamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StreamIcon.png; sourceTree = "<group>"; };
+		5C7F749D19A4EF630095117F /* MJPUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUserProfileViewController.h; sourceTree = "<group>"; };
+		5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUserProfileViewController.m; sourceTree = "<group>"; };
+		5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPUserProfileViewController.xib; sourceTree = "<group>"; };
+		5C7F74A219A4EF9A0095117F /* MJPNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPNotificationsViewController.h; sourceTree = "<group>"; };
+		5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPNotificationsViewController.m; sourceTree = "<group>"; };
+		5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPNotificationsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +236,12 @@
 			children = (
 				5C7F746419A3BB900095117F /* MJPLoginViewController.h */,
 				5C7F746519A3BB900095117F /* MJPLoginViewController.m */,
+				5C7F749D19A4EF630095117F /* MJPUserProfileViewController.h */,
+				5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */,
+				5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */,
+				5C7F74A219A4EF9A0095117F /* MJPNotificationsViewController.h */,
+				5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */,
+				5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */,
 				5C7F746619A3BB900095117F /* MJPLoginViewController.xib */,
 				5C7F746B19A3BD980095117F /* MJPStreamViewController.h */,
 				5C7F746C19A3BD980095117F /* MJPStreamViewController.m */,
@@ -236,6 +256,8 @@
 		5C7F746919A3BC510095117F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5C7F749919A4ED550095117F /* MapIcon.png */,
+				5C7F749A19A4ED550095117F /* StreamIcon.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -326,8 +348,12 @@
 				5C7F747419A3BDC60095117F /* MJPMapViewController.xib in Resources */,
 				5C7F746819A3BB900095117F /* MJPLoginViewController.xib in Resources */,
 				5C7F743E19A3BB2A0095117F /* InfoPlist.strings in Resources */,
+				5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */,
 				5C7F749419A43BB10095117F /* GoogleMaps.bundle in Resources */,
+				5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */,
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
+				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
+				5C7F749C19A4ED550095117F /* StreamIcon.png in Resources */,
 				5C7F744619A3BB2A0095117F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,7 +375,9 @@
 			files = (
 				5C7F746719A3BB900095117F /* MJPLoginViewController.m in Sources */,
 				5C7F744419A3BB2A0095117F /* MJPAppDelegate.m in Sources */,
+				5C7F74A519A4EF9A0095117F /* MJPNotificationsViewController.m in Sources */,
 				5C7F746E19A3BD980095117F /* MJPStreamViewController.m in Sources */,
+				5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,
 				5C7F747319A3BDC60095117F /* MJPMapViewController.m in Sources */,
 			);

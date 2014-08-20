@@ -30,6 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.tintColor = [UIColor orangeColor];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
