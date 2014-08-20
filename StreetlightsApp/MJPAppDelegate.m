@@ -8,13 +8,31 @@
 
 #import "MJPAppDelegate.h"
 #import "Controllers/MJPLoginViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
 
-@implementation MJPAppDelegate
+static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
+
+@implementation MJPAppDelegate {
+    id services_;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    if ([kAPIKey length] == 0) {
+        // Blow up if APIKey has not yet been set.
+        NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
+        NSString *format = @"Configure APIKey inside SDKDemoAPIKey.h for your "
+        @"bundle `%@`, see README.GoogleMapsSDKDemos for more information";
+        @throw [NSException exceptionWithName:@"SDKDemoAppDelegate"
+                                       reason:[NSString stringWithFormat:format, bundleId]
+                                     userInfo:nil];
+    }
+    [GMSServices provideAPIKey:kAPIKey];
+    services_ = [GMSServices sharedServices];
+    
     MJPLoginViewController *loginViewController = [[MJPLoginViewController alloc] init];
     self.window.rootViewController = loginViewController;
     [self.window makeKeyAndVisible];
