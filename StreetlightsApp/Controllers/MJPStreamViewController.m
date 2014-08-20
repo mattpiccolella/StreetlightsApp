@@ -34,6 +34,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    streamItemArray = [[NSMutableArray alloc] initWithArray:@[@"One", @"Two", @"Three"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,6 +45,22 @@
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [streamItemArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [streamItemView dequeueReusableCellWithIdentifier:@"thisCell"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"thisCell"];
+    }
+    cell.textLabel.text = [streamItemArray objectAtIndex:indexPath.row];
+    NSLog(@"%@", cell);
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning

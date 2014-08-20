@@ -22,6 +22,7 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     // Override point for customization after application launch.
     
     self.searchEveryone = FALSE;
+    self.searchRadius = 4.0;
     
     if ([kAPIKey length] == 0) {
         // Blow up if APIKey has not yet been set.

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPStreamViewController : UIViewController
+@interface MJPStreamViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+    
+    IBOutlet UITableView *streamItemView;
+    
+    NSMutableArray *streamItemArray;
+}
 
 @end
