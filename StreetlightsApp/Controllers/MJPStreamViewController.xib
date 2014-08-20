@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPStreamViewController">
             <connections>
+                <outlet property="activityIndicator" destination="fLx-La-faw" id="NP7-F8-CvI"/>
                 <outlet property="distanceLabel" destination="bD7-yn-v58" id="93D-qH-oA7"/>
                 <outlet property="distanceSlider" destination="iyq-Wu-gxl" id="u3G-2C-p7Z"/>
                 <outlet property="locationSearch" destination="1UT-GM-FNG" id="XOy-0g-oXb"/>
@@ -81,6 +82,10 @@
                         <outlet property="delegate" destination="-1" id="Unr-Ws-Bl7"/>
                     </connections>
                 </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fLx-La-faw">
+                    <rect key="frame" x="150" y="274" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UISearchBar *locationSearch;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
 - (IBAction)scopeChanged:(id)sender;
@@ -41,8 +42,20 @@ static NSInteger cellHeight = 80;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    streamItemArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
     streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [self.activityIndicator startAnimating];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                   {
+                       streamItemArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
+                       
+                       dispatch_async(dispatch_get_main_queue(), ^
+                                      {
+                                          [self.activityIndicator stopAnimating];
+                                          [self.activityIndicator setHidden:YES];
+                                          [streamItemView reloadData];
+                                      });
+                });
 }
 
 - (void)viewWillAppear:(BOOL)animated

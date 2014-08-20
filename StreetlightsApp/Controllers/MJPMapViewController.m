@@ -107,5 +107,7 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
     [self.locationSearch resignFirstResponder];
+    
+    // TODO: Search for the location we have and interface with the Places autocomplete.
 }
 @end
