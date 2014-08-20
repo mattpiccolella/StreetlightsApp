@@ -15,6 +15,9 @@
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+- (IBAction)distanceChanged:(id)sender;
+- (IBAction)sliderChangeEnded:(id)sender;
+- (IBAction)scopeChanged:(id)sender;
 
 @end
 
@@ -35,28 +38,28 @@
 {
     [super viewDidLoad];
     
-    self.scopeSelector.segmentedControlStyle = UISegmentedControlStyleBar;
-    self.scopeSelector.tintColor = [UIColor redColor];
-    
     self.scopeSelector.selectedSegmentIndex = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
                                                                  zoom:12];
     
-    
-    self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    self.mapView.settings.compassButton = YES;
-    self.mapView.settings.myLocationButton = YES;
+    self.mapView.camera = camera;
     
     [self.mapView addObserver:self
                forKeyPath:@"myLocation"
                   options:NSKeyValueObservingOptionNew
                   context:NULL];
     
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.scopeSelector.selectedSegmentIndex = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone];
 }
 
 - (void)dealloc {
@@ -81,4 +84,18 @@
     }
 }
 
+- (IBAction)distanceChanged:(id)sender {
+    // Set the label to reflect the change
+    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
+    [self.distanceLabel setText:newLabel];
+}
+
+- (IBAction)sliderChangeEnded:(id)sender {    
+    // TODO: Query for items based on the new radius.
+}
+
+- (IBAction)scopeChanged:(id)sender {
+    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:![((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone]];
+    // TODO: query for new items based on friends or not friends.
+}
 @end
