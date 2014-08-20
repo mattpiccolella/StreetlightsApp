@@ -10,7 +10,7 @@
 
 @interface MJPStreamItemTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *userName;
+@property (strong, nonatomic) IBOutlet UILabel *postInfo;
 @property (strong, nonatomic) IBOutlet UIImageView *userImage;
-@property (strong, nonatomic) IBOutlet UITextView *postInfo;
 
 @end
