@@ -44,17 +44,8 @@
 - (IBAction)loginButton:(id)sender {
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
-    
-    // Create our views
-    MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
-    mapViewController.tabBarItem.title = @"Map";
-    mapViewController.tabBarItem.image = [UIImage imageNamed:@"MapIcon.png"];
-    
-    MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
-    streamViewController.tabBarItem.title = @"Stream";
-    streamViewController.tabBarItem.image = [UIImage imageNamed:@"StreamIcon.png"];
-    
-    tabBarController.viewControllers = @[streamViewController, mapViewController];
+
+    tabBarController.viewControllers = [self getTabBarViewControllers];
     
     [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
 }
@@ -68,10 +59,14 @@
     streamViewController.tabBarItem.title = @"Stream";
     streamViewController.tabBarItem.image = [UIImage imageNamed:@"StreamIcon.png"];
     
+    MJPNotificationsViewController *notificationsController = [[MJPNotificationsViewController alloc] init];
+    notificationsController.tabBarItem.title = @"Noti's";
+    notificationsController.tabBarItem.image = [UIImage imageNamed:@"NotificationIcon.png"];
+    
     MJPUserProfileViewController *userProfileController = [[MJPUserProfileViewController alloc] init];
     userProfileController.tabBarItem.title = @"Profile";
+    userProfileController.tabBarItem.image = [UIImage imageNamed:@"ProfileIcon.png"];
     
-    
-    return @[mapViewController, streamViewController];
+    return @[mapViewController, streamViewController, notificationsController, userProfileController];
 }
 @end

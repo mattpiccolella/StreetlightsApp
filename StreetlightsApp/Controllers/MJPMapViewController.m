@@ -7,14 +7,18 @@
 //
 
 #import "MJPMapViewController.h"
+#import "MJPAppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 
 @interface MJPMapViewController ()
+@property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
+@property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
+@property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @end
 
 @implementation MJPMapViewController {
-    GMSMapView *locationMapView_;
     BOOL hasSetLocation_;
 }
 
@@ -31,30 +35,32 @@
 {
     [super viewDidLoad];
     
-    self.view.tintColor = [UIColor orangeColor];
+    self.scopeSelector.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.scopeSelector.tintColor = [UIColor redColor];
+    
+    self.scopeSelector.selectedSegmentIndex = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
                                                                  zoom:12];
     
-    locationMapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    locationMapView_.settings.compassButton = YES;
-    locationMapView_.settings.myLocationButton = YES;
     
-    [locationMapView_ addObserver:self
+    self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    self.mapView.settings.compassButton = YES;
+    self.mapView.settings.myLocationButton = YES;
+    
+    [self.mapView addObserver:self
                forKeyPath:@"myLocation"
                   options:NSKeyValueObservingOptionNew
                   context:NULL];
     
-    self.view = locationMapView_;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        locationMapView_.myLocationEnabled = YES;
+        self.mapView.myLocationEnabled = YES;
     });
 }
 
 - (void)dealloc {
-    [locationMapView_ removeObserver:self forKeyPath:@"myLocation" context:NULL];
+    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +76,7 @@
           [object isKindOfClass:[GMSMapView class]]) {
         hasSetLocation_ = YES;
         CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-        locationMapView_.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
+        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
                                                          zoom:14];
     }
 }

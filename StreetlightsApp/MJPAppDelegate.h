@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (assign, readwrite) BOOL searchEveryone;
+
 @end

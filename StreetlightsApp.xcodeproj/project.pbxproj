@@ -45,6 +45,8 @@
 		5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */; };
 		5C7F74A519A4EF9A0095117F /* MJPNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */; };
 		5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */; };
+		5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A719A4F0980095117F /* NotificationIcon.png */; };
+		5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A919A4F0A00095117F /* ProfileIcon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		5C7F74A219A4EF9A0095117F /* MJPNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPNotificationsViewController.h; sourceTree = "<group>"; };
 		5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPNotificationsViewController.m; sourceTree = "<group>"; };
 		5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPNotificationsViewController.xib; sourceTree = "<group>"; };
+		5C7F74A719A4F0980095117F /* NotificationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationIcon.png; sourceTree = "<group>"; };
+		5C7F74A919A4F0A00095117F /* ProfileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProfileIcon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +260,8 @@
 		5C7F746919A3BC510095117F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5C7F74A719A4F0980095117F /* NotificationIcon.png */,
+				5C7F74A919A4F0A00095117F /* ProfileIcon.png */,
 				5C7F749919A4ED550095117F /* MapIcon.png */,
 				5C7F749A19A4ED550095117F /* StreamIcon.png */,
 			);
@@ -349,7 +355,9 @@
 				5C7F746819A3BB900095117F /* MJPLoginViewController.xib in Resources */,
 				5C7F743E19A3BB2A0095117F /* InfoPlist.strings in Resources */,
 				5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */,
+				5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */,
 				5C7F749419A43BB10095117F /* GoogleMaps.bundle in Resources */,
+				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
 				5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */,
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
