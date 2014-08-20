@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="distanceLabel" destination="ZK4-V0-agf" id="WN4-UW-0di"/>
                 <outlet property="distanceSlider" destination="F9X-7M-hEx" id="sbq-jf-i7b"/>
+                <outlet property="locationSearch" destination="7q8-Mz-86r" id="UH1-00-VtU"/>
                 <outlet property="mapView" destination="bdZ-ss-IOu" id="I9Z-1I-rac"/>
                 <outlet property="scopeSelector" destination="jJ5-Nl-5gu" id="z46-xV-zuA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -72,6 +73,9 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="moF-Ww-hca"/>
+                    </connections>
                 </searchBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

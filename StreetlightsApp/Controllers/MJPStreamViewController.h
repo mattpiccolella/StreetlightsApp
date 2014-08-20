@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPStreamViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface MJPStreamViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     
     IBOutlet UITableView *streamItemView;
     

@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (strong, nonatomic) IBOutlet UISearchBar *locationSearch;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
 - (IBAction)scopeChanged:(id)sender;
@@ -102,5 +103,9 @@
     [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
 
     // TODO: query for new items based on friends or not friends.
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
+    [self.locationSearch resignFirstResponder];
 }
 @end

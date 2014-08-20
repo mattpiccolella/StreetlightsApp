@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (strong, nonatomic) IBOutlet UISearchBar *locationSearch;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
 - (IBAction)scopeChanged:(id)sender;
@@ -99,5 +100,11 @@ static NSInteger cellHeight = 80;
     [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
     
     // TODO: query for new items based on friends or not friends.
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.locationSearch resignFirstResponder];
+    
+    // TODO: Actually search something...not sure what.
 }
 @end

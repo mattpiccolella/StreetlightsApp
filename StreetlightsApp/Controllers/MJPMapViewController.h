@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPMapViewController : UIViewController
+@interface MJPMapViewController : UIViewController<UISearchBarDelegate>
 
 @end
