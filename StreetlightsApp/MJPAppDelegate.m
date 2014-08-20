@@ -21,7 +21,7 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    self.searchEveryone = TRUE;
+    self.searchEveryone = FALSE;
     
     if ([kAPIKey length] == 0) {
         // Blow up if APIKey has not yet been set.

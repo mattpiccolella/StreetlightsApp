@@ -7,8 +7,15 @@
 //
 
 #import "MJPStreamViewController.h"
+#import "MJPAppDelegate.h"
 
 @interface MJPStreamViewController ()
+@property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
+@property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+- (IBAction)distanceChanged:(id)sender;
+- (IBAction)sliderChangeEnded:(id)sender;
+- (IBAction)scopeChanged:(id)sender;
 
 @end
 
@@ -29,10 +36,36 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.scopeSelector.selectedSegmentIndex = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone];
+    
+    self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
+    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
+    [self.distanceLabel setText:newLabel];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)distanceChanged:(id)sender {
+    // Set the label to reflect the change
+    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
+    [self.distanceLabel setText:newLabel];
+}
+
+- (IBAction)sliderChangeEnded:(id)sender {
+    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchRadius:self.distanceSlider.value];
+    
+    // TODO: Query for items based on the new radius.
+}
+
+- (IBAction)scopeChanged:(id)sender {
+    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
+    
+    // TODO: query for new items based on friends or not friends.
+}
 @end

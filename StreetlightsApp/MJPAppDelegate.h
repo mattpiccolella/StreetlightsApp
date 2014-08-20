@@ -14,4 +14,6 @@
 
 @property (nonatomic, readwrite) BOOL searchEveryone;
 
+@property (nonatomic, readwrite) float searchRadius;
+
 @end

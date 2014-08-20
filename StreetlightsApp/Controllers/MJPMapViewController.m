@@ -37,8 +37,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.scopeSelector.selectedSegmentIndex = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
@@ -59,7 +57,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.scopeSelector.selectedSegmentIndex = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone];
+    [self.scopeSelector setSelectedSegmentIndex:[((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone]];
+
+    self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
+    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
+    [self.distanceLabel setText:newLabel];
 }
 
 - (void)dealloc {
@@ -90,12 +92,15 @@
     [self.distanceLabel setText:newLabel];
 }
 
-- (IBAction)sliderChangeEnded:(id)sender {    
+- (IBAction)sliderChangeEnded:(id)sender {
+    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchRadius:self.distanceSlider.value];
+    
     // TODO: Query for items based on the new radius.
 }
 
 - (IBAction)scopeChanged:(id)sender {
-    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:![((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone]];
+    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
+
     // TODO: query for new items based on friends or not friends.
 }
 @end

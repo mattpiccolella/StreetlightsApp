@@ -9,6 +9,7 @@
                 <outlet property="distanceLabel" destination="ZK4-V0-agf" id="WN4-UW-0di"/>
                 <outlet property="distanceSlider" destination="F9X-7M-hEx" id="sbq-jf-i7b"/>
                 <outlet property="mapView" destination="bdZ-ss-IOu" id="I9Z-1I-rac"/>
+                <outlet property="scopeSelector" destination="jJ5-Nl-5gu" id="z46-xV-zuA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
