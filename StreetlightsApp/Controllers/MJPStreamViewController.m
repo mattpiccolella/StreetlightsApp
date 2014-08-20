@@ -8,6 +8,7 @@
 
 #import "MJPStreamViewController.h"
 #import "MJPAppDelegate.h"
+#import "MJPStreamItemTableViewCell.h"
 
 @interface MJPStreamViewController ()
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -20,6 +21,9 @@
 @end
 
 @implementation MJPStreamViewController
+
+static NSString *cellIdentifier = @"streamViewCell";
+static NSInteger cellHeight = 80;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,7 +39,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    
     streamItemArray = [[NSMutableArray alloc] initWithArray:@[@"One", @"Two", @"Three"]];
+    streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -54,13 +60,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [streamItemView dequeueReusableCellWithIdentifier:@"thisCell"];
+    MJPStreamItemTableViewCell *cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"thisCell"];
+        [streamItemView registerNib:[UINib nibWithNibName:@"MJPStreamItemTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+        cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
+        NSLog(@"DOING THIS");
     }
-    cell.textLabel.text = [streamItemArray objectAtIndex:indexPath.row];
+    cell.userName.text = [streamItemArray objectAtIndex:indexPath.row];
+    NSLog(@"%@", [streamItemArray objectAtIndex:indexPath.row]);
     NSLog(@"%@", cell);
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return cellHeight;
 }
 
 - (void)didReceiveMemoryWarning

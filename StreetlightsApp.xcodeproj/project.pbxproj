@@ -47,6 +47,9 @@
 		5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */; };
 		5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A719A4F0980095117F /* NotificationIcon.png */; };
 		5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A919A4F0A00095117F /* ProfileIcon.png */; };
+		5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */; };
+		5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */; };
+		5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74B119A52C810095117F /* MJPStreamItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +112,11 @@
 		5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPNotificationsViewController.xib; sourceTree = "<group>"; };
 		5C7F74A719A4F0980095117F /* NotificationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationIcon.png; sourceTree = "<group>"; };
 		5C7F74A919A4F0A00095117F /* ProfileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProfileIcon.png; sourceTree = "<group>"; };
+		5C7F74AB19A5266B0095117F /* MJPStreamItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItemTableViewCell.h; sourceTree = "<group>"; };
+		5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItemTableViewCell.m; sourceTree = "<group>"; };
+		5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPStreamItemTableViewCell.xib; sourceTree = "<group>"; };
+		5C7F74B019A52C810095117F /* MJPStreamItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItem.h; sourceTree = "<group>"; };
+		5C7F74B119A52C810095117F /* MJPStreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +257,9 @@
 				5C7F746619A3BB900095117F /* MJPLoginViewController.xib */,
 				5C7F746B19A3BD980095117F /* MJPStreamViewController.h */,
 				5C7F746C19A3BD980095117F /* MJPStreamViewController.m */,
+				5C7F74AB19A5266B0095117F /* MJPStreamItemTableViewCell.h */,
+				5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */,
+				5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */,
 				5C7F746D19A3BD980095117F /* MJPStreamViewController.xib */,
 				5C7F747019A3BDC60095117F /* MJPMapViewController.h */,
 				5C7F747119A3BDC60095117F /* MJPMapViewController.m */,
@@ -271,6 +282,8 @@
 		5C7F746A19A3BC5D0095117F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5C7F74B019A52C810095117F /* MJPStreamItem.h */,
+				5C7F74B119A52C810095117F /* MJPStreamItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -354,6 +367,7 @@
 				5C7F747419A3BDC60095117F /* MJPMapViewController.xib in Resources */,
 				5C7F746819A3BB900095117F /* MJPLoginViewController.xib in Resources */,
 				5C7F743E19A3BB2A0095117F /* InfoPlist.strings in Resources */,
+				5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */,
 				5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */,
 				5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */,
 				5C7F749419A43BB10095117F /* GoogleMaps.bundle in Resources */,
@@ -382,9 +396,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C7F746719A3BB900095117F /* MJPLoginViewController.m in Sources */,
+				5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */,
 				5C7F744419A3BB2A0095117F /* MJPAppDelegate.m in Sources */,
 				5C7F74A519A4EF9A0095117F /* MJPNotificationsViewController.m in Sources */,
 				5C7F746E19A3BD980095117F /* MJPStreamViewController.m in Sources */,
+				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,
 				5C7F747319A3BDC60095117F /* MJPMapViewController.m in Sources */,
