@@ -16,4 +16,8 @@
 
 @property (nonatomic, readwrite) float searchRadius;
 
+@property (strong, nonatomic) NSMutableArray *everyoneArray;
+
+@property (strong, nonatomic) NSMutableArray *friendArray;
+
 @end

@@ -21,7 +21,7 @@
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
 - (IBAction)scopeChanged:(id)sender;
-
+@property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @end
 
 @implementation MJPStreamViewController
@@ -45,6 +45,8 @@ NSMutableArray *friendItems;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -57,11 +59,11 @@ NSMutableArray *friendItems;
     [self.activityIndicator startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
-                       streamItemEveryoneArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
-                       streamItemFriendArray = [[NSMutableArray alloc] init];
-                       for (MJPStreamItem *streamItem in streamItemEveryoneArray) {
+                       self.appDelegate.everyoneArray= [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
+                       self.appDelegate.friendArray = [[NSMutableArray alloc] init];
+                       for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
                            if ([streamItem isFriend]) {
-                               [streamItemFriendArray addObject:streamItem];
+                               [self.appDelegate.friendArray addObject:streamItem];
                            }
                        }
                        
@@ -86,9 +88,9 @@ NSMutableArray *friendItems;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (((MJPAppDelegate *)[UIApplication sharedApplication].delegate).searchEveryone) {
-        return [streamItemFriendArray count];
+        return [self.appDelegate.friendArray count];
     } else {
-        return [streamItemEveryoneArray count];
+        return [self.appDelegate.everyoneArray count];
     }
 }
 
@@ -101,9 +103,9 @@ NSMutableArray *friendItems;
     }
     MJPStreamItem *streamItem;
     if (((MJPAppDelegate *)[UIApplication sharedApplication].delegate).searchEveryone) {
-        streamItem = ((MJPStreamItem*)[streamItemFriendArray objectAtIndex:indexPath.row]);
+        streamItem = ((MJPStreamItem*)[self.appDelegate.friendArray objectAtIndex:indexPath.row]);
     } else {
-        streamItem = ((MJPStreamItem*)[streamItemEveryoneArray objectAtIndex:indexPath.row]);
+        streamItem = ((MJPStreamItem*)[self.appDelegate.everyoneArray objectAtIndex:indexPath.row]);
     }
     cell.userName.text = streamItem.userName;
     cell.postInfo.text = streamItem.postInfo;

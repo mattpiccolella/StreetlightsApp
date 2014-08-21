@@ -67,6 +67,6 @@
     userProfileController.tabBarItem.title = @"Profile";
     userProfileController.tabBarItem.image = [UIImage imageNamed:@"ProfileIcon.png"];
     
-    return @[mapViewController, streamViewController, notificationsController, userProfileController];
+    return @[streamViewController, mapViewController, notificationsController, userProfileController];
 }
 @end

@@ -11,9 +11,7 @@
 @interface MJPStreamViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     
     IBOutlet UITableView *streamItemView;
-    
-    NSMutableArray *streamItemEveryoneArray;
-    NSMutableArray *streamItemFriendArray;
+
 }
 
 @end

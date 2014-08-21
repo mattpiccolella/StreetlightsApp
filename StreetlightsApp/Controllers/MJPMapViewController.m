@@ -19,8 +19,9 @@
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
 - (IBAction)scopeChanged:(id)sender;
-
+@property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @end
+
 
 @implementation MJPMapViewController {
     BOOL hasSetLocation_;
@@ -38,6 +39,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
