@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UISearchBar *locationSearch;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
 - (IBAction)scopeChanged:(id)sender;
@@ -43,6 +44,13 @@ static NSInteger cellHeight = 80;
     // Do any additional setup after loading the view from its nib.
     
     streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    
+    [refresh addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [streamItemView addSubview:refresh];
+    
+    self.refreshControl = refresh;
     
     [self.activityIndicator startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
@@ -120,4 +128,16 @@ static NSInteger cellHeight = 80;
     
     // TODO: Actually search something...not sure what.
 }
+
+- (void)handleRefresh {
+    // TODO: Actually handle refresh.
+    NSLog(@"REFRESHing");
+    [self performSelector:@selector(stopRefresh) withObject:nil afterDelay:2.5];
+    [self.refreshControl performSelector:@selector(endRefreshing)];
+}
+
+-(void)stopRefresh {
+    [self.refreshControl endRefreshing];
+}
+
 @end
