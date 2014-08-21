@@ -56,38 +56,46 @@ NSMutableArray *friendItems;
     
     self.refreshControl = refresh;
     
-    [self.activityIndicator startAnimating];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-                   {
-                       self.appDelegate.everyoneArray= [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
-                       self.appDelegate.friendArray = [[NSMutableArray alloc] init];
-                       for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
-                           if ([streamItem isFriend]) {
-                               [self.appDelegate.friendArray addObject:streamItem];
+    if ([self.appDelegate.everyoneArray count] == 0) {
+        NSLog(@"Animating!");
+        [self.activityIndicator startAnimating];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
+                       {
+                           self.appDelegate.everyoneArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
+                           self.appDelegate.friendArray = [[NSMutableArray alloc] init];
+                           for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
+                               if ([streamItem isFriend]) {
+                                   [self.appDelegate.friendArray addObject:streamItem];
+                               }
                            }
-                       }
                        
-                       dispatch_async(dispatch_get_main_queue(), ^
-                                      {
-                                          [self.activityIndicator stopAnimating];
-                                          [self.activityIndicator setHidden:YES];
-                                          [streamItemView reloadData];
-                                      });
-                });
+                           dispatch_async(dispatch_get_main_queue(), ^
+                                          {
+                                              [self.activityIndicator stopAnimating];
+                                              [self.activityIndicator setHidden:YES];
+                                              [streamItemView reloadData];
+                                          });
+                       });
+    } else {
+        [self.activityIndicator setHidden:YES];
+        [streamItemView reloadData];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.scopeSelector.selectedSegmentIndex = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone];
+    self.scopeSelector.selectedSegmentIndex = [self.appDelegate searchEveryone];
     
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
+    
+    [streamItemView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (((MJPAppDelegate *)[UIApplication sharedApplication].delegate).searchEveryone) {
+    if (self.appDelegate.searchEveryone) {
         return [self.appDelegate.friendArray count];
     } else {
         return [self.appDelegate.everyoneArray count];
@@ -102,7 +110,7 @@ NSMutableArray *friendItems;
         cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
     MJPStreamItem *streamItem;
-    if (((MJPAppDelegate *)[UIApplication sharedApplication].delegate).searchEveryone) {
+    if (self.appDelegate.searchEveryone) {
         streamItem = ((MJPStreamItem*)[self.appDelegate.friendArray objectAtIndex:indexPath.row]);
     } else {
         streamItem = ((MJPStreamItem*)[self.appDelegate.everyoneArray objectAtIndex:indexPath.row]);
@@ -131,13 +139,13 @@ NSMutableArray *friendItems;
 }
 
 - (IBAction)sliderChangeEnded:(id)sender {
-    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchRadius:self.distanceSlider.value];
+    [self.appDelegate setSearchRadius:self.distanceSlider.value];
     
     // TODO: Query for items based on the new radius.
 }
 
 - (IBAction)scopeChanged:(id)sender {
-    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
+    [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
     
     [streamItemView reloadData];
 }

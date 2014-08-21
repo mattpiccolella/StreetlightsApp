@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPMapViewController">
             <connections>
+                <outlet property="activityIndicator" destination="IxT-sj-pjr" id="1RK-GH-ciZ"/>
                 <outlet property="distanceLabel" destination="ZK4-V0-agf" id="WN4-UW-0di"/>
                 <outlet property="distanceSlider" destination="F9X-7M-hEx" id="sbq-jf-i7b"/>
                 <outlet property="locationSearch" destination="7q8-Mz-86r" id="UH1-00-VtU"/>
@@ -34,6 +35,12 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdZ-ss-IOu" customClass="GMSMapView">
                     <rect key="frame" x="0.0" y="93" width="320" height="385"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="IxT-sj-pjr">
+                            <rect key="frame" x="150" y="183" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5zU-6I-k5b">
