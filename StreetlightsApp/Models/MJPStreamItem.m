@@ -10,13 +10,14 @@
 
 @implementation MJPStreamItem
 
-- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage
+- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage friend:(BOOL)isFriend
 {
     self = [super init];
     if (self) {
         self.userName = name;
         self.postInfo = postInfo;
         self.userImage = userImage;
+        self.isFriend = isFriend;
     }
     return self;
 }
@@ -45,7 +46,13 @@
     UIImage *userImage = [UIImage imageWithData:
                           [NSData dataWithContentsOfURL:
                            [NSURL URLWithString: [streamDictionary objectForKey:@"imageURL"]]]];
-    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUserName:[streamDictionary objectForKey:@"userName"] post:[streamDictionary objectForKey:@"postInfo"] userImage:userImage];
+    
+    NSLog(@"%@", [streamDictionary objectForKey:@"friend"]);
+    
+    BOOL isFriend = [[streamDictionary objectForKey:@"friend"] intValue];
+    NSLog(@"%d", isFriend);
+    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUserName:[streamDictionary objectForKey:@"userName"] post:[streamDictionary objectForKey:@"postInfo"] userImage:userImage friend:isFriend];
+    NSLog(@"%@", newStreamItem);
     return newStreamItem;
 }
 

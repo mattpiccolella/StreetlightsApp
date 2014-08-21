@@ -28,6 +28,8 @@
 
 static NSString *cellIdentifier = @"streamViewCell";
 static NSInteger cellHeight = 80;
+NSMutableArray *everyoneItems;
+NSMutableArray *friendItems;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,7 +57,13 @@ static NSInteger cellHeight = 80;
     [self.activityIndicator startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
                    {
-                       streamItemArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
+                       streamItemEveryoneArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
+                       streamItemFriendArray = [[NSMutableArray alloc] init];
+                       for (MJPStreamItem *streamItem in streamItemEveryoneArray) {
+                           if ([streamItem isFriend]) {
+                               [streamItemFriendArray addObject:streamItem];
+                           }
+                       }
                        
                        dispatch_async(dispatch_get_main_queue(), ^
                                       {
@@ -77,7 +85,11 @@ static NSInteger cellHeight = 80;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [streamItemArray count];
+    if (((MJPAppDelegate *)[UIApplication sharedApplication].delegate).searchEveryone) {
+        return [streamItemFriendArray count];
+    } else {
+        return [streamItemEveryoneArray count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,7 +99,12 @@ static NSInteger cellHeight = 80;
         [streamItemView registerNib:[UINib nibWithNibName:@"MJPStreamItemTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
         cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
-    MJPStreamItem *streamItem = ((MJPStreamItem*)[streamItemArray objectAtIndex:indexPath.row]);
+    MJPStreamItem *streamItem;
+    if (((MJPAppDelegate *)[UIApplication sharedApplication].delegate).searchEveryone) {
+        streamItem = ((MJPStreamItem*)[streamItemFriendArray objectAtIndex:indexPath.row]);
+    } else {
+        streamItem = ((MJPStreamItem*)[streamItemEveryoneArray objectAtIndex:indexPath.row]);
+    }
     cell.userName.text = streamItem.userName;
     cell.postInfo.text = streamItem.postInfo;
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
@@ -120,7 +137,7 @@ static NSInteger cellHeight = 80;
 - (IBAction)scopeChanged:(id)sender {
     [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
     
-    // TODO: query for new items based on friends or not friends.
+    [streamItemView reloadData];
 }
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -131,13 +148,7 @@ static NSInteger cellHeight = 80;
 
 - (void)handleRefresh {
     // TODO: Actually handle refresh.
-    NSLog(@"REFRESHing");
-    [self performSelector:@selector(stopRefresh) withObject:nil afterDelay:2.5];
-    [self.refreshControl performSelector:@selector(endRefreshing)];
-}
-
--(void)stopRefresh {
-    [self.refreshControl endRefreshing];
+    [self.refreshControl performSelector:@selector(endRefreshing) withObject:nil afterDelay:2.5];
 }
 
 @end

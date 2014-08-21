@@ -12,7 +12,8 @@
     
     IBOutlet UITableView *streamItemView;
     
-    NSMutableArray *streamItemArray;
+    NSMutableArray *streamItemEveryoneArray;
+    NSMutableArray *streamItemFriendArray;
 }
 
 @end

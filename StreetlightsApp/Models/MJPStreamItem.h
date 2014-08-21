@@ -14,7 +14,9 @@
 @property (strong, nonatomic) NSString *postInfo;
 @property (strong, nonatomic) UIImage *userImage;
 
-- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage;
+@property (assign, readwrite) BOOL isFriend;
+
+- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage friend:(BOOL)isFriend;
 + (NSArray*) getDummyStreamItems;
 
 @end
