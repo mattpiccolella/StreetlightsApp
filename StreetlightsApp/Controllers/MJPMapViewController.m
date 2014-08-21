@@ -145,6 +145,7 @@
 }
 
 - (void) addMarkers {
+    // TODO: Add custom markers.
     if (self.scopeSelector.selectedSegmentIndex) {
         for (MJPStreamItem *streamItem in self.appDelegate.friendArray) {
             GMSMarker *marker = [[GMSMarker alloc] init];

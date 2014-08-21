@@ -12,6 +12,7 @@
 #import "MJPMapViewController.h"
 #import "MJPUserProfileViewController.h"
 #import "MJPNotificationsViewController.h"
+#import "MJPPostStreamItemViewController.h"
 
 @interface MJPLoginViewController ()
 - (IBAction)loginButton:(id)sender;
@@ -59,6 +60,10 @@
     streamViewController.tabBarItem.title = @"Stream";
     streamViewController.tabBarItem.image = [UIImage imageNamed:@"StreamIcon.png"];
     
+    MJPPostStreamItemViewController *postStreamItemViewController = [[MJPPostStreamItemViewController alloc] init];
+    postStreamItemViewController.tabBarItem.title = @"Post";
+    postStreamItemViewController.tabBarItem.image = [UIImage imageNamed:@"Pinpoint.png"];
+    
     MJPNotificationsViewController *notificationsController = [[MJPNotificationsViewController alloc] init];
     notificationsController.tabBarItem.title = @"Noti's";
     notificationsController.tabBarItem.image = [UIImage imageNamed:@"NotificationIcon.png"];
@@ -67,6 +72,7 @@
     userProfileController.tabBarItem.title = @"Profile";
     userProfileController.tabBarItem.image = [UIImage imageNamed:@"ProfileIcon.png"];
     
-    return @[mapViewController, streamViewController, notificationsController, userProfileController];
+    
+    return @[mapViewController, streamViewController, postStreamItemViewController, notificationsController, userProfileController];
 }
 @end
