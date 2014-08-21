@@ -11,6 +11,7 @@
 @implementation MJPStreamItem
 
 - (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage friend:(BOOL)isFriend
+              latitude:(float)latitude longitude:(float)longitude
 {
     self = [super init];
     if (self) {
@@ -18,6 +19,8 @@
         self.postInfo = postInfo;
         self.userImage = userImage;
         self.isFriend = isFriend;
+        self.latitude = latitude;
+        self.longitude = longitude;
     }
     return self;
 }
@@ -47,12 +50,12 @@
                           [NSData dataWithContentsOfURL:
                            [NSURL URLWithString: [streamDictionary objectForKey:@"imageURL"]]]];
     
-    NSLog(@"%@", [streamDictionary objectForKey:@"friend"]);
-    
     BOOL isFriend = [[streamDictionary objectForKey:@"friend"] intValue];
-    NSLog(@"%d", isFriend);
-    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUserName:[streamDictionary objectForKey:@"userName"] post:[streamDictionary objectForKey:@"postInfo"] userImage:userImage friend:isFriend];
-    NSLog(@"%@", newStreamItem);
+    float latitude = [[streamDictionary objectForKey:@"latitude"] floatValue];
+    float longitude = [[streamDictionary objectForKey:@"longitude"] floatValue];
+
+    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUserName:[streamDictionary objectForKey:@"userName"] post:[streamDictionary objectForKey:@"postInfo"] userImage:userImage friend:isFriend latitude:latitude longitude:longitude];
+
     return newStreamItem;
 }
 

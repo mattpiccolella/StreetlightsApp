@@ -16,7 +16,11 @@
 
 @property (assign, readwrite) BOOL isFriend;
 
-- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage friend:(BOOL)isFriend;
+@property (assign, readwrite) float latitude;
+@property (assign, readwrite) float longitude;
+
+- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage friend:(BOOL)isFriend
+              latitude:(float)latitude longitude:(float)longitude;
 + (NSArray*) getDummyStreamItems;
 
 @end

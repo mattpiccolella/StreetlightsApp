@@ -8,6 +8,7 @@
 
 #import "MJPMapViewController.h"
 #import "MJPAppDelegate.h"
+#import "MJPStreamItem.h"
 #import <GoogleMaps/GoogleMaps.h>
 
 @interface MJPMapViewController ()
@@ -56,6 +57,12 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
+        for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            marker.title = [streamItem userName];
+            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
+            marker.map = self.mapView;
+        }
     });
 }
 
