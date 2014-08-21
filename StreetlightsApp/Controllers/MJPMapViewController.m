@@ -57,18 +57,13 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
-        for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
-            GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.title = [streamItem userName];
-            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
-            marker.map = self.mapView;
-        }
+        [self addMarkers];
     });
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.scopeSelector setSelectedSegmentIndex:[((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchEveryone]];
+    [self.scopeSelector setSelectedSegmentIndex:[self.appDelegate searchEveryone]];
 
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
@@ -104,15 +99,17 @@
 }
 
 - (IBAction)sliderChangeEnded:(id)sender {
-    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchRadius:self.distanceSlider.value];
+    [self.appDelegate setSearchRadius:self.distanceSlider.value];
     
     // TODO: Query for items based on the new radius.
 }
 
 - (IBAction)scopeChanged:(id)sender {
-    [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
+    [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
 
-    // TODO: query for new items based on friends or not friends.
+    [self.mapView clear];
+    
+    [self addMarkers];
 }
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
@@ -120,4 +117,23 @@
     
     // TODO: Search for the location we have and interface with the Places autocomplete.
 }
+
+- (void) addMarkers {
+    if (self.scopeSelector.selectedSegmentIndex) {
+        for (MJPStreamItem *streamItem in self.appDelegate.friendArray) {
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            marker.title = [streamItem userName];
+            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
+            marker.map = self.mapView;
+        }
+    } else {
+        for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            marker.title = [streamItem userName];
+            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
+            marker.map = self.mapView;
+        }
+    }
+}
+
 @end

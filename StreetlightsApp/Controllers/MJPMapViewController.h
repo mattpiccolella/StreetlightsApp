@@ -10,4 +10,6 @@
 
 @interface MJPMapViewController : UIViewController<UISearchBarDelegate>
 
+- (void) addMarkers;
+
 @end
