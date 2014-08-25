@@ -55,6 +55,7 @@
 		5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74B119A52C810095117F /* MJPStreamItem.m */; };
 		5C7F74B419A536B10095117F /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74B319A536B10095117F /* DummyData.json */; };
 		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
+		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,8 @@
 		5C7F74B119A52C810095117F /* MJPStreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItem.m; sourceTree = "<group>"; };
 		5C7F74B319A536B10095117F /* DummyData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
 		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
+		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,6 +305,8 @@
 			children = (
 				5C7F74B019A52C810095117F /* MJPStreamItem.h */,
 				5C7F74B119A52C810095117F /* MJPStreamItem.m */,
+				5CE8713619ABCFB100C963AF /* MJPUser.h */,
+				5CE8713719ABCFB100C963AF /* MJPUser.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -421,6 +426,7 @@
 				5C7F744419A3BB2A0095117F /* MJPAppDelegate.m in Sources */,
 				5C7F74A519A4EF9A0095117F /* MJPNotificationsViewController.m in Sources */,
 				5C7F746E19A3BD980095117F /* MJPStreamViewController.m in Sources */,
+				5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */,
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */,
