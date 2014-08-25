@@ -54,6 +54,7 @@
 		5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */; };
 		5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74B119A52C810095117F /* MJPStreamItem.m */; };
 		5C7F74B419A536B10095117F /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74B319A536B10095117F /* DummyData.json */; };
+		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		5C7F74B019A52C810095117F /* MJPStreamItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItem.h; sourceTree = "<group>"; };
 		5C7F74B119A52C810095117F /* MJPStreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItem.m; sourceTree = "<group>"; };
 		5C7F74B319A536B10095117F /* DummyData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
+		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				5C7F748A19A439F80095117F /* ImageIO.framework in Frameworks */,
 				5C7F748B19A439F80095117F /* libc++.dylib in Frameworks */,
 				5C7F748C19A439F80095117F /* libicucore.A.dylib in Frameworks */,
+				5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */,
 				5C7F748D19A439F80095117F /* libz.dylib in Frameworks */,
 				5C7F748E19A439F80095117F /* OpenGLES.framework in Frameworks */,
 				5C7F748F19A439F80095117F /* QuartzCore.framework in Frameworks */,
@@ -187,6 +190,7 @@
 		5C7F743219A3BB2A0095117F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5CE8713419AACF8600C963AF /* FacebookSDK.framework */,
 				5C7F749319A43BB10095117F /* GoogleMaps.bundle */,
 				5C7F749119A43B580095117F /* GoogleMaps.framework */,
 				5C7F747919A439F80095117F /* AVFoundation.framework */,
@@ -541,6 +545,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/StreetlightsApp/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StreetlightsApp/StreetlightsApp-Prefix.pch";
@@ -559,6 +564,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/StreetlightsApp/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StreetlightsApp/StreetlightsApp-Prefix.pch";

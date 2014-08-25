@@ -10,4 +10,6 @@
 
 @interface MJPLoginViewController : UIViewController
 
++ (NSArray *)getTabBarViewControllers;
+
 @end

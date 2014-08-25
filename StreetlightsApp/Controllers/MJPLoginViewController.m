@@ -13,6 +13,7 @@
 #import "MJPUserProfileViewController.h"
 #import "MJPNotificationsViewController.h"
 #import "MJPPostStreamItemViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface MJPLoginViewController ()
 - (IBAction)loginButton:(id)sender;
@@ -43,15 +44,38 @@
 }
 
 - (IBAction)loginButton:(id)sender {
+    // If the session state is any of the two "open" states when the button is clicked
+    if (FBSession.activeSession.state == FBSessionStateOpen
+        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        
+        // Close the session and remove the access token from the cache
+        // The session state handler (in the app delegate) will be called automatically
+        [FBSession.activeSession closeAndClearTokenInformation];
+        
+        // If the session state is not any of the two "open" states when the button is clicked
+    } else {
+        // Open a session showing the user the login UI
+        // You must ALWAYS ask for public_profile permissions when opening a session
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
+                                           allowLoginUI:YES
+                                      completionHandler:
+         ^(FBSession *session, FBSessionState state, NSError *error) {
+             
+             // Retrieve the app delegate
+             MJPAppDelegate* appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
+             // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+             [appDelegate sessionStateChanged:session state:state error:error];
+         }];
+    }
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
 
-    tabBarController.viewControllers = [self getTabBarViewControllers];
+    tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
     
     [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
 }
 
-- (NSArray *)getTabBarViewControllers {
++ (NSArray *)getTabBarViewControllers {
     MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
     mapViewController.tabBarItem.title = @"Map";
     mapViewController.tabBarItem.image = [UIImage imageNamed:@"MapIcon.png"];

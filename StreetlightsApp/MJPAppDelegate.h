@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface MJPAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -19,5 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *everyoneArray;
 
 @property (strong, nonatomic) NSMutableArray *friendArray;
+
+- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
 
 @end
