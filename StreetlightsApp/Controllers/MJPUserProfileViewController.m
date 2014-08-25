@@ -40,7 +40,9 @@
     } else {
         [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error) {
-                [self setProfileUI:user];
+                MJPUser *newUser = [[MJPUser alloc] initWithFirstName:user.name fullName:user.first_name email:[user objectForKey:@"email"]];
+                [appDelegate setCurrentUser:newUser];
+                [self setProfileUI:newUser];
             } else {
                 NSLog(@"ERROR");
             }
@@ -48,15 +50,9 @@
     }
 }
 
-- (void)setProfileUI:(NSDictionary<FBGraphUser>*) user {
-    [self.userName setText:user.name];
-    [self.userFirstName setTitle:user.first_name];
-    NSString *userImageURL = [self profilePictureString:[user objectID]];
-    UIImage *userImage = [UIImage imageWithData:
-                          [NSData dataWithContentsOfURL:
-                           [NSURL URLWithString: userImageURL]]];
-    [self.profilePicture setImage:userImage];
-    
+- (void)setProfileUI:(MJPUser*) user {
+    [self.userName setText:user.fullName];
+    [self.userFirstName setTitle:user.firstName];
 }
 
 - (NSString*)profilePictureString:(NSString*) objectID {

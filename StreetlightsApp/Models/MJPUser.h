@@ -17,4 +17,6 @@
 
 @property (assign, readwrite) int userId;
 
+- (id)initWithFirstName:(NSString*)firstName fullName:(NSString*)fullName email:(NSString*)email;
+
 @end

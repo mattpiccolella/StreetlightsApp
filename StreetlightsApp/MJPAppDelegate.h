@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "MJPUser.h"
 
 @interface MJPAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -21,7 +22,7 @@
 
 @property (strong, nonatomic) NSMutableArray *friendArray;
 
-@property (strong, nonatomic) NSDictionary<FBGraphUser> *currentUser;
+@property (strong, nonatomic) MJPUser *currentUser;
 
 - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error:(NSError *)error;
 

@@ -48,7 +48,8 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
         
         [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error) {
-                self.currentUser = user;
+                MJPUser *newUser = [[MJPUser alloc] initWithFirstName:user.name fullName:user.first_name email:[user objectForKey:@"email"]];
+                self.currentUser = newUser;
                 NSLog(@"%@", user);
             } else {
                 NSLog(@"ERROR");

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPLoginViewController : UIViewController
+@interface MJPLoginViewController : UIViewController <UITextFieldDelegate>
 
 + (NSArray *)getTabBarViewControllers;
 

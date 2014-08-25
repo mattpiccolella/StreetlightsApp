@@ -14,9 +14,14 @@
 #import "MJPNotificationsViewController.h"
 #import "MJPPostStreamItemViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "MJPUser.h"
 
 @interface MJPLoginViewController ()
 - (IBAction)loginButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *nameField;
+@property (strong, nonatomic) IBOutlet UITextField *emailField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordField;
+@property (strong, nonatomic) IBOutlet UIButton *registerButton;
 
 @end
 
@@ -48,7 +53,7 @@
     if (FBSession.activeSession.state != FBSessionStateOpen
          && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
         
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"]
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
@@ -57,7 +62,9 @@
              
              [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
                     if (!error) {
-                        appDelegate.currentUser = user;
+                        MJPUser *newUser = [[MJPUser alloc] initWithFirstName:user.name fullName:user.first_name email:[user objectForKey:@"email"]];
+                        [appDelegate setCurrentUser:newUser];
+                        NSLog(@"%@", newUser);
                     } else {
                         NSLog(@"ERROR");
                     }
@@ -67,7 +74,8 @@
     
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
         if (!error) {
-            appDelegate.currentUser = user;
+            MJPUser *newUser = [[MJPUser alloc] initWithFirstName:user.name fullName:user.first_name email:[user objectForKey:@"email"]];
+            [appDelegate setCurrentUser:newUser];
         } else {
             NSLog(@"ERROR");
         }
@@ -104,5 +112,10 @@
     
     
     return @[mapViewController, streamViewController, postStreamItemViewController, notificationsController, userProfileController];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 @end
