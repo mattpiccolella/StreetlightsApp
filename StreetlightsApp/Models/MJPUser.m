@@ -10,21 +10,22 @@
 
 @implementation MJPUser
 
-- (id)initWithFirstName:(NSString*)firstName fullName:(NSString*)fullName email:(NSString*)email 
+- (id)initWithName:(NSString*)name email:(NSString*)email password:(NSString*)password
 {
     self = [super init];
     if (self) {
-        self.firstName = firstName;
-        self.fullName = fullName;
+        self.name = name;
         self.email = email;
+        self.password = password;
         self.biography = @"";
     }
     return self;
 }
 
 + (NSData*) getJSONFromUser:(MJPUser*) user {
-    NSDictionary *userData = [[NSDictionary alloc] initWithObjects:@[user.firstName, user.fullName, user.email, user.biography]
-                                                           forKeys:@[@"firstName", @"fullName", @"email", @"biography"]];
-    return [NSJSONSerialization dataWithJSONObject:userData options:0 error:nil];
+    NSString *userString = [NSString stringWithFormat:@"name=%@&email=%@&password=%@&biography=%@",
+                            user.name, user.email, user.password, user.biography];;
+    NSData *data = [userString dataUsingEncoding:NSUTF8StringEncoding];
+    return data;
 }
 @end

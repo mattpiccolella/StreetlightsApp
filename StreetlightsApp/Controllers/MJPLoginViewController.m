@@ -22,6 +22,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UIButton *registerButton;
+- (IBAction)registerButtonPressed:(id)sender;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -40,6 +42,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self.activityIndicator setHidden:TRUE];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,8 +54,7 @@
 
 - (IBAction)loginButton:(id)sender {
     MJPAppDelegate* appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
-    if (FBSession.activeSession.state != FBSessionStateOpen
-         && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
+    if (FBSession.activeSession.state != FBSessionStateOpen && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
         
         [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"]
                                            allowLoginUI:YES
@@ -62,24 +65,14 @@
              
              [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
                     if (!error) {
-                        MJPUser *newUser = [[MJPUser alloc] initWithFirstName:user.name fullName:user.first_name email:[user objectForKey:@"email"]];
+                        MJPUser *newUser = [[MJPUser alloc] initWithName:user.name email:[user objectForKey:@"email"] password:@""];
                         [appDelegate setCurrentUser:newUser];
-                        NSLog(@"%@", newUser);
                     } else {
                         NSLog(@"ERROR");
                     }
              }];
          }];
     }
-    
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
-        if (!error) {
-            MJPUser *newUser = [[MJPUser alloc] initWithFirstName:user.name fullName:user.first_name email:[user objectForKey:@"email"]];
-            [appDelegate setCurrentUser:newUser];
-        } else {
-            NSLog(@"ERROR");
-        }
-    }];
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
@@ -117,5 +110,28 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+- (IBAction)registerButtonPressed:(id)sender {
+    MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
+    NSData *jsonData = [MJPUser getJSONFromUser:newUser];
+    [self.activityIndicator startAnimating];
+    NSURL *url = [NSURL URLWithString:@"http://107.170.105.12/create_new_user"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = jsonData;
+    // Create a task.
+    NSURLSessionDataTask *newUserTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                                                                               NSURLResponse *response,
+                                                                                                               NSError *error) {
+        if (!error) {
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            NSLog(@"%@", [response objectForKey:@"status"]);
+        } else {
+            NSLog(@"Error: %@", error.localizedDescription);
+            // TODO: Handle errors gracefully. Hopefully won't need to do this often.
+        }
+    }];
+    [newUserTask resume];
+    
 }
 @end

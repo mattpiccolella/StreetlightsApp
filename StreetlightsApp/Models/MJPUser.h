@@ -10,13 +10,15 @@
 
 @interface MJPUser : NSObject
 
-@property (strong, nonatomic) NSString* firstName;
-@property (strong, nonatomic) NSString* fullName;
+@property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* biography;
+@property (strong, nonatomic) NSString* password;
 @property (strong, nonatomic) NSString* email;
 
 @property (assign, readwrite) int userId;
 
-- (id)initWithFirstName:(NSString*)firstName fullName:(NSString*)fullName email:(NSString*)email;
+- (id)initWithName:(NSString*)name email:(NSString*)email password:(NSString*)password;
+
++ (NSData*) getJSONFromUser:(MJPUser*) user;
 
 @end
