@@ -44,6 +44,7 @@
 }
 
 - (IBAction)loginButton:(id)sender {
+    MJPAppDelegate* appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
     if (FBSession.activeSession.state != FBSessionStateOpen
          && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
         
@@ -51,13 +52,27 @@
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
-             
-             // Retrieve the app delegate
-             MJPAppDelegate* appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
-             // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+
              [appDelegate sessionStateChanged:session state:state error:error];
+             
+             [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+                    if (!error) {
+                        appDelegate.currentUser = user;
+                    } else {
+                        NSLog(@"ERROR");
+                    }
+             }];
          }];
     }
+    
+    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+        if (!error) {
+            appDelegate.currentUser = user;
+        } else {
+            NSLog(@"ERROR");
+        }
+    }];
+    
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
 

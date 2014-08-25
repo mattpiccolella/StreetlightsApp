@@ -75,6 +75,8 @@
                                           });
                        });
     } else {
+        [self.activityIndicator stopAnimating];
+        [self.activityIndicator setHidden:YES];
         [self addMarkers];
     }
     
