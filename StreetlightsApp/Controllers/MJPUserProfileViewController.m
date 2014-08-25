@@ -7,8 +7,10 @@
 //
 
 #import "MJPUserProfileViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface MJPUserProfileViewController ()
+- (IBAction)logoutButton:(id)sender;
 
 @end
 
@@ -35,4 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)logoutButton:(id)sender {
+    [FBSession.activeSession close];
+}
 @end
