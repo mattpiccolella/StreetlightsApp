@@ -115,10 +115,12 @@ NSMutableArray *friendItems;
     } else {
         streamItem = ((MJPStreamItem*)[self.appDelegate.everyoneArray objectAtIndex:indexPath.row]);
     }
-    cell.userName.text = streamItem.userName;
-    cell.postInfo.text = streamItem.postInfo;
+    MJPUser *user = streamItem.user;
+    cell.userName.text = user.name;
+    cell.postInfo.text = streamItem.description;
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
-    cell.userImage.image = streamItem.userImage;
+    // TODO: Make actual profile images.
+    cell.userImage.image = [UIImage imageNamed:@"images.jpeg"];
     return cell;
 }
 

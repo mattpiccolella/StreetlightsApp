@@ -151,14 +151,14 @@
     if (self.scopeSelector.selectedSegmentIndex) {
         for (MJPStreamItem *streamItem in self.appDelegate.friendArray) {
             GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.title = [streamItem userName];
+            marker.title = streamItem.user.name;
             marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
             marker.map = self.mapView;
         }
     } else {
         for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
             GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.title = [streamItem userName];
+            marker.title = streamItem.user.name;
             marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
             marker.map = self.mapView;
         }

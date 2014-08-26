@@ -7,19 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MJPUser.h"
 
 @interface MJPStreamItem : NSObject
 
-@property (strong, nonatomic) NSString *userName;
-@property (strong, nonatomic) NSString *postInfo;
-@property (strong, nonatomic) UIImage *userImage;
+@property (strong, nonatomic) MJPUser *user;
+@property (strong, nonatomic) NSString *description;
+@property (strong, nonatomic) NSNumber *postedTimestamp;
+@property (strong, nonatomic) NSNumber *expiredTimestamp;
 
 @property (assign, readwrite) BOOL isFriend;
 
 @property (assign, readwrite) float latitude;
 @property (assign, readwrite) float longitude;
 
-- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage friend:(BOOL)isFriend
+- (id)initWithUser:(MJPUser*)user description:(NSString*)description postedTimestamp:(NSNumber*)postedTimestamped
+  expiredTimestamp:(NSNumber*)expiredTimestamp friend:(BOOL)isFriend
               latitude:(float)latitude longitude:(float)longitude;
 + (NSArray*) getDummyStreamItems;
 

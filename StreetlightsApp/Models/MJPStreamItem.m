@@ -9,15 +9,13 @@
 #import "MJPStreamItem.h"
 
 @implementation MJPStreamItem
-
-- (id)initWithUserName:(NSString*)name post:(NSString*)postInfo userImage:(UIImage*)userImage friend:(BOOL)isFriend
-              latitude:(float)latitude longitude:(float)longitude
-{
+- (id)initWithUser:(MJPUser*)user description:(NSString*)description postedTimestamp:(NSNumber*)postedTimestamped expiredTimestamp:(NSNumber*)expiredTimestamp friend:(BOOL)isFriend latitude:(float)latitude longitude:(float)longitude {
     self = [super init];
     if (self) {
-        self.userName = name;
-        self.postInfo = postInfo;
-        self.userImage = userImage;
+        self.user = user;
+        self.description = description;
+        self.postedTimestamp = postedTimestamped;
+        self.expiredTimestamp = expiredTimestamp;
         self.isFriend = isFriend;
         self.latitude = latitude;
         self.longitude = longitude;
@@ -54,7 +52,7 @@
     float latitude = [[streamDictionary objectForKey:@"latitude"] floatValue];
     float longitude = [[streamDictionary objectForKey:@"longitude"] floatValue];
 
-    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUserName:[streamDictionary objectForKey:@"userName"] post:[streamDictionary objectForKey:@"postInfo"] userImage:userImage friend:isFriend latitude:latitude longitude:longitude];
+    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:nil description:nil postedTimestamp:nil expiredTimestamp:nil friend:nil latitude:0.0 longitude:0.0];
 
     return newStreamItem;
 }
