@@ -23,14 +23,6 @@
     return self;
 }
 
-+ (NSArray*)getDummyStreamItems
-{
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"DummyData" ofType:@"json"];
-    NSString *jsonData = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:NULL];
-    
-    return [MJPStreamItem getStreamItemsGivenFromJSON:jsonData];
-}
-
 + (NSArray*)getStreamItemsGivenFromJSON:(NSString*)json
 {
     NSMutableArray *streamItems = [[NSMutableArray alloc] init];

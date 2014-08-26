@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPPostStreamItemViewController : UIViewController
+@interface MJPPostStreamItemViewController : UIViewController <UITextViewDelegate>
 
 @end

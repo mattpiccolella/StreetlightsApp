@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StreetlightsApp/Models/MJPStreamItem.m"
-            timestampString = "430718630.633931"
+            timestampString = "430720248.74482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "+getStreamItemFromDictionary:"
             landmarkType = "5">
          </BreakpointContent>

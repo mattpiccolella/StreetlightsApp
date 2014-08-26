@@ -57,25 +57,7 @@ NSMutableArray *friendItems;
     self.refreshControl = refresh;
     
     if ([self.appDelegate.everyoneArray count] == 0) {
-        NSLog(@"Animating!");
-        [self.activityIndicator startAnimating];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
-                       {
-                           self.appDelegate.everyoneArray = [[NSMutableArray alloc] initWithArray:[MJPStreamItem getDummyStreamItems]];
-                           self.appDelegate.friendArray = [[NSMutableArray alloc] init];
-                           for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
-                               if ([streamItem isFriend]) {
-                                   [self.appDelegate.friendArray addObject:streamItem];
-                               }
-                           }
-                       
-                           dispatch_async(dispatch_get_main_queue(), ^
-                                          {
-                                              [self.activityIndicator stopAnimating];
-                                              [self.activityIndicator setHidden:YES];
-                                              [streamItemView reloadData];
-                                          });
-                       });
+        NSLog(@"Empty!");
     } else {
         [self.activityIndicator setHidden:YES];
         [streamItemView reloadData];

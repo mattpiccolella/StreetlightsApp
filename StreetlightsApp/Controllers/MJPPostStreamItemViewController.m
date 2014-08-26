@@ -92,8 +92,22 @@
     CLLocation *currentLocation = [self.mapView myLocation];
     float latitude = (float) currentLocation.coordinate.latitude;
     float longitude = (float) currentLocation.coordinate.longitude;
-    NSNumber *currentTimestamp = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
     
-    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:[self.appDelegate currentUser] description:[self.postDescription.text] postedTimestamp:<#(NSNumber *)#> expiredTimestamp:<#(NSNumber *)#> friend:FALSE latitude:latitude longitude:longitude];
+    // TODO: Sort ouf issues with timestamps, look into how we are storing them.
+    long currentTime = lrint(1000.0 * [[NSDate date] timeIntervalSince1970]);
+    NSNumber *currentTimestamp = [NSNumber numberWithDouble:currentTime];
+    NSNumber *expiredTimestamp = [NSNumber numberWithDouble:(currentTime + self.expirationTime.countDownDuration)];
+    
+    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:[self.appDelegate currentUser] description:self.postDescription.text postedTimestamp:currentTimestamp expiredTimestamp:expiredTimestamp friend:FALSE latitude:latitude longitude:longitude];
+    [[self.appDelegate everyoneArray] addObject:newStreamItem];
+    // TODO: Actually send to the server so we persist.
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 @end
