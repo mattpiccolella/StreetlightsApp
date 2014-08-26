@@ -28,4 +28,10 @@
     NSData *data = [userString dataUsingEncoding:NSUTF8StringEncoding];
     return data;
 }
+
++ (MJPUser*) getUserFromJSON:(NSDictionary*) userDictionary {
+    MJPUser *user = [[MJPUser alloc] initWithName:[userDictionary objectForKey:@"name"] email:[userDictionary objectForKey:@"email"]
+                                         password:[userDictionary objectForKey:@"password"]];
+    return user;
+}
 @end

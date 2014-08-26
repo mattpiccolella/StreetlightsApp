@@ -37,66 +37,13 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     [GMSServices provideAPIKey:kAPIKey];
     services_ = [GMSServices sharedServices];
     
-    // Whenever a person opens the app, check for a cached session
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
-                                           allowLoginUI:NO
-                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                          [self sessionStateChanged:session state:state error:error];
-                                      }];
-        
-        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
-            if (!error) {
-                MJPUser *newUser = [[MJPUser alloc] initWithName:user.name email:[user objectForKey:@"email"] password:@""];
-                self.currentUser = newUser;
-                NSLog(@"%@", user);
-            } else {
-                NSLog(@"ERROR");
-            }
-        }];
+    // Whenever a person opens the app, check for user credentials.
+    if ([self hasUserCredentials]) {
+        [self loggedInView];
         return YES;
     } else {
-        MJPLoginViewController *loginViewController = [[MJPLoginViewController alloc] init];
-        self.window.rootViewController = loginViewController;
-        [self.window makeKeyAndVisible];
+        [self loggedOutView];
         return YES;
-    }
-}
-
-- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error
-{
-    if (!error && state == FBSessionStateOpen){
-        NSLog(@"Session opened");
-        [self loggedInView];
-    }
-    if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
-        NSLog(@"Session closed.");
-        [self loggedOutView];
-    }
-    if (error) {
-        NSLog(@"Error");
-        // TODO: Make this more meaningful. Actually display error messages.
-        NSString *alertText;
-        NSString *alertTitle;
-        if ([FBErrorUtility shouldNotifyUserForError:error] == YES){
-            alertTitle = @"Something went wrong";
-            alertText = [FBErrorUtility userMessageForError:error];
-            //[self showMessage:alertText withTitle:alertTitle];
-        } else {
-            if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-                NSLog(@"User cancelled login");
-            } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession){
-                alertTitle = @"Session Error";
-                alertText = @"Your current session is no longer valid. Please log in again.";
-            } else {
-                NSDictionary *errorInformation = [[[error.userInfo objectForKey:@"com.facebook.sdk:ParsedJSONResponseKey"] objectForKey:@"body"] objectForKey:@"error"];
-                alertTitle = @"Something went wrong";
-                alertText = [NSString stringWithFormat:@"Please retry. \n\n If the problem persists contact us and mention this error code: %@", [errorInformation objectForKey:@"message"]];
-            }
-        }
-        [FBSession.activeSession closeAndClearTokenInformation];
-        [self loggedOutView];
     }
 }
 
@@ -117,10 +64,14 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     [self.window makeKeyAndVisible];
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
-    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+- (BOOL)hasUserCredentials {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"email"] != nil && [userDefaults objectForKey:@"password"] != nil && [userDefaults objectForKey:@"user_id"] != nil;
+}
+         
+- (id)currentUserId {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"user_id"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

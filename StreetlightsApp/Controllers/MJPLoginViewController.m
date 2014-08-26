@@ -17,7 +17,6 @@
 #import "MJPUser.h"
 
 @interface MJPLoginViewController ()
-- (IBAction)loginButton:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *nameField;
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
@@ -52,36 +51,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)loginButton:(id)sender {
-    MJPAppDelegate* appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
-    if (FBSession.activeSession.state != FBSessionStateOpen && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
-        
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"]
-                                           allowLoginUI:YES
-                                      completionHandler:
-         ^(FBSession *session, FBSessionState state, NSError *error) {
-
-             [appDelegate sessionStateChanged:session state:state error:error];
-             
-             [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
-                    if (!error) {
-                        MJPUser *newUser = [[MJPUser alloc] initWithName:user.name email:[user objectForKey:@"email"] password:@""];
-                        [appDelegate setCurrentUser:newUser];
-                    } else {
-                        NSLog(@"ERROR");
-                    }
-             }];
-         }];
-    }
-    
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
-
-    tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
-    
-    [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
-}
-
 + (NSArray *)getTabBarViewControllers {
     MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
     mapViewController.tabBarItem.title = @"Map";
@@ -111,6 +80,7 @@
     [textField resignFirstResponder];
     return YES;
 }
+
 - (IBAction)registerButtonPressed:(id)sender {
     MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
     NSData *jsonData = [MJPUser getJSONFromUser:newUser];
@@ -125,10 +95,27 @@
                                                                                                                NSError *error) {
         if (!error) {
             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            NSLog(@"%@", [response objectForKey:@"status"]);
+            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
+                [newUser setUserId:[[response objectForKey:@"user_id"] intValue]];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:[newUser email] forKey:@"email"];
+                [userDefaults setObject:[newUser password] forKey:@"password"];
+                [userDefaults setValue:[NSNumber numberWithInteger:[newUser userId]] forKey:@"user_id"];
+                MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+                [appDelegate setCurrentUser:newUser];
+                [self.activityIndicator setHidden:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+                    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
+                    
+                    tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
+                    
+                    [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
+                });
+                NSLog(@"User: %@ %@ %@", [userDefaults objectForKey:@"email"], [userDefaults objectForKey:@"password"], [userDefaults objectForKey:@"user_id"]);
+            }
         } else {
             NSLog(@"Error: %@", error.localizedDescription);
-            // TODO: Handle errors gracefully. Hopefully won't need to do this often.
         }
     }];
     [newUserTask resume];

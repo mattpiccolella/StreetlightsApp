@@ -24,6 +24,7 @@
 
 @property (strong, nonatomic) MJPUser *currentUser;
 
-- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error:(NSError *)error;
+- (BOOL)hasUserCredentials;
+- (id)currentUserId;
 
 @end

@@ -56,6 +56,7 @@
 		5C7F74B419A536B10095117F /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74B319A536B10095117F /* DummyData.json */; };
 		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
+		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
 		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
+		5CE8713919AC263400C963AF /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +292,7 @@
 		5C7F746919A3BC510095117F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5CE8713919AC263400C963AF /* images.jpeg */,
 				5C3EA4AE19A599DC007EF291 /* Pinpoint.png */,
 				5C7F74A719A4F0980095117F /* NotificationIcon.png */,
 				5C7F74A919A4F0A00095117F /* ProfileIcon.png */,
@@ -393,6 +396,7 @@
 				5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */,
 				5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */,
 				5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */,
+				5CE8713A19AC263400C963AF /* images.jpeg in Resources */,
 				5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */,
 				5C7F749419A43BB10095117F /* GoogleMaps.bundle in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,

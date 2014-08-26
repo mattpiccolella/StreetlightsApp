@@ -21,4 +21,6 @@
 
 + (NSData*) getJSONFromUser:(MJPUser*) user;
 
++ (MJPUser*) getUserFromJSON:(NSDictionary*) userDictionary;
+
 @end
