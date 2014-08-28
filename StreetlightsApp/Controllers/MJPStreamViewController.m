@@ -126,7 +126,7 @@ NSMutableArray *friendItems;
 - (IBAction)sliderChangeEnded:(id)sender {
     [self.appDelegate setSearchRadius:self.distanceSlider.value];
     
-    // TODO: Query for items based on the new radius.
+    [self fetchNewStreamItems];
 }
 
 - (IBAction)scopeChanged:(id)sender {
@@ -142,10 +142,10 @@ NSMutableArray *friendItems;
 }
 
 - (void)fetchNewStreamItems {
-    NSLog(@"We are calling this.");
     NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
                                  self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
                                  self.distanceSlider.value];
+    NSLog(@"Stream formatted string: %@", formattedString);
     NSURL *url = [NSURL URLWithString:formattedString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     // Create a task.
@@ -180,7 +180,6 @@ NSMutableArray *friendItems;
 }
 
 - (void)handleRefresh {
-    NSLog(@"Here.");
     [self fetchNewStreamItems];
 }
 

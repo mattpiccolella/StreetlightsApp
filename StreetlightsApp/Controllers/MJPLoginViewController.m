@@ -119,6 +119,5 @@
         }
     }];
     [newUserTask resume];
-    
 }
 @end

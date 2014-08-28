@@ -92,10 +92,12 @@
 }
 
 - (IBAction)post:(id)sender {
+    [self.activityIndicator startAnimating];
     CLLocation *currentLocation = [self.mapView myLocation];
     float latitude = (float) currentLocation.coordinate.latitude;
     float longitude = (float) currentLocation.coordinate.longitude;
     
+    // TODO: Fix the search radius to a non-fixed value.
     NSString *postString = [NSString stringWithFormat:@"userid=%@&description=%@&latitude=%f&longitude=%f&expiration=%d",
                             [self.appDelegate currentUserId], self.postDescription.text,
                             latitude, longitude, 50];;
@@ -113,9 +115,10 @@
         if (!error) {
             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                NSLog(@"Success.");
-                // TODO: Fetch new objects
-                [self.activityIndicator setHidden:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.postDescription.text = @"";
+                    [self.activityIndicator setHidden:YES];
+                });
             } else {
                 NSLog(@"%@", [response objectForKey:@"status"]);
             }

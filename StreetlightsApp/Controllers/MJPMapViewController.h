@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreLocation/CoreLocation.h"
 
-@interface MJPMapViewController : UIViewController<UISearchBarDelegate>
+@interface MJPMapViewController : UIViewController<UISearchBarDelegate, CLLocationManagerDelegate>
 
 - (void) addMarkers;
 
