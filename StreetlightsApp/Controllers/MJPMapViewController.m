@@ -29,6 +29,7 @@
 
 @implementation MJPMapViewController {
     BOOL hasSetLocation_;
+    BOOL hasLoadedInitialMarkers_;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -63,7 +64,6 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
-        [self loadInitialMarkers];
     });
 }
 
@@ -107,7 +107,7 @@
 
 - (IBAction)sliderChangeEnded:(id)sender {
     [self.appDelegate setSearchRadius:self.distanceSlider.value];
-    
+    [self.activityIndicator startAnimating];
     [self fetchNewStreamItems];
 }
 
@@ -130,6 +130,7 @@
         for (MJPStreamItem *streamItem in self.appDelegate.friendArray) {
             GMSMarker *marker = [[GMSMarker alloc] init];
             marker.title = streamItem.user.name;
+            marker.snippet = streamItem.description;
             marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
             marker.map = self.mapView;
         }
@@ -137,6 +138,7 @@
         for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
             GMSMarker *marker = [[GMSMarker alloc] init];
             marker.title = streamItem.user.name;
+            marker.snippet = streamItem.description;
             marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
             marker.map = self.mapView;
         }
@@ -159,7 +161,8 @@
             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
                 for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
-                    MJPUser *user = [[MJPUser alloc] initWithName:[[streamItem objectForKey:@"user"] objectForKey:@"name"] email:nil password:nil];
+                    NSString *userName = [[streamItem objectForKey:@"user"] objectForKey:@"name"];
+                    MJPUser *user = [[MJPUser alloc] initWithName:userName email:nil password:nil];
                     NSString *description = [streamItem objectForKey:@"description"];
                     MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:0 expiredTimestamp:0 friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
                     [self.appDelegate.everyoneArray addObject:newStreamItem];
@@ -184,6 +187,7 @@
 - (void)loadInitialMarkers {
     // Bad hack. We try to load only based off of whether there are any objects available.
     if ([self.appDelegate.everyoneArray count] == 0) {
+        NSLog(@"Load initial markers");
         [self fetchNewStreamItems];
     } else {
         [self.activityIndicator setHidden:YES];
@@ -200,9 +204,12 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
-    self.currentLocation = newLocation;
-    [self loadInitialMarkers];
-    [self.locationManager stopUpdatingLocation];
+    if (hasLoadedInitialMarkers_ == NO) {
+        self.currentLocation = newLocation;
+        hasLoadedInitialMarkers_ = YES;
+        [self loadInitialMarkers];
+        [self.locationManager stopUpdatingLocation];
+    }
 }
 
 @end

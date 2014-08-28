@@ -208,6 +208,7 @@ NSMutableArray *friendItems;
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
+    NSLog(@"We are updating our location.");
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     self.currentLocation = newLocation;
     [self loadInitialStreamItems];
