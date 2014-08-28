@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreLocation/CoreLocation.h"
 
-@interface MJPStreamViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
+@interface MJPStreamViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate> {
     
     IBOutlet UITableView *streamItemView;
 

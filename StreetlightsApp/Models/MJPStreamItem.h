@@ -24,6 +24,5 @@
 - (id)initWithUser:(MJPUser*)user description:(NSString*)description postedTimestamp:(NSNumber*)postedTimestamped
   expiredTimestamp:(NSNumber*)expiredTimestamp friend:(BOOL)isFriend
               latitude:(float)latitude longitude:(float)longitude;
-+ (NSArray*) getDummyStreamItems;
 
 @end

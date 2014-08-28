@@ -11,7 +11,7 @@
 #import "MJPStreamItemTableViewCell.h"
 #import "MJPStreamItem.h"
 
-@interface MJPStreamViewController ()
+@interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
@@ -22,9 +22,11 @@
 - (IBAction)sliderChangeEnded:(id)sender;
 - (IBAction)scopeChanged:(id)sender;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *currentLocation;
 @end
 
-@implementation MJPStreamViewController
+@implementation MJPStreamViewController 
 
 static NSString *cellIdentifier = @"streamViewCell";
 static NSInteger cellHeight = 80;
@@ -45,6 +47,10 @@ NSMutableArray *friendItems;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+    
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -56,12 +62,7 @@ NSMutableArray *friendItems;
     
     self.refreshControl = refresh;
     
-    if ([self.appDelegate.everyoneArray count] == 0) {
-        NSLog(@"Empty!");
-    } else {
-        [self.activityIndicator setHidden:YES];
-        [streamItemView reloadData];
-    }
+    [self.activityIndicator startAnimating];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -145,4 +146,59 @@ NSMutableArray *friendItems;
     [self.refreshControl performSelector:@selector(endRefreshing) withObject:nil afterDelay:2.5];
 }
 
+- (void)fetchNewStreamItems {
+    NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
+                                 self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
+                                 self.distanceSlider.value];
+    NSURL *url = [NSURL URLWithString:formattedString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    // Create a task.
+    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
+                NSLog(@"We are successfully back here.");
+                [self.activityIndicator stopAnimating];
+                [self.activityIndicator setHidden:YES];
+                [streamItemView reloadData];
+            } else {
+                NSLog(@"%@", [response objectForKey:@"status"]);
+            }
+        } else {
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
+    }];
+    [newPostTask resume];
+}
+
+- (void)startGettingCurrentLocation {
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)loadInitialStreamItems {
+    // Bad hack. We try to load only based off of whether there are any objects available.
+    if ([self.appDelegate.everyoneArray count] == 0) {
+        [self fetchNewStreamItems];
+    } else {
+        [self.activityIndicator setHidden:YES];
+        [streamItemView reloadData];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    // TODO: Try to fail gracefully.
+    NSLog(@"didFailWithError: %@", error);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
+    self.currentLocation = newLocation;
+    [self loadInitialStreamItems];
+    [self.locationManager stopUpdatingLocation];
+}
 @end

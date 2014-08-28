@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPPostStreamItemViewController">
             <connections>
+                <outlet property="activityIndicator" destination="0Lv-zd-vRH" id="JuA-Z5-cye"/>
                 <outlet property="expirationTime" destination="5qy-Ox-Mqh" id="anV-Op-7d1"/>
                 <outlet property="mapView" destination="UNm-zH-VyP" id="KaB-7R-4mp"/>
                 <outlet property="postDescription" destination="vD4-Ug-n8Q" id="7VL-RF-UU1"/>
@@ -78,6 +79,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-zd-vRH">
+                    <rect key="frame" x="150" y="274" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

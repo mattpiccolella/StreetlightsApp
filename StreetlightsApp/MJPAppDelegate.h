@@ -24,6 +24,8 @@
 
 @property (strong, nonatomic) MJPUser *currentUser;
 
+@property (strong, nonatomic) CLLocation *locationManager;
+
 - (BOOL)hasUserCredentials;
 - (id)currentUserId;
 

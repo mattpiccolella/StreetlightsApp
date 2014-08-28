@@ -36,15 +36,18 @@
 
 + (MJPStreamItem*)getStreamItemFromDictionary:(NSDictionary*)streamDictionary
 {
-    UIImage *userImage = [UIImage imageWithData:
-                          [NSData dataWithContentsOfURL:
-                           [NSURL URLWithString: [streamDictionary objectForKey:@"imageURL"]]]];
+    MJPUser *postUser = [MJPUser getUserFromJSON:[streamDictionary objectForKey:@"user"]];
+    NSString *description = [streamDictionary objectForKey:@"description"];
+    NSNumber *postedTimestamp = [streamDictionary objectForKey:@"postedTimestamp"];
+    NSNumber *expiredTimestamp = [streamDictionary objectForKey:@"expiredTimestamp"];
     
     BOOL isFriend = [[streamDictionary objectForKey:@"friend"] intValue];
     float latitude = [[streamDictionary objectForKey:@"latitude"] floatValue];
     float longitude = [[streamDictionary objectForKey:@"longitude"] floatValue];
 
-    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:nil description:nil postedTimestamp:nil expiredTimestamp:nil friend:nil latitude:0.0 longitude:0.0];
+    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:postUser description:description
+        postedTimestamp:postedTimestamp expiredTimestamp:expiredTimestamp friend:isFriend
+        latitude:latitude longitude:longitude];
 
     return newStreamItem;
 }

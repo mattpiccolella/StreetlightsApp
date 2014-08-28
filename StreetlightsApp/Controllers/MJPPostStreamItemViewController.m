@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITextView *postDescription;
 @property (strong, nonatomic) IBOutlet UIDatePicker *expirationTime;
 - (IBAction)post:(id)sender;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -37,6 +38,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.activityIndicator setHidden:true];
     
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -93,14 +96,34 @@
     float latitude = (float) currentLocation.coordinate.latitude;
     float longitude = (float) currentLocation.coordinate.longitude;
     
-    // TODO: Sort ouf issues with timestamps, look into how we are storing them.
-    long currentTime = lrint(1000.0 * [[NSDate date] timeIntervalSince1970]);
-    NSNumber *currentTimestamp = [NSNumber numberWithDouble:currentTime];
-    NSNumber *expiredTimestamp = [NSNumber numberWithDouble:(currentTime + self.expirationTime.countDownDuration)];
-    
-    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:[self.appDelegate currentUser] description:self.postDescription.text postedTimestamp:currentTimestamp expiredTimestamp:expiredTimestamp friend:FALSE latitude:latitude longitude:longitude];
-    [[self.appDelegate everyoneArray] addObject:newStreamItem];
-    // TODO: Actually send to the server so we persist.
+    NSString *postString = [NSString stringWithFormat:@"userid=%@&description=%@&latitude=%f&longitude=%f&expiration=%d",
+                            [self.appDelegate currentUserId], self.postDescription.text,
+                            latitude, longitude, 50];;
+    NSData *data = [postString dataUsingEncoding:NSUTF8StringEncoding];
+
+    [self.activityIndicator startAnimating];
+    NSURL *url = [NSURL URLWithString:@"http://107.170.105.12/create_new_post"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = data;
+    // Create a task.
+    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
+                                                                                                                      NSURLResponse *response,
+                                                                                                                      NSError *error) {
+        if (!error) {
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
+                NSLog(@"Success.");
+                // TODO: Fetch new objects
+                [self.activityIndicator setHidden:YES];
+            } else {
+                NSLog(@"%@", [response objectForKey:@"status"]);
+            }
+        } else {
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
+    }];
+    [newPostTask resume];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
