@@ -120,7 +120,7 @@
                     [self.activityIndicator setHidden:YES];
                 });
             } else {
-                NSLog(@"%@", [response objectForKey:@"status"]);
+                // TODO: Do something if we don't succeed.
             }
         } else {
             NSLog(@"Error: %@", error.localizedDescription);

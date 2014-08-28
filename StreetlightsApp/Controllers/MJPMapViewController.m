@@ -146,11 +146,9 @@
 }
 
 - (void)fetchNewStreamItems {
-    NSLog(@"We are calling this.");
     NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
                                  self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
                                  self.distanceSlider.value];
-    NSLog(@"Formatted string: %@", formattedString);
     NSURL *url = [NSURL URLWithString:formattedString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     // Create a task.
@@ -187,7 +185,6 @@
 - (void)loadInitialMarkers {
     // Bad hack. We try to load only based off of whether there are any objects available.
     if ([self.appDelegate.everyoneArray count] == 0) {
-        NSLog(@"Load initial markers");
         [self fetchNewStreamItems];
     } else {
         [self.activityIndicator setHidden:YES];

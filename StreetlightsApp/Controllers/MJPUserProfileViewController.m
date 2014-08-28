@@ -91,7 +91,6 @@
     [userDefaults removeObjectForKey:@"password"];
     [userDefaults removeObjectForKey:@"user_id"];
     [userDefaults synchronize];
-    NSLog(@"deleting!");
     [self loginRedirect];
 }
 

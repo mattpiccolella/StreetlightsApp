@@ -112,7 +112,6 @@
                     
                     [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
                 });
-                NSLog(@"User: %@ %@ %@", [userDefaults objectForKey:@"email"], [userDefaults objectForKey:@"password"], [userDefaults objectForKey:@"user_id"]);
             }
         } else {
             NSLog(@"Error: %@", error.localizedDescription);
