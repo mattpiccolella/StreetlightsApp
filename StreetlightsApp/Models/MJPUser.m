@@ -30,8 +30,7 @@
 }
 
 + (MJPUser*) getUserFromJSON:(NSDictionary*) userDictionary {
-    MJPUser *user = [[MJPUser alloc] initWithName:[userDictionary objectForKey:@"name"] email:[userDictionary objectForKey:@"email"]
-                                         password:[userDictionary objectForKey:@"password"]];
+    MJPUser *user = [[MJPUser alloc] initWithName:[userDictionary objectForKey:@"name"] email:[userDictionary objectForKey:@"email"] password:[userDictionary objectForKey:@"password"]];
     return user;
 }
 @end

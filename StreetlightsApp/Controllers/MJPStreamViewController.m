@@ -141,12 +141,8 @@ NSMutableArray *friendItems;
     // TODO: Actually search something...not sure what.
 }
 
-- (void)handleRefresh {
-    // TODO: Actually handle refresh.
-    [self.refreshControl performSelector:@selector(endRefreshing) withObject:nil afterDelay:2.5];
-}
-
 - (void)fetchNewStreamItems {
+    NSLog(@"We are calling this.");
     NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
                                  self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
                                  self.distanceSlider.value];
@@ -155,12 +151,24 @@ NSMutableArray *friendItems;
     // Create a task.
     NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (!error) {
+            [self.appDelegate.everyoneArray removeAllObjects];
+            [self.appDelegate.friendArray removeAllObjects];
             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                NSLog(@"We are successfully back here.");
-                [self.activityIndicator stopAnimating];
-                [self.activityIndicator setHidden:YES];
-                [streamItemView reloadData];
+                for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
+                    MJPUser *user = [[MJPUser alloc] initWithName:[[streamItem objectForKey:@"user"] objectForKey:@"name"] email:nil password:nil];
+                    NSString *description = [streamItem objectForKey:@"description"];
+                    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:0 expiredTimestamp:0 friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
+                    [self.appDelegate.everyoneArray addObject:newStreamItem];
+                    if ([newStreamItem isFriend]) {
+                        [self.appDelegate.friendArray addObject:newStreamItem];
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.activityIndicator setHidden:YES];
+                    [streamItemView reloadData];
+                    [self.refreshControl endRefreshing];
+                });
             } else {
                 NSLog(@"%@", [response objectForKey:@"status"]);
             }
@@ -169,6 +177,11 @@ NSMutableArray *friendItems;
         }
     }];
     [newPostTask resume];
+}
+
+- (void)handleRefresh {
+    NSLog(@"Here.");
+    [self fetchNewStreamItems];
 }
 
 - (void)startGettingCurrentLocation {

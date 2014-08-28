@@ -25,6 +25,9 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     self.searchEveryone = FALSE;
     self.searchRadius = 4.0;
     
+    self.everyoneArray = [[NSMutableArray alloc] init];
+    self.friendArray = [[NSMutableArray alloc] init];
+    
     if ([kAPIKey length] == 0) {
         // Blow up if APIKey has not yet been set.
         NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
