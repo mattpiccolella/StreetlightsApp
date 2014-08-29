@@ -7,6 +7,9 @@
 //
 
 #import "MJPStreamItemViewController.h"
+#import "MJPStreamItem.h"
+#import "MJPUser.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface MJPStreamItemViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *userName;
@@ -14,6 +17,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timePosted;
 @property (strong, nonatomic) IBOutlet UILabel *timeRemaining;
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
+
+@property (strong, nonatomic) MJPStreamItem *streamItem;
 
 @end
 
@@ -28,9 +34,34 @@
     return self;
 }
 
+- (id)initWithStreamItem:(MJPStreamItem *)streamItem {
+    self = [super init];
+    if (self) {
+        self.streamItem = streamItem;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Set the fields for the current stream item.
+    self.userName.text = self.streamItem.user.name;
+    self.postDescription.text = self.streamItem.description;
+    
+    // Add a marker for the location of the point.
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake([self.streamItem latitude], [self.streamItem longitude]);
+    marker.map = self.mapView;
+    
+    // Move the map to the location of the marker
+    GMSCameraUpdate *update = [GMSCameraUpdate setTarget:marker.position zoom:14.0];
+    [self.mapView moveCamera:update];
+    
+    // Set date for created timestamp
+    
+    
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
     self.navigationController.navigationBar.translucent = NO;

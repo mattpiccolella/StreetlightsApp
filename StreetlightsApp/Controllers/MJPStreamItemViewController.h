@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MJPStreamItem.h"
 
 @interface MJPStreamItemViewController : UIViewController
+
+- (id)initWithStreamItem:(MJPStreamItem *)streamItem;
 
 @end

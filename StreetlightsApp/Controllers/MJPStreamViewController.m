@@ -165,6 +165,7 @@ NSMutableArray *friendItems;
                 for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
                     MJPUser *user = [[MJPUser alloc] initWithName:[[streamItem objectForKey:@"user"] objectForKey:@"name"] email:nil password:nil];
                     NSString *description = [streamItem objectForKey:@"description"];
+                    // TODO: Add actual timestamps.
                     MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:0 expiredTimestamp:0 friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
                     [self.appDelegate.everyoneArray addObject:newStreamItem];
                     if ([newStreamItem isFriend]) {
@@ -224,7 +225,13 @@ NSMutableArray *friendItems;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] init];
+    MJPStreamItem *selectedStreamItem;
+    if (self.appDelegate.searchEveryone) {
+        selectedStreamItem = [self.appDelegate.friendArray objectAtIndex:indexPath.row];
+    } else {
+        selectedStreamItem = [self.appDelegate.everyoneArray objectAtIndex:indexPath.row];
+    }
+    MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem];
     UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
     UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
     [navController pushViewController:dummyItem animated:YES];
