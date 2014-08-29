@@ -10,6 +10,7 @@
 #import "MJPAppDelegate.h"
 #import "MJPStreamItemTableViewCell.h"
 #import "MJPStreamItem.h"
+#import "MJPStreamItemViewController.h"
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -72,6 +73,12 @@ NSMutableArray *friendItems;
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
+    
+    UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
+    UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
+    self.navigationController.navigationBar.translucent = NO;
+    [navController setNavigationBarHidden:YES];
+    
     
     [streamItemView reloadData];
 }
@@ -213,5 +220,13 @@ NSMutableArray *friendItems;
     self.currentLocation = newLocation;
     [self loadInitialStreamItems];
     [self.locationManager stopUpdatingLocation];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] init];
+    UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
+    UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
+    [navController pushViewController:dummyItem animated:YES];
 }
 @end

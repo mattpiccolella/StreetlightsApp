@@ -55,10 +55,14 @@
     MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
     mapViewController.tabBarItem.title = @"Map";
     mapViewController.tabBarItem.image = [UIImage imageNamed:@"MapIcon.png"];
+    UINavigationController *mapNavController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    [mapNavController setNavigationBarHidden:YES];
     
     MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
     streamViewController.tabBarItem.title = @"Stream";
     streamViewController.tabBarItem.image = [UIImage imageNamed:@"StreamIcon.png"];
+    UINavigationController *streamNavController = [[UINavigationController alloc] initWithRootViewController:streamViewController];
+    [streamNavController setNavigationBarHidden:YES];
     
     MJPPostStreamItemViewController *postStreamItemViewController = [[MJPPostStreamItemViewController alloc] init];
     postStreamItemViewController.tabBarItem.title = @"Post";
@@ -73,7 +77,7 @@
     userProfileController.tabBarItem.image = [UIImage imageNamed:@"ProfileIcon.png"];
     
     
-    return @[mapViewController, streamViewController, postStreamItemViewController, notificationsController, userProfileController];
+    return @[mapViewController, streamNavController, postStreamItemViewController, notificationsController, userProfileController];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
