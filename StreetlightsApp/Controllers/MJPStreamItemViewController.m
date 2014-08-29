@@ -50,6 +50,13 @@
     self.userName.text = self.streamItem.user.name;
     self.postDescription.text = self.streamItem.description;
     
+    // Get the dates
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.streamItem.postedTimestamp doubleValue]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    self.timePosted.text = [dateFormatter stringFromDate:date];
+    
     // Add a marker for the location of the point.
     GMSMarker *marker = [[GMSMarker alloc] init];
     marker.position = CLLocationCoordinate2DMake([self.streamItem latitude], [self.streamItem longitude]);
@@ -58,10 +65,6 @@
     // Move the map to the location of the marker
     GMSCameraUpdate *update = [GMSCameraUpdate setTarget:marker.position zoom:14.0];
     [self.mapView moveCamera:update];
-    
-    // Set date for created timestamp
-    
-    
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
     self.navigationController.navigationBar.translucent = NO;

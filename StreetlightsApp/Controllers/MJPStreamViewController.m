@@ -165,8 +165,9 @@ NSMutableArray *friendItems;
                 for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
                     MJPUser *user = [[MJPUser alloc] initWithName:[[streamItem objectForKey:@"user"] objectForKey:@"name"] email:nil password:nil];
                     NSString *description = [streamItem objectForKey:@"description"];
-                    // TODO: Add actual timestamps.
-                    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:0 expiredTimestamp:0 friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
+                    NSNumber *created = [NSNumber numberWithDouble:[[streamItem objectForKey:@"created"] doubleValue]];
+                    NSNumber *expiration = [NSNumber numberWithDouble:[[streamItem objectForKey:@"expiration"] doubleValue]];
+                    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:created expiredTimestamp:expiration friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
                     [self.appDelegate.everyoneArray addObject:newStreamItem];
                     if ([newStreamItem isFriend]) {
                         [self.appDelegate.friendArray addObject:newStreamItem];
