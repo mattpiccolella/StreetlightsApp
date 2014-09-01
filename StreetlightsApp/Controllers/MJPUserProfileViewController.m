@@ -10,16 +10,19 @@
 #import "MJPUserProfileViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "MJPLoginViewController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AWSiOSSDKv2/S3.h>
 
 @interface MJPUserProfileViewController ()
 - (IBAction)logoutButton:(id)sender;
-@property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (strong, nonatomic) IBOutlet UILabel *userName;
 @property (strong, nonatomic) IBOutlet UINavigationItem *userFirstName;
 @property (strong, nonatomic) IBOutlet UILabel *numberOfFriends;
 @property (strong, nonatomic) IBOutlet UILabel *numberOfPosts;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 - (IBAction)editProfile:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *userImage;
+- (IBAction)changeUserImage:(id)sender;
 
 @end
 
@@ -96,5 +99,33 @@
 
 - (IBAction)editProfile:(id)sender {
     // TODO: Present the edit view. Allow users to edit their profile.
+}
+- (IBAction)changeUserImage:(id)sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    imagePicker.delegate = self;
+    
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
+    
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        UIImage *newUserImage = info[UIImagePickerControllerOriginalImage];
+        AWSS3TransferManager *transferManager = [AWSS3TransferManager defaultS3TransferManager];
+        
+    } else {
+        // TODO: Display an error in the case the user entered something other than an image.
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

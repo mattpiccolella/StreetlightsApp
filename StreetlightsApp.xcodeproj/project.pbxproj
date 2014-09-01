@@ -61,7 +61,6 @@
 		5CE8713F19AFEDA500C963AF /* MJPStreamItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713D19AFEDA500C963AF /* MJPStreamItemViewController.xib */; };
 		5CE8714119B4EDE800C963AF /* AWSiOSSDKv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8714019B4EDE800C963AF /* AWSiOSSDKv2.framework */; };
 		5CE8714319B4EE2300C963AF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8714219B4EE2300C963AF /* libsqlite3.dylib */; };
-		5CE8714B19B4EEB700C963AF /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8714419B4EEB700C963AF /* Bolts.framework */; };
 		5CE8714C19B4EEB700C963AF /* GZIP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8714519B4EEB700C963AF /* GZIP.framework */; };
 		5CE8714D19B4EEB700C963AF /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8714619B4EEB700C963AF /* Mantle.framework */; };
 		5CE8714E19B4EEB700C963AF /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8714719B4EEB700C963AF /* Reachability.framework */; };
@@ -83,6 +82,8 @@
 		5CE8716D19B4EEEA00C963AF /* sns-2010-03-31.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8715E19B4EEEA00C963AF /* sns-2010-03-31.json */; };
 		5CE8716E19B4EEEA00C963AF /* sqs-2012-11-05.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8715F19B4EEEA00C963AF /* sqs-2012-11-05.json */; };
 		5CE8716F19B4EEEA00C963AF /* sts-2011-06-15.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8716019B4EEEA00C963AF /* sts-2011-06-15.json */; };
+		5CE871C719B4F7D700C963AF /* MJPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE871C619B4F7D700C963AF /* MJPConstants.m */; };
+		5CE871CA19B4F9C100C963AF /* MJPAWSS3Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE871C919B4F9C100C963AF /* MJPAWSS3Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,7 +165,6 @@
 		5CE8713D19AFEDA500C963AF /* MJPStreamItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPStreamItemViewController.xib; sourceTree = "<group>"; };
 		5CE8714019B4EDE800C963AF /* AWSiOSSDKv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSiOSSDKv2.framework; sourceTree = "<group>"; };
 		5CE8714219B4EE2300C963AF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		5CE8714419B4EEB700C963AF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../Downloads/aws-ios-sdk-2.0.6/third-party/Bolts.framework"; sourceTree = "<group>"; };
 		5CE8714519B4EEB700C963AF /* GZIP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GZIP.framework; path = "../../Downloads/aws-ios-sdk-2.0.6/third-party/GZIP.framework"; sourceTree = "<group>"; };
 		5CE8714619B4EEB700C963AF /* Mantle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mantle.framework; path = "../../Downloads/aws-ios-sdk-2.0.6/third-party/Mantle.framework"; sourceTree = "<group>"; };
 		5CE8714719B4EEB700C963AF /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = "../../Downloads/aws-ios-sdk-2.0.6/third-party/Reachability.framework"; sourceTree = "<group>"; };
@@ -186,6 +186,10 @@
 		5CE8715E19B4EEEA00C963AF /* sns-2010-03-31.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "sns-2010-03-31.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/sns-2010-03-31.json"; sourceTree = "<group>"; };
 		5CE8715F19B4EEEA00C963AF /* sqs-2012-11-05.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "sqs-2012-11-05.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/sqs-2012-11-05.json"; sourceTree = "<group>"; };
 		5CE8716019B4EEEA00C963AF /* sts-2011-06-15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "sts-2011-06-15.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/sts-2011-06-15.json"; sourceTree = "<group>"; };
+		5CE871C519B4F7D700C963AF /* MJPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPConstants.h; sourceTree = "<group>"; };
+		5CE871C619B4F7D700C963AF /* MJPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPConstants.m; sourceTree = "<group>"; };
+		5CE871C819B4F9C100C963AF /* MJPAWSS3Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPAWSS3Utils.h; sourceTree = "<group>"; };
+		5CE871C919B4F9C100C963AF /* MJPAWSS3Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPAWSS3Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,7 +217,6 @@
 				5C7F749019A439F80095117F /* SystemConfiguration.framework in Frameworks */,
 				5CE8715119B4EEB700C963AF /* XMLDictionary.framework in Frameworks */,
 				5CE8715019B4EEB700C963AF /* UICKeyChainStore.framework in Frameworks */,
-				5CE8714B19B4EEB700C963AF /* Bolts.framework in Frameworks */,
 				5CE8714E19B4EEB700C963AF /* Reachability.framework in Frameworks */,
 				5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */,
 				5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */,
@@ -257,7 +260,6 @@
 		5C7F743219A3BB2A0095117F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5CE8714419B4EEB700C963AF /* Bolts.framework */,
 				5CE8714519B4EEB700C963AF /* GZIP.framework */,
 				5CE8714619B4EEB700C963AF /* Mantle.framework */,
 				5CE8714719B4EEB700C963AF /* Reachability.framework */,
@@ -298,6 +300,7 @@
 				5C7F744219A3BB2A0095117F /* MJPAppDelegate.h */,
 				5C7F744319A3BB2A0095117F /* MJPAppDelegate.m */,
 				5C7F744519A3BB2A0095117F /* Images.xcassets */,
+				5CE871C419B4F78D00C963AF /* Utils */,
 				5C7F743A19A3BB2A0095117F /* Supporting Files */,
 			);
 			path = StreetlightsApp;
@@ -401,6 +404,17 @@
 				5CE8713719ABCFB100C963AF /* MJPUser.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		5CE871C419B4F78D00C963AF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5CE871C519B4F7D700C963AF /* MJPConstants.h */,
+				5CE871C619B4F7D700C963AF /* MJPConstants.m */,
+				5CE871C819B4F9C100C963AF /* MJPAWSS3Utils.h */,
+				5CE871C919B4F9C100C963AF /* MJPAWSS3Utils.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -537,10 +551,12 @@
 				5C7F746E19A3BD980095117F /* MJPStreamViewController.m in Sources */,
 				5CE8713E19AFEDA500C963AF /* MJPStreamItemViewController.m in Sources */,
 				5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */,
+				5CE871CA19B4F9C100C963AF /* MJPAWSS3Utils.m in Sources */,
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,
+				5CE871C719B4F7D700C963AF /* MJPConstants.m in Sources */,
 				5C7F747319A3BDC60095117F /* MJPMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

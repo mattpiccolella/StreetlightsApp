@@ -8,8 +8,8 @@
             <connections>
                 <outlet property="numberOfFriends" destination="TMk-SJ-hC4" id="52W-dl-PIP"/>
                 <outlet property="numberOfPosts" destination="2NP-Ii-4FA" id="2Qd-se-vcB"/>
-                <outlet property="profilePicture" destination="TgA-H5-Vxn" id="R3h-gP-Gk2"/>
                 <outlet property="userFirstName" destination="9LY-X1-THU" id="hkQ-Cs-63Q"/>
+                <outlet property="userImage" destination="6Rz-SD-nEN" id="Ocs-yx-wHK"/>
                 <outlet property="userName" destination="LR0-hL-HN8" id="sWz-cT-nHn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -36,10 +36,6 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="images.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="TgA-H5-Vxn">
-                    <rect key="frame" x="20" y="88" width="50" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M17-wf-KX6">
                     <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -86,6 +82,16 @@
                     </state>
                     <connections>
                         <action selector="editProfile:" destination="-1" eventType="touchUpInside" id="yXe-dz-fBT"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Rz-SD-nEN">
+                    <rect key="frame" x="20" y="77" width="45" height="43"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="images.jpeg">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="changeUserImage:" destination="-1" eventType="touchUpInside" id="yze-xl-NMn"/>
                     </connections>
                 </button>
             </subviews>

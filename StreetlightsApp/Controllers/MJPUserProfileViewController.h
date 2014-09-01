@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPUserProfileViewController : UIViewController
+@interface MJPUserProfileViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
