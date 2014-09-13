@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) AWSS3TransferManager *transferManager;
 
++ (AWSServiceConfiguration*) serviceConfiguration;
+
 @end

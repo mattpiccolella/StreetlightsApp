@@ -20,13 +20,14 @@
     if (self) {
         self.transferManager = [self transferManager];
     }
+    return self;
 }
 
-- (AWSServiceConfiguration*) serviceConfiguration {
++ (AWSServiceConfiguration*) serviceConfiguration {
     AWSCognitoCredentialsProvider *credentialsProvider = [AWSCognitoCredentialsProvider credentialsWithRegionType:AWSRegionAPNortheast1 accountId:AWSAccountID identityPoolId:CognitoPoolID unauthRoleArn:CognitoRoleUnauth authRoleArn:CognitoRoleAuth];
     
     [[credentialsProvider getIdentityId] continueWithSuccessBlock:^id(BFTask *task){
-        NSString* cognitoId = credentialsProvider.identityId;
+        // TODO: Do more stuff upcon completion.
         return nil;
     }];
     
@@ -35,7 +36,7 @@
 }
 
 - (AWSS3TransferManager*) transferManager {
-    return [[AWSS3TransferManager alloc] initWithConfiguration:[self serviceConfiguration] identifier:@"AuthTransferManager"];
+    return [[AWSS3TransferManager alloc] initWithConfiguration:[MJPAWSS3Utils serviceConfiguration] identifier:@"UnAuthTransferManager"];
 }
 
 - (AWSS3TransferManagerUploadRequest*) requestForURL:(NSURL*)url {

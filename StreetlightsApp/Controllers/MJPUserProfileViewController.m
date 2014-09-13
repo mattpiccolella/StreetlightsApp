@@ -12,6 +12,8 @@
 #import "MJPLoginViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AWSiOSSDKv2/S3.h>
+#import "MJPConstants.h"
+#import "MJPAWSS3Utils.h"
 
 @interface MJPUserProfileViewController ()
 - (IBAction)logoutButton:(id)sender;
@@ -115,17 +117,28 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
+    NSLog(@"This is it!");
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *newUserImage = info[UIImagePickerControllerOriginalImage];
-        AWSS3TransferManager *transferManager = [AWSS3TransferManager defaultS3TransferManager];
+        NSData *imageData = UIImageJPEGRepresentation(newUserImage, 0.7);
+        
         
     } else {
         // TODO: Display an error in the case the user entered something other than an image.
+        NSLog(@"ERROR");
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
++(NSString*)generateRandomString:(int)num {
+    NSMutableString* string = [NSMutableString stringWithCapacity:num];
+    for (int i = 0; i < num; i++) {
+        [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
+    }
+    return string;
 }
 @end
