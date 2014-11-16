@@ -14,6 +14,7 @@
 #import <AWSiOSSDKv2/S3.h>
 #import "MJPConstants.h"
 #import "MJPAWSS3Utils.h"
+#import "MJPFileUploadUtils.h"
 
 @interface MJPUserProfileViewController ()
 - (IBAction)logoutButton:(id)sender;
@@ -121,42 +122,11 @@
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *newUserImage = info[UIImagePickerControllerOriginalImage];
         NSData *imageData = UIImageJPEGRepresentation(newUserImage, 0.7);
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[self.appDelegate currentUser] email]];
+        NSString *userId = [[self.appDelegate currentUser] email];
         
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-        [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-        [request setHTTPShouldHandleCookies:NO];
-        [request setTimeoutInterval:30];
-        [request setHTTPMethod:@"POST"];
-        
-        NSString *boundary = @"------VohpleBoundary4QuqLuM1cE5lMwCy";
-        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-        [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-        
-        // post body
-        NSMutableData *body = [NSMutableData data];
-        
-        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"userEmail"] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"%@\r\n", [[self.appDelegate currentUser] email]] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        if (imageData) {
-            [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"image\"; filename=\"%@.jpg\"\r\n", [self.appDelegate currentUser].email] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:imageData];
-            [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-        }
-        
-        [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        // setting the body of the post to the reqeust
-        [request setHTTPBody:body];
-        
-        NSURL *requestURL = [NSURL URLWithString:@"http://107.170.105.12/upload_profile_picture"];
-        // set URL
-        [request setURL:requestURL];
-        NSMutableURLRequest *profPicRequest = [NSMutableURLRequest requestWithURL:requestURL];
-        NSURLSessionDataTask *profPicRequestTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
+        NSMutableURLRequest *profPicRequest = [MJPFileUploadUtils getProfileImageUploadRequestWithData:imageData andFileName:fileName andUserId:userId];
+        NSURLSessionDataTask *profPicRequestTask = [[NSURLSession sharedSession] dataTaskWithRequest:profPicRequest completionHandler:^(NSData *data,
                                                                                                                           NSURLResponse *response,
                                                                                                                           NSError *error) {
             if (!error) {
@@ -164,7 +134,6 @@
                 if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
                     NSLog(@"Fuck yes holy fuck.");
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [
                         [self setProfileUI:user];
                     });
                 } else {

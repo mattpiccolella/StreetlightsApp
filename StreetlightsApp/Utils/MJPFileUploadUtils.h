@@ -10,4 +10,6 @@
 
 @interface MJPFileUploadUtils : NSObject
 
++ (NSMutableURLRequest*)getProfileImageUploadRequestWithData:(NSData*)imageData andFileName:(NSString*)fileName andUserId:(NSString*)userId;
+
 @end
