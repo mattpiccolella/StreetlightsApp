@@ -107,7 +107,7 @@ NSMutableArray *friendItems;
     }
     MJPUser *user = streamItem.user;
     cell.userName.text = user.name;
-    cell.postInfo.text = streamItem.description;
+    cell.postInfo.text = streamItem.postDescription;
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
     // TODO: Make actual profile images.
     cell.userImage.image = [UIImage imageNamed:@"images.jpeg"];

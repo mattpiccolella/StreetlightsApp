@@ -121,7 +121,7 @@
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *newUserImage = info[UIImagePickerControllerOriginalImage];
         NSData *imageData = UIImageJPEGRepresentation(newUserImage, 0.7);
-        
+        // START HERE
         
     } else {
         // TODO: Display an error in the case the user entered something other than an image.

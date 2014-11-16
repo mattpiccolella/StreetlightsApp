@@ -52,6 +52,7 @@
                                                                  zoom:12];
     
     self.locationManager = [[CLLocationManager alloc] init];
+    [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
     
@@ -130,7 +131,7 @@
         for (MJPStreamItem *streamItem in self.appDelegate.friendArray) {
             GMSMarker *marker = [[GMSMarker alloc] init];
             marker.title = streamItem.user.name;
-            marker.snippet = streamItem.description;
+            marker.snippet = streamItem.postDescription;
             marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
             marker.map = self.mapView;
         }

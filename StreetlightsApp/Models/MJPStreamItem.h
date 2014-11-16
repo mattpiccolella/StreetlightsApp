@@ -12,7 +12,7 @@
 @interface MJPStreamItem : NSObject
 
 @property (strong, nonatomic) MJPUser *user;
-@property (strong, nonatomic) NSString *description;
+@property (strong, nonatomic) NSString *postDescription;
 @property (strong, nonatomic) NSNumber *postedTimestamp;
 @property (strong, nonatomic) NSNumber *expiredTimestamp;
 

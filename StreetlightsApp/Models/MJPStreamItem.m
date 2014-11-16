@@ -13,7 +13,7 @@
     self = [super init];
     if (self) {
         self.user = user;
-        self.description = description;
+        self.postDescription = description;
         self.postedTimestamp = postedTimestamped;
         self.expiredTimestamp = expiredTimestamp;
         self.isFriend = isFriend;
