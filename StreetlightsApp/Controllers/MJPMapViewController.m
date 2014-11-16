@@ -16,7 +16,6 @@
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (strong, nonatomic) IBOutlet UISearchBar *locationSearch;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
@@ -116,12 +115,6 @@
     [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
     
     [self addMarkers];
-}
-
-- (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
-    [self.locationSearch resignFirstResponder];
-    
-    // TODO: Search for the location we have and interface with the Places autocomplete.
 }
 
 - (void) addMarkers {

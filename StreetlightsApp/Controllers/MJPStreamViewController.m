@@ -16,7 +16,6 @@
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (strong, nonatomic) IBOutlet UISearchBar *locationSearch;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 - (IBAction)distanceChanged:(id)sender;
@@ -140,12 +139,6 @@ NSMutableArray *friendItems;
     [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
     
     [streamItemView reloadData];
-}
-
-- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [self.locationSearch resignFirstResponder];
-    
-    // TODO: Actually search something...not sure what.
 }
 
 - (void)fetchNewStreamItems {
