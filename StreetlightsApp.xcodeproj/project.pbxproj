@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C373F661A1943C300D26022 /* MJPFileUploadUtils.m */; };
 		5C3EA4AF19A599DC007EF291 /* Pinpoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C3EA4AE19A599DC007EF291 /* Pinpoint.png */; };
 		5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3EA4B119A59B0E007EF291 /* MJPPostStreamItemViewController.m */; };
 		5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3EA4B219A59B0E007EF291 /* MJPPostStreamItemViewController.xib */; };
@@ -97,6 +98,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C373F651A1943C300D26022 /* MJPFileUploadUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPFileUploadUtils.h; sourceTree = "<group>"; };
+		5C373F661A1943C300D26022 /* MJPFileUploadUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPFileUploadUtils.m; sourceTree = "<group>"; };
 		5C3EA4AE19A599DC007EF291 /* Pinpoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pinpoint.png; sourceTree = "<group>"; };
 		5C3EA4B019A59B0E007EF291 /* MJPPostStreamItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPostStreamItemViewController.h; sourceTree = "<group>"; };
 		5C3EA4B119A59B0E007EF291 /* MJPPostStreamItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPostStreamItemViewController.m; sourceTree = "<group>"; };
@@ -413,6 +416,8 @@
 				5CE871C619B4F7D700C963AF /* MJPConstants.m */,
 				5CE871C819B4F9C100C963AF /* MJPAWSS3Utils.h */,
 				5CE871C919B4F9C100C963AF /* MJPAWSS3Utils.m */,
+				5C373F651A1943C300D26022 /* MJPFileUploadUtils.h */,
+				5C373F661A1943C300D26022 /* MJPFileUploadUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -557,6 +562,7 @@
 				5CE871CA19B4F9C100C963AF /* MJPAWSS3Utils.m in Sources */,
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
+				5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */,
 				5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,
 				5CE871C719B4F7D700C963AF /* MJPConstants.m in Sources */,

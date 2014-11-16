@@ -141,7 +141,7 @@
         
         if (imageData) {
             [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", @"prof-pic"] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"image\"; filename=\"%@.jpg\"\r\n", [self.appDelegate currentUser].email] dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:imageData];
             [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -163,6 +163,10 @@
                 NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
                     NSLog(@"Fuck yes holy fuck.");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [
+                        [self setProfileUI:user];
+                    });
                 } else {
                     NSLog(@"Fucking shit no.");
                 }
