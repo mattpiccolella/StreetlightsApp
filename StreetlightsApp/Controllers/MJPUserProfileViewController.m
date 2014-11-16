@@ -78,6 +78,7 @@
     [self.userName setText:user.name];
     [self.userFirstName setTitle:user.name];
     // TODO: Do stuff with number of friends, etc.
+    [self.userImage.imageView setImage:[user getUserProfileImage]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -130,14 +131,13 @@
                                                                                                                           NSURLResponse *response,
                                                                                                                           NSError *error) {
             if (!error) {
-                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                    NSLog(@"Fuck yes holy fuck.");
+                NSDictionary *dataResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                if ([[dataResponse objectForKey:@"status"]  isEqual:@"success"]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setProfileUI:user];
+                        [self setProfileUI:[self.appDelegate currentUser]];
                     });
                 } else {
-                    NSLog(@"Fucking shit no.");
+                    NSLog(@"Something went wrong.");
                 }
             } else {
                 NSLog(@"Error: %@", error.localizedDescription);

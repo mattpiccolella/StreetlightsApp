@@ -23,4 +23,6 @@
 
 + (MJPUser*) getUserFromJSON:(NSDictionary*) userDictionary;
 
+- (UIImage*) getUserProfileImage;
+
 @end

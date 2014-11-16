@@ -33,4 +33,12 @@
     MJPUser *user = [[MJPUser alloc] initWithName:[userDictionary objectForKey:@"name"] email:[userDictionary objectForKey:@"email"] password:[userDictionary objectForKey:@"password"]];
     return user;
 }
+
+- (UIImage*)getUserProfileImage {
+    NSString *urlString = [NSString stringWithFormat:@"http://107.170.105.12/get_user_image/%@", self.email];
+    UIImage* profileImage = [UIImage imageWithData:
+                        [NSData dataWithContentsOfURL:
+                         [NSURL URLWithString: urlString]]];
+    return profileImage;
+}
 @end
