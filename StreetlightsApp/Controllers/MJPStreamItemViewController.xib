@@ -8,9 +8,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPStreamItemViewController">
             <connections>
                 <outlet property="distanceLabel" destination="OaC-fh-2Ij" id="QW6-F4-2AK"/>
-                <outlet property="mapView" destination="Pcf-Hv-GvN" id="WnD-Me-lih"/>
+                <outlet property="mapView" destination="fQk-Br-Uep" id="Nf3-ae-3kF"/>
                 <outlet property="postDescription" destination="RsQ-ze-Mr1" id="DBi-HA-yJo"/>
-                <outlet property="profilePicture" destination="sX8-VQ-R5B" id="htY-MY-e0h"/>
+                <outlet property="profilePicture" destination="aTq-qV-w3J" id="Ogf-0Q-DIJ"/>
                 <outlet property="timePosted" destination="GQl-er-zEb" id="pfF-5H-Vqp"/>
                 <outlet property="timeRemaining" destination="0DO-sG-QuC" id="vFN-Su-Ny2"/>
                 <outlet property="userName" destination="1pD-BO-Z2y" id="7HP-s7-Z28"/>
@@ -22,9 +22,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pcf-Hv-GvN" customClass="GMSMapView">
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="StreamItem" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pD-BO-Z2y">
                     <rect key="frame" x="62" y="197" width="185" height="21"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -53,9 +50,12 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sX8-VQ-R5B">
-                    <rect key="frame" x="14" y="188" width="40" height="40"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aTq-qV-w3J">
+                    <rect key="frame" x="14" y="185" width="40" height="46"/>
                 </imageView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQk-Br-Uep" customClass="GMSMapView">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>

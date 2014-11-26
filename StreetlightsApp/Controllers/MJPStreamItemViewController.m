@@ -17,10 +17,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timePosted;
 @property (strong, nonatomic) IBOutlet UILabel *timeRemaining;
-@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 
 @property (strong, nonatomic) PFObject *streamItem;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
+
 
 @end
 
@@ -55,6 +56,7 @@
         UIImage *profilePicture = [UIImage imageWithData:[self.streamItem[@"user"][@"profilePicture"] getData]];
         NSLog(@"Are we doing this?");
         dispatch_async( dispatch_get_main_queue(), ^{
+            NSLog(@"Setting this.");
             [self.profilePicture setImage:profilePicture];
         });
     });
