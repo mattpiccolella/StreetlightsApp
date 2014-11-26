@@ -32,8 +32,7 @@
 
 @implementation MJPUserProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
@@ -41,8 +40,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     if ([self.appDelegate hasUserCredentials]) {
@@ -65,10 +63,8 @@
     [self.userFirstName setTitle:user[@"name"]];
     // TODO: Do stuff with number of friends, etc.
     NSLog(@"%@", self.appDelegate.currentUser);
-    //[self.userImage.imageView setImage:[UIImage imageWithData:[[self.appDelegate.currentUser objectForKey:@"profilePicture"] getData]]];
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
-        NSLog(@"WE'RE DOWNLOADING THE IMAGE");
         dispatch_async( dispatch_get_main_queue(), ^{
             [self.userImage.imageView setImage:profilePicture];
             [self.activityIndicator setHidden:YES];
@@ -76,8 +72,7 @@
     });
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -99,6 +94,7 @@
 - (IBAction)editProfile:(id)sender {
     // TODO: Present the edit view. Allow users to edit their profile.
 }
+
 - (IBAction)changeUserImage:(id)sender {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
