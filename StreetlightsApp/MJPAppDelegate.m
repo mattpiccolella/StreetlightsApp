@@ -25,13 +25,10 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     
-    self.searchEveryone = FALSE;
     self.searchRadius = 4.0;
     
-    self.everyoneArray = [[NSMutableArray alloc] init];
-    self.friendArray = [[NSMutableArray alloc] init];
+    self.streamItemArray = [[NSArray alloc] init];
     
     if ([kAPIKey length] == 0) {
         // Blow up if APIKey has not yet been set.

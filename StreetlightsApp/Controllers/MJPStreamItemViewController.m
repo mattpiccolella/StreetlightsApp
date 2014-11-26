@@ -19,7 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *timeRemaining;
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 
-@property (strong, nonatomic) MJPStreamItem *streamItem;
+@property (strong, nonatomic) PFObject *streamItem;
 
 @end
 
@@ -34,7 +34,7 @@
     return self;
 }
 
-- (id)initWithStreamItem:(MJPStreamItem *)streamItem {
+- (id)initWithStreamItem:(PFObject *)streamItem {
     self = [super init];
     if (self) {
         self.streamItem = streamItem;
@@ -47,11 +47,11 @@
     [super viewDidLoad];
     
     // Set the fields for the current stream item.
-    self.userName.text = self.streamItem.user.name;
-    self.postDescription.text = self.streamItem.description;
+    self.userName.text = self.streamItem[@"user"][@"name"];
+    self.postDescription.text = self.streamItem[@"description"];
     
     // Get the dates
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.streamItem.postedTimestamp doubleValue]];
+    NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"postedTimestamp"] doubleValue]];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
@@ -59,7 +59,7 @@
     
     // Add a marker for the location of the point.
     GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake([self.streamItem latitude], [self.streamItem longitude]);
+    marker.position = CLLocationCoordinate2DMake([self.streamItem[@"latitude"] floatValue], [self.streamItem[@"longitude"] floatValue]);
     marker.map = self.mapView;
     
     // Move the map to the location of the marker

@@ -15,13 +15,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, readwrite) BOOL searchEveryone;
-
 @property (nonatomic, readwrite) float searchRadius;
 
-@property (strong, nonatomic) NSMutableArray *everyoneArray;
-
-@property (strong, nonatomic) NSMutableArray *friendArray;
+@property (strong, nonatomic) NSArray *streamItemArray;
 
 @property (strong, nonatomic) PFObject *currentUser;
 

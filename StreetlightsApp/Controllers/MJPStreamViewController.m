@@ -11,6 +11,8 @@
 #import "MJPStreamItemTableViewCell.h"
 #import "MJPStreamItem.h"
 #import "MJPStreamItemViewController.h"
+#import <Parse/Parse.h>
+#import "MJPQueryUtils.h"
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -67,7 +69,7 @@ NSMutableArray *friendItems;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.scopeSelector.selectedSegmentIndex = [self.appDelegate searchEveryone];
+    //self.scopeSelector.selectedSegmentIndex = [self.appDelegate searchEveryone];
     
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
@@ -84,11 +86,14 @@ NSMutableArray *friendItems;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    return [self.appDelegate.streamItemArray count];
+    /*
     if (self.appDelegate.searchEveryone) {
         return [self.appDelegate.friendArray count];
     } else {
         return [self.appDelegate.everyoneArray count];
     }
+     */
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,15 +103,10 @@ NSMutableArray *friendItems;
         [streamItemView registerNib:[UINib nibWithNibName:@"MJPStreamItemTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
         cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
-    MJPStreamItem *streamItem;
-    if (self.appDelegate.searchEveryone) {
-        streamItem = ((MJPStreamItem*)[self.appDelegate.friendArray objectAtIndex:indexPath.row]);
-    } else {
-        streamItem = ((MJPStreamItem*)[self.appDelegate.everyoneArray objectAtIndex:indexPath.row]);
-    }
-    MJPUser *user = streamItem.user;
-    cell.userName.text = user.name;
-    cell.postInfo.text = streamItem.postDescription;
+    PFObject *streamItem = [self.appDelegate.streamItemArray objectAtIndex:indexPath.row];
+    PFObject *streamItemUser = streamItem[@"user"];
+    cell.userName.text = streamItemUser[@"name"];
+    cell.postInfo.text = streamItem[@"description"];
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
     // TODO: Make actual profile images.
     cell.userImage.image = [UIImage imageNamed:@"images.jpeg"];
@@ -136,49 +136,18 @@ NSMutableArray *friendItems;
 }
 
 - (IBAction)scopeChanged:(id)sender {
-    [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
     
     [streamItemView reloadData];
 }
 
 - (void)fetchNewStreamItems {
-    NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
-                                 self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
-                                 self.distanceSlider.value];
-    NSLog(@"Stream formatted string: %@", formattedString);
-    NSURL *url = [NSURL URLWithString:formattedString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    // Create a task.
-    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (!error) {
-            [self.appDelegate.everyoneArray removeAllObjects];
-            [self.appDelegate.friendArray removeAllObjects];
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
-                    MJPUser *user = [[MJPUser alloc] initWithName:[[streamItem objectForKey:@"user"] objectForKey:@"name"] email:nil password:nil];
-                    NSString *description = [streamItem objectForKey:@"description"];
-                    NSNumber *created = [NSNumber numberWithDouble:[[streamItem objectForKey:@"created"] doubleValue]];
-                    NSNumber *expiration = [NSNumber numberWithDouble:[[streamItem objectForKey:@"expiration"] doubleValue]];
-                    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:created expiredTimestamp:expiration friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
-                    [self.appDelegate.everyoneArray addObject:newStreamItem];
-                    if ([newStreamItem isFriend]) {
-                        [self.appDelegate.friendArray addObject:newStreamItem];
-                    }
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.activityIndicator setHidden:YES];
-                    [streamItemView reloadData];
-                    [self.refreshControl endRefreshing];
-                });
-            } else {
-                NSLog(@"%@", [response objectForKey:@"status"]);
-            }
-        } else {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
+    float longitude = self.currentLocation.coordinate.longitude;
+    float latitude = self.currentLocation.coordinate.latitude;
+    float radius = self.distanceSlider.value;
+    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForLatitude:latitude longitude:longitude radius:radius];
+    [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.appDelegate setStreamItemArray:objects];
     }];
-    [newPostTask resume];
 }
 
 - (void)handleRefresh {
@@ -194,7 +163,7 @@ NSMutableArray *friendItems;
 
 - (void)loadInitialStreamItems {
     // Bad hack. We try to load only based off of whether there are any objects available.
-    if ([self.appDelegate.everyoneArray count] == 0) {
+    if ([self.appDelegate.streamItemArray count] == 0) {
         [self fetchNewStreamItems];
     } else {
         [self.activityIndicator setHidden:YES];
@@ -219,12 +188,7 @@ NSMutableArray *friendItems;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MJPStreamItem *selectedStreamItem;
-    if (self.appDelegate.searchEveryone) {
-        selectedStreamItem = [self.appDelegate.friendArray objectAtIndex:indexPath.row];
-    } else {
-        selectedStreamItem = [self.appDelegate.everyoneArray objectAtIndex:indexPath.row];
-    }
+    PFObject *selectedStreamItem = [self.appDelegate.streamItemArray objectAtIndex:indexPath.row];
     MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem];
     UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
     UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];

@@ -11,6 +11,6 @@
 
 @interface MJPStreamItemViewController : UIViewController
 
-- (id)initWithStreamItem:(MJPStreamItem *)streamItem;
+- (id)initWithStreamItem:(PFObject *)streamItem;
 
 @end

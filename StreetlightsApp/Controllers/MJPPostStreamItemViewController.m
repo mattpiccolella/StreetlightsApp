@@ -48,35 +48,19 @@
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
     
+    // Why did I need this?
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
     
     if ([self.appDelegate currentUser] == nil) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://107.170.105.12/get_user/%@", [self.appDelegate currentUserId]]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        NSURLSessionDataTask *getUserTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
-                                                                                                                          NSURLResponse *response,
-                                                                                                                          NSError *error) {
-            if (!error) {
-                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                    MJPUser *user = [MJPUser getUserFromJSON:response];
-                    //[user setUserId:[self.appDelegate currentUserId]];
-                    [self.appDelegate setCurrentUser:user];
-                }
-            } else {
-                NSLog(@"Error: %@", error.localizedDescription);
-            }
-        }];
-        [getUserTask resume];
+        // TODO: Look into this. I don't even think this is necessary.
     }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
