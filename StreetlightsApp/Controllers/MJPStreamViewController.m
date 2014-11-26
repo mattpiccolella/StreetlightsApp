@@ -107,6 +107,13 @@ NSMutableArray *friendItems;
     PFObject *streamItemUser = streamItem[@"user"];
     cell.userName.text = streamItemUser[@"name"];
     cell.postInfo.text = streamItem[@"description"];
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *profilePicture = [UIImage imageWithData:[streamItemUser[@"profilePicture"] getData]];
+        NSLog(@"Are we doing this?");
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [cell.userImage setImage:profilePicture];
+        });
+    });
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
     // TODO: Make actual profile images.
     cell.userImage.image = [UIImage imageNamed:@"images.jpeg"];

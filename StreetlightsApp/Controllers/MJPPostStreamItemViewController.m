@@ -76,6 +76,7 @@
 }
 
 - (IBAction)post:(id)sender {
+    [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
     CLLocation *currentLocation = [self.mapView myLocation];
     float latitude = (float) currentLocation.coordinate.latitude;

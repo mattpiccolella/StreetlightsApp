@@ -28,6 +28,8 @@
     NSLog(@"Expired Timestamp: %@", currentTime);
     [streamItemQuery whereKey:@"expiredTimestamp" greaterThan:currentTime];
     [streamItemQuery includeKey:@"user"];
+    [streamItemQuery includeKey:@"profilePicture"];
+    [streamItemQuery addDescendingOrder:@"postedTimestamp"];
     return streamItemQuery;
 }
 

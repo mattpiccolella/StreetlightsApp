@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPUserProfileViewController">
             <connections>
+                <outlet property="activityIndicator" destination="dEq-Es-KMw" id="zA9-z8-K6D"/>
                 <outlet property="numberOfFriends" destination="TMk-SJ-hC4" id="52W-dl-PIP"/>
                 <outlet property="numberOfPosts" destination="2NP-Ii-4FA" id="2Qd-se-vcB"/>
                 <outlet property="userFirstName" destination="9LY-X1-THU" id="hkQ-Cs-63Q"/>
@@ -85,6 +86,9 @@
                         <action selector="changeUserImage:" destination="-1" eventType="touchUpInside" id="yze-xl-NMn"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dEq-Es-KMw">
+                    <rect key="frame" x="150" y="274" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>

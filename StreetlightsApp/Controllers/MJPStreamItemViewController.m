@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 
 @property (strong, nonatomic) PFObject *streamItem;
+@property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
 
 @end
 
@@ -49,6 +50,14 @@
     // Set the fields for the current stream item.
     self.userName.text = self.streamItem[@"user"][@"name"];
     self.postDescription.text = self.streamItem[@"description"];
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *profilePicture = [UIImage imageWithData:[self.streamItem[@"user"][@"profilePicture"] getData]];
+        NSLog(@"Are we doing this?");
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [self.profilePicture setImage:profilePicture];
+        });
+    });
     
     // Get the dates
     NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"postedTimestamp"] doubleValue]];

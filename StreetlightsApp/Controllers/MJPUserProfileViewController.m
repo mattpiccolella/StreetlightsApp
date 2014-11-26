@@ -26,6 +26,7 @@
 - (IBAction)editProfile:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *userImage;
 - (IBAction)changeUserImage:(id)sender;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -58,10 +59,21 @@
 }
 
 - (void)setProfileUI:(PFObject*) user {
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
     [self.userName setText:user[@"name"]];
     [self.userFirstName setTitle:user[@"name"]];
     // TODO: Do stuff with number of friends, etc.
-    //[self.userImage.imageView setImage:[user getUserProfileImage]];
+    NSLog(@"%@", self.appDelegate.currentUser);
+    //[self.userImage.imageView setImage:[UIImage imageWithData:[[self.appDelegate.currentUser objectForKey:@"profilePicture"] getData]]];
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
+        NSLog(@"WE'RE DOWNLOADING THE IMAGE");
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [self.userImage.imageView setImage:profilePicture];
+            [self.activityIndicator setHidden:YES];
+        });
+    });
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,41 +118,33 @@
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *newUserImage = info[UIImagePickerControllerOriginalImage];
         NSData *imageData = UIImageJPEGRepresentation(newUserImage, 0.7);
-        /*
-        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[self.appDelegate currentUser] email]];
-        NSString *userId = [[self.appDelegate currentUser] email];
-        
-        NSMutableURLRequest *profPicRequest = [MJPFileUploadUtils getProfileImageUploadRequestWithData:imageData andFileName:fileName andUserId:userId];
-        NSURLSessionDataTask *profPicRequestTask = [[NSURLSession sharedSession] dataTaskWithRequest:profPicRequest completionHandler:^(NSData *data,
-                                                                                                                          NSURLResponse *response,
-                                                                                                                          NSError *error) {
-            if (!error) {
-                NSDictionary *dataResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if (!dataResponse) {
-                    NSLog(@"FUCK WHY THE FUCK IS IT NULL?");
-                }
-                if (!data) {
-                    NSLog(@"HOW CAN THE FUCKING DATA BE NULL?");
-                }
-                if ([[dataResponse objectForKey:@"status"]  isEqual:@"success"]) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setProfileUI:[self.appDelegate currentUser]];
-                    });
-                } else {
-                    NSLog(@"Something went wrong.");
-                }
+        PFFile *userPhoto = [PFFile fileWithData:imageData];
+        PFObject *userPhotoObject = [self.appDelegate currentUser];
+        userPhotoObject[@"profilePicture"] = userPhoto;
+        [userPhotoObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"SUCCESS!");
+                [self.appDelegate setCurrentUser:userPhotoObject];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.activityIndicator setHidden:YES];
+                    [self.userImage.imageView setImage:[UIImage imageWithData:[[userPhotoObject objectForKey:@"profilePicture"] getData]]];
+                });
             } else {
-                NSLog(@"Error: %@", error.localizedDescription);
+                // TODO: Display better errors.
+                NSLog(@"ERROR!");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.activityIndicator setHidden:YES];
+                });
             }
         }];
-        [profPicRequestTask resume];
-         */
         
     } else {
         // TODO: Display an error in the case the user entered something other than an image.
         NSLog(@"ERROR");
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
