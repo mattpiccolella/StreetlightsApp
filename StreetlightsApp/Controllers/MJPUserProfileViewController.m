@@ -132,6 +132,12 @@
                                                                                                                           NSError *error) {
             if (!error) {
                 NSDictionary *dataResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                if (!dataResponse) {
+                    NSLog(@"FUCK WHY THE FUCK IS IT NULL?");
+                }
+                if (!data) {
+                    NSLog(@"HOW CAN THE FUCKING DATA BE NULL?");
+                }
                 if ([[dataResponse objectForKey:@"status"]  isEqual:@"success"]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self setProfileUI:[self.appDelegate currentUser]];
