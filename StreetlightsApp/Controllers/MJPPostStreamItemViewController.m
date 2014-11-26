@@ -97,37 +97,27 @@
     float latitude = (float) currentLocation.coordinate.latitude;
     float longitude = (float) currentLocation.coordinate.longitude;
     
-    // TODO: Fix the search radius to a non-fixed value.
-    NSString *postString = [NSString stringWithFormat:@"userid=%@&description=%@&latitude=%f&longitude=%f&expiration=%d",
-                            [self.appDelegate currentUserId], self.postDescription.text,
-                            latitude, longitude, 50];
+    long expirationOffset = [self.expirationTime countDownDuration];
     
-    NSData *data = [postString dataUsingEncoding:NSUTF8StringEncoding];
-
-    [self.activityIndicator startAnimating];
-    NSURL *url = [NSURL URLWithString:@"http://107.170.105.12/create_new_post"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    request.HTTPBody = data;
-    // Create a task.
-    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
-                                                                                                                      NSURLResponse *response,
-                                                                                                                      NSError *error) {
+    PFObject *parseStreamItem = [PFObject objectWithClassName:@"StreamItem"];
+    [parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
+    [parseStreamItem setObject:self.postDescription.text forKey:@"description"];
+    [parseStreamItem setObject:[NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]] forKey:@"postedTimestamp"];
+    [parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];
+    [parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+    [parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+    
+    [parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.postDescription.text = @"";
-                    [self.activityIndicator setHidden:YES];
-                });
-            } else {
-                // TODO: Do something if we don't succeed.
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.postDescription.text = @"";
+                [self.activityIndicator setHidden:YES];
+            });
         } else {
             NSLog(@"Error: %@", error.localizedDescription);
+            // TODO: Notify somebody of something. We can't save stream items.
         }
     }];
-    [newPostTask resume];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
