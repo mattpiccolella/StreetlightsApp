@@ -98,12 +98,6 @@
             PFObject *parseUser = [MJPUser getPFObjectFromUser:newUser];
             [parseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                    [userDefaults setObject:[newUser email] forKey:@"email"];
-                    [userDefaults setObject:[newUser password] forKey:@"password"];
-                    [userDefaults setValue:[NSNumber numberWithInteger:[newUser userId]] forKey:@"user_id"];
-                    MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
-                    [appDelegate setCurrentUser:newUser];
                     [self.activityIndicator setHidden:YES];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UITabBarController *tabBarController = [[UITabBarController alloc] init];
@@ -113,6 +107,15 @@
                         
                         [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
                     });
+                    MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
+                    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+                    [query whereKey:@"email" equalTo:newUser.email];
+                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                        [userDefaults setObject:object.objectId forKey:@"userId"];
+                        MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+                        [appDelegate setCurrentUser:object];
+                    }];
                     NSLog(@"We created our object.");
                 }
             }];

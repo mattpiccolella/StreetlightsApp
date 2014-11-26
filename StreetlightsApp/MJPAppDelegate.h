@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "MJPUser.h"
+#import <Parse/Parse.h>
 
 @interface MJPAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -22,7 +23,7 @@
 
 @property (strong, nonatomic) NSMutableArray *friendArray;
 
-@property (strong, nonatomic) MJPUser *currentUser;
+@property (strong, nonatomic) PFObject *currentUser;
 
 @property (strong, nonatomic) CLLocation *locationManager;
 
