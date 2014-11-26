@@ -100,7 +100,8 @@
     // TODO: Fix the search radius to a non-fixed value.
     NSString *postString = [NSString stringWithFormat:@"userid=%@&description=%@&latitude=%f&longitude=%f&expiration=%d",
                             [self.appDelegate currentUserId], self.postDescription.text,
-                            latitude, longitude, 50];;
+                            latitude, longitude, 50];
+    
     NSData *data = [postString dataUsingEncoding:NSUTF8StringEncoding];
 
     [self.activityIndicator startAnimating];

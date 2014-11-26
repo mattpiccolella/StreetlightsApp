@@ -47,6 +47,10 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     
     // Whenever a person opens the app, check for user credentials.
     if ([self hasUserCredentials]) {
+        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+        [query getObjectInBackgroundWithId:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"] block:^(PFObject *object, NSError *error) {
+            [self setCurrentUser:object];
+        }];
         [self loggedInView];
         return YES;
     } else {
@@ -74,12 +78,12 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
 - (BOOL)hasUserCredentials {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:@"email"] != nil && [userDefaults objectForKey:@"password"] != nil && [userDefaults objectForKey:@"user_id"] != nil;
+    return [userDefaults objectForKey:@"userId"] != nil;
 }
          
 - (id)currentUserId {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:@"user_id"];
+    return [userDefaults objectForKey:@"userId"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
