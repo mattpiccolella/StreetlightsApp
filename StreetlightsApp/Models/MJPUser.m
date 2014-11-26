@@ -7,6 +7,7 @@
 //
 
 #import "MJPUser.h"
+#import <Parse/Parse.h>
 
 @implementation MJPUser
 
@@ -27,6 +28,15 @@
                             user.name, user.email, user.password, user.biography];;
     NSData *data = [userString dataUsingEncoding:NSUTF8StringEncoding];
     return data;
+}
+
++ (PFObject*) getPFObjectFromUser:(MJPUser*) user {
+    PFObject *parseUser = [PFObject objectWithClassName:@"User"];
+    parseUser[@"name"] = user.name;
+    parseUser[@"email"] = user.email;
+    parseUser[@"password"] = user.password;
+    parseUser[@"biography"] = user.biography;
+    return parseUser;
 }
 
 + (MJPUser*) getUserFromJSON:(NSDictionary*) userDictionary {

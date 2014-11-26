@@ -55,6 +55,12 @@
 		5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */; };
 		5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74B119A52C810095117F /* MJPStreamItem.m */; };
 		5C7F74B419A536B10095117F /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74B319A536B10095117F /* DummyData.json */; };
+		5C8901521A262BD3003BCDDB /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901511A262BD3003BCDDB /* Parse.framework */; };
+		5C8901581A262C2B003BCDDB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901531A262C2B003BCDDB /* AudioToolbox.framework */; };
+		5C8901591A262C2B003BCDDB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901541A262C2B003BCDDB /* CFNetwork.framework */; };
+		5C89015A1A262C2B003BCDDB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901551A262C2B003BCDDB /* MobileCoreServices.framework */; };
+		5C89015B1A262C2B003BCDDB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901561A262C2B003BCDDB /* Security.framework */; };
+		5C89015C1A262C2B003BCDDB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901571A262C2B003BCDDB /* StoreKit.framework */; };
 		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
@@ -159,6 +165,12 @@
 		5C7F74B019A52C810095117F /* MJPStreamItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItem.h; sourceTree = "<group>"; };
 		5C7F74B119A52C810095117F /* MJPStreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItem.m; sourceTree = "<group>"; };
 		5C7F74B319A536B10095117F /* DummyData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
+		5C8901511A262BD3003BCDDB /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		5C8901531A262C2B003BCDDB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		5C8901541A262C2B003BCDDB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5C8901551A262C2B003BCDDB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5C8901561A262C2B003BCDDB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5C8901571A262C2B003BCDDB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
 		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
@@ -200,12 +212,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C8901581A262C2B003BCDDB /* AudioToolbox.framework in Frameworks */,
+				5C8901591A262C2B003BCDDB /* CFNetwork.framework in Frameworks */,
+				5C89015A1A262C2B003BCDDB /* MobileCoreServices.framework in Frameworks */,
+				5C89015B1A262C2B003BCDDB /* Security.framework in Frameworks */,
+				5C89015C1A262C2B003BCDDB /* StoreKit.framework in Frameworks */,
+				5C7F748719A439F80095117F /* CoreLocation.framework in Frameworks */,
+				5C7F749019A439F80095117F /* SystemConfiguration.framework in Frameworks */,
 				5CE8714319B4EE2300C963AF /* libsqlite3.dylib in Frameworks */,
 				5C7F748D19A439F80095117F /* libz.dylib in Frameworks */,
 				5CE8714F19B4EEB700C963AF /* TMCache.framework in Frameworks */,
-				5C7F748719A439F80095117F /* CoreLocation.framework in Frameworks */,
 				5C7F748519A439F80095117F /* AVFoundation.framework in Frameworks */,
 				5C7F748619A439F80095117F /* CoreData.framework in Frameworks */,
+				5C8901521A262BD3003BCDDB /* Parse.framework in Frameworks */,
 				5CE8714D19B4EEB700C963AF /* Mantle.framework in Frameworks */,
 				5C7F748819A439F80095117F /* CoreText.framework in Frameworks */,
 				5C7F748919A439F80095117F /* GLKit.framework in Frameworks */,
@@ -217,7 +236,6 @@
 				5C7F748E19A439F80095117F /* OpenGLES.framework in Frameworks */,
 				5CE8714C19B4EEB700C963AF /* GZIP.framework in Frameworks */,
 				5C7F748F19A439F80095117F /* QuartzCore.framework in Frameworks */,
-				5C7F749019A439F80095117F /* SystemConfiguration.framework in Frameworks */,
 				5CE8715119B4EEB700C963AF /* XMLDictionary.framework in Frameworks */,
 				5CE8715019B4EEB700C963AF /* UICKeyChainStore.framework in Frameworks */,
 				5CE8714E19B4EEB700C963AF /* Reachability.framework in Frameworks */,
@@ -263,6 +281,12 @@
 		5C7F743219A3BB2A0095117F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C8901531A262C2B003BCDDB /* AudioToolbox.framework */,
+				5C8901541A262C2B003BCDDB /* CFNetwork.framework */,
+				5C8901551A262C2B003BCDDB /* MobileCoreServices.framework */,
+				5C8901561A262C2B003BCDDB /* Security.framework */,
+				5C8901571A262C2B003BCDDB /* StoreKit.framework */,
+				5C8901511A262BD3003BCDDB /* Parse.framework */,
 				5CE8714519B4EEB700C963AF /* GZIP.framework */,
 				5CE8714619B4EEB700C963AF /* Mantle.framework */,
 				5CE8714719B4EEB700C963AF /* Reachability.framework */,

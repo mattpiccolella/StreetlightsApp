@@ -15,6 +15,7 @@
 #import "MJPPostStreamItemViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "MJPUser.h"
+#import <Parse/Parse.h>
 
 @interface MJPLoginViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *nameField;
@@ -87,40 +88,35 @@
 
 - (IBAction)registerButtonPressed:(id)sender {
     MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
-    NSData *jsonData = [MJPUser getJSONFromUser:newUser];
-    [self.activityIndicator startAnimating];
-    NSURL *url = [NSURL URLWithString:@"http://107.170.105.12/create_new_user"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    request.HTTPBody = jsonData;
-    // Create a task.
-    NSURLSessionDataTask *newUserTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
-                                                                                                               NSURLResponse *response,
-                                                                                                               NSError *error) {
-        if (!error) {
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                [newUser setUserId:[[response objectForKey:@"user_id"] intValue]];
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults setObject:[newUser email] forKey:@"email"];
-                [userDefaults setObject:[newUser password] forKey:@"password"];
-                [userDefaults setValue:[NSNumber numberWithInteger:[newUser userId]] forKey:@"user_id"];
-                MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
-                [appDelegate setCurrentUser:newUser];
-                [self.activityIndicator setHidden:YES];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-                    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
-                    
-                    tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
-                    
-                    [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
-                });
-            }
+    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    [query whereKey:@"email" equalTo:newUser.email];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ([objects count] != 0) {
+            NSLog(@"Email already taken");
+            // TODO: Do better error handling.
         } else {
-            NSLog(@"Error: %@", error.localizedDescription);
+            PFObject *parseUser = [MJPUser getPFObjectFromUser:newUser];
+            [parseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:[newUser email] forKey:@"email"];
+                    [userDefaults setObject:[newUser password] forKey:@"password"];
+                    [userDefaults setValue:[NSNumber numberWithInteger:[newUser userId]] forKey:@"user_id"];
+                    MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [appDelegate setCurrentUser:newUser];
+                    [self.activityIndicator setHidden:YES];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UITabBarController *tabBarController = [[UITabBarController alloc] init];
+                        [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
+                        
+                        tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
+                        
+                        [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
+                    });
+                    NSLog(@"We created our object.");
+                }
+            }];
         }
     }];
-    [newUserTask resume];
 }
 @end

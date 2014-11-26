@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface MJPUser : NSObject
 
@@ -24,5 +25,7 @@
 + (MJPUser*) getUserFromJSON:(NSDictionary*) userDictionary;
 
 - (UIImage*) getUserProfileImage;
+
++ (PFObject*) getPFObjectFromUser:(MJPUser*)user;
 
 @end
