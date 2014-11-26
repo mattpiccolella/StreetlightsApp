@@ -11,6 +11,7 @@
 #import "MJPStreamItem.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Parse/Parse.h>
+#import "MJPQueryUtils.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
@@ -70,7 +71,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.scopeSelector setSelectedSegmentIndex:[self.appDelegate searchEveryone]];
+    //[self.scopeSelector setSelectedSegmentIndex:[self.appDelegate searchEveryone]];
 
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
@@ -113,7 +114,7 @@
 }
 
 - (IBAction)scopeChanged:(id)sender {
-    [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
+    //[self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
     
     [self addMarkers];
 }
@@ -121,66 +122,36 @@
 - (void) addMarkers {
     [self.mapView clear];
     // TODO: Add custom markers.
-    if (self.scopeSelector.selectedSegmentIndex) {
-        for (MJPStreamItem *streamItem in self.appDelegate.friendArray) {
-            GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.title = streamItem.user.name;
-            marker.snippet = streamItem.postDescription;
-            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
-            marker.map = self.mapView;
-        }
-    } else {
-        for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
-            GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.title = streamItem.user.name;
-            marker.snippet = streamItem.description;
-            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
-            marker.map = self.mapView;
-        }
+    for (PFObject *streamItem in self.appDelegate.streamItemArray) {
+        GMSMarker *marker = [[GMSMarker alloc] init];
+        marker.title = streamItem[@"user"][@"name"];
+        marker.snippet = streamItem[@"description"];
+        marker.position = CLLocationCoordinate2DMake([streamItem[@"latitude"] floatValue], [streamItem[@"longitude"] floatValue]);
+        marker.map = self.mapView;
     }
 }
 
 - (void)fetchNewStreamItems {
-    NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
-                                 self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
-                                 self.distanceSlider.value];
-    NSURL *url = [NSURL URLWithString:formattedString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    // Create a task.
-    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (!error) {
-            [self.appDelegate.everyoneArray removeAllObjects];
-            [self.appDelegate.friendArray removeAllObjects];
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
-                    NSString *userName = [[streamItem objectForKey:@"user"] objectForKey:@"name"];
-                    MJPUser *user = [[MJPUser alloc] initWithName:userName email:nil password:nil];
-                    NSString *description = [streamItem objectForKey:@"description"];
-                    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:0 expiredTimestamp:0 friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
-                    [self.appDelegate.everyoneArray addObject:newStreamItem];
-                    if ([newStreamItem isFriend]) {
-                        [self.appDelegate.friendArray addObject:newStreamItem];
-                    }
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.activityIndicator setHidden:YES];
-                    [self addMarkers];
-                });
-            } else {
-                NSLog(@"%@", [response objectForKey:@"status"]);
-            }
-        } else {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
+    float longitude = self.currentLocation.coordinate.longitude;
+    float latitude = self.currentLocation.coordinate.latitude;
+    float radius = self.distanceSlider.value;
+    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForLatitude:latitude longitude:longitude radius:radius];
+    [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.appDelegate setStreamItemArray:objects];
+        [self addMarkers];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator setHidden:YES];
+        });
     }];
-    [newPostTask resume];
 }
 
 - (void)loadInitialMarkers {
     // Bad hack. We try to load only based off of whether there are any objects available.
-    if ([self.appDelegate.everyoneArray count] == 0) {
+    if ([self.appDelegate.streamItemArray count] == 0) {
         [self fetchNewStreamItems];
+        [self.activityIndicator setHidden:YES];
     } else {
         [self.activityIndicator setHidden:YES];
         [self addMarkers];

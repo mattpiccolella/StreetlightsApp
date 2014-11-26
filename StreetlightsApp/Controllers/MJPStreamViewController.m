@@ -147,6 +147,11 @@ NSMutableArray *friendItems;
     PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForLatitude:latitude longitude:longitude radius:radius];
     [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.appDelegate setStreamItemArray:objects];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator setHidden:YES];
+            [streamItemView reloadData];
+            [self.refreshControl endRefreshing];
+        });
     }];
 }
 
