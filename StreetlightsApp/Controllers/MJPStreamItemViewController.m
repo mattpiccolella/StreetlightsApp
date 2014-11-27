@@ -1,10 +1,6 @@
-//
 //  MJPStreamItemViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/28/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPStreamItemViewController.h"
 #import "MJPStreamItem.h"
@@ -27,8 +23,7 @@
 
 @implementation MJPStreamItemViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -44,8 +39,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     // Set the fields for the current stream item.
@@ -83,8 +77,7 @@
     self.navigationController.navigationBar.topItem.title = @"Pinpoint";
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

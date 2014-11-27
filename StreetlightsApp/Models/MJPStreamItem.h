@@ -1,10 +1,6 @@
-//
 //  MJPStreamItem.h
-//  StreetlightsApp
-//
-//  Created by Matt on 8/20/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "MJPUser.h"

@@ -1,10 +1,6 @@
-//
 //  MJPPostStreamItemViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/20/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPPostStreamItemViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -26,8 +22,7 @@
     BOOL hasSetLocation_;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -35,8 +30,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.activityIndicator setHidden:true];
@@ -58,8 +52,7 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 

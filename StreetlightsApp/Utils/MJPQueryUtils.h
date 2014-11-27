@@ -1,10 +1,6 @@
-//
 //  MJPQueryUtils.h
-//  StreetlightsApp
-//
-//  Created by Matt on 11/26/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>

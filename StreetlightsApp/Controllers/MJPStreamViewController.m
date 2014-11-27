@@ -1,10 +1,6 @@
-//
 //  MJPStreamViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/19/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPStreamViewController.h"
 #import "MJPAppDelegate.h"
@@ -35,8 +31,7 @@ static NSInteger cellHeight = 80;
 NSMutableArray *everyoneItems;
 NSMutableArray *friendItems;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -44,8 +39,7 @@ NSMutableArray *friendItems;
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
@@ -67,8 +61,7 @@ NSMutableArray *friendItems;
     [self.activityIndicator startAnimating];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     //self.scopeSelector.selectedSegmentIndex = [self.appDelegate searchEveryone];
     
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
@@ -84,8 +77,7 @@ NSMutableArray *friendItems;
     [streamItemView reloadData];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.appDelegate.streamItemArray count];
     /*
     if (self.appDelegate.searchEveryone) {
@@ -96,8 +88,7 @@ NSMutableArray *friendItems;
      */
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MJPStreamItemTableViewCell *cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         [streamItemView registerNib:[UINib nibWithNibName:@"MJPStreamItemTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
@@ -124,8 +115,7 @@ NSMutableArray *friendItems;
     return cellHeight;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -183,14 +173,12 @@ NSMutableArray *friendItems;
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     // TODO: Try to fail gracefully.
     NSLog(@"didFailWithError: %@", error);
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     NSLog(@"We are updating our location.");
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     self.currentLocation = newLocation;
@@ -198,8 +186,7 @@ NSMutableArray *friendItems;
     [self.locationManager stopUpdatingLocation];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PFObject *selectedStreamItem = [self.appDelegate.streamItemArray objectAtIndex:indexPath.row];
     MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem];
     UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;

@@ -1,10 +1,6 @@
-//
 //  MJPStreamItem.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/20/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPStreamItem.h"
 #import <Parse/Parse.h>
@@ -34,8 +30,7 @@
     return parseStreamItem;
 }
 
-+ (NSArray*)getStreamItemsGivenFromJSON:(NSString*)json
-{
++ (NSArray*)getStreamItemsGivenFromJSON:(NSString*)json {
     NSMutableArray *streamItems = [[NSMutableArray alloc] init];
     NSDictionary *result = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     NSArray *jsonItems = [result objectForKey:@"streamItems"];
@@ -45,8 +40,7 @@
     return streamItems;
 }
 
-+ (MJPStreamItem*)getStreamItemFromDictionary:(NSDictionary*)streamDictionary
-{
++ (MJPStreamItem*)getStreamItemFromDictionary:(NSDictionary*)streamDictionary {
     MJPUser *postUser = [MJPUser getUserFromJSON:[streamDictionary objectForKey:@"user"]];
     NSString *description = [streamDictionary objectForKey:@"description"];
     NSNumber *postedTimestamp = [streamDictionary objectForKey:@"postedTimestamp"];

@@ -1,10 +1,6 @@
-//
 //  MJPMapViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/19/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPMapViewController.h"
 #import "MJPAppDelegate.h"
@@ -33,8 +29,7 @@
     BOOL hasLoadedInitialMarkers_;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -42,8 +37,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -69,8 +63,7 @@
     });
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     //[self.scopeSelector setSelectedSegmentIndex:[self.appDelegate searchEveryone]];
 
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
@@ -83,8 +76,7 @@
     [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -158,14 +150,12 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     // TODO: Try to fail gracefully.
     NSLog(@"didFailWithError: %@", error);
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     if (hasLoadedInitialMarkers_ == NO) {
         self.currentLocation = newLocation;
