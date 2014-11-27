@@ -12,13 +12,11 @@
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
-- (IBAction)scopeChanged:(id)sender;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
@@ -62,7 +60,6 @@ NSMutableArray *friendItems;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    //self.scopeSelector.selectedSegmentIndex = [self.appDelegate searchEveryone];
     
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
@@ -79,13 +76,6 @@ NSMutableArray *friendItems;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.appDelegate.streamItemArray count];
-    /*
-    if (self.appDelegate.searchEveryone) {
-        return [self.appDelegate.friendArray count];
-    } else {
-        return [self.appDelegate.everyoneArray count];
-    }
-     */
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -130,11 +120,6 @@ NSMutableArray *friendItems;
     [self.appDelegate setSearchRadius:self.distanceSlider.value];
     
     [self fetchNewStreamItems];
-}
-
-- (IBAction)scopeChanged:(id)sender {
-    
-    [streamItemView reloadData];
 }
 
 - (void)fetchNewStreamItems {

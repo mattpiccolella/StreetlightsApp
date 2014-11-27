@@ -10,14 +10,12 @@
 #import "MJPQueryUtils.h"
 
 @interface MJPMapViewController ()
-@property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
-- (IBAction)scopeChanged:(id)sender;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
@@ -64,12 +62,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    //[self.scopeSelector setSelectedSegmentIndex:[self.appDelegate searchEveryone]];
-
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
-
 }
 
 - (void)dealloc {
@@ -103,12 +98,6 @@
     [self.appDelegate setSearchRadius:self.distanceSlider.value];
     [self.activityIndicator startAnimating];
     [self fetchNewStreamItems];
-}
-
-- (IBAction)scopeChanged:(id)sender {
-    //[self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
-    
-    [self addMarkers];
 }
 
 - (void) addMarkers {
