@@ -60,6 +60,7 @@
 		5C89015F1A265013003BCDDB /* MJPQueryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C89015E1A265013003BCDDB /* MJPQueryUtils.m */; };
 		5CE458291A46922D00EFF937 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE458281A46922D00EFF937 /* GoogleMaps.framework */; };
 		5CE4582B1A46934C00EFF937 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4582A1A46934C00EFF937 /* GoogleMaps.bundle */; };
+		5CE4582D1A475F9B00EFF937 /* Post.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4582C1A475F9B00EFF937 /* Post.png */; };
 		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
@@ -146,6 +147,7 @@
 		5C89015E1A265013003BCDDB /* MJPQueryUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPQueryUtils.m; sourceTree = "<group>"; };
 		5CE458281A46922D00EFF937 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		5CE4582A1A46934C00EFF937 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
+		5CE4582C1A475F9B00EFF937 /* Post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Post.png; sourceTree = "<group>"; };
 		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
 		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 		5C7F746919A3BC510095117F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5CE4582C1A475F9B00EFF937 /* Post.png */,
 				5CE8715219B4EEEA00C963AF /* autoscaling-2011-01-01.json */,
 				5CE8715319B4EEEA00C963AF /* cib-2014-06-30.json */,
 				5CE8715419B4EEEA00C963AF /* css-2014-06-30.json */,
@@ -483,6 +486,7 @@
 				5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
 				5CE4582B1A46934C00EFF937 /* GoogleMaps.bundle in Resources */,
+				5CE4582D1A475F9B00EFF937 /* Post.png in Resources */,
 				5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */,
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,

@@ -52,6 +52,10 @@
     }
 }
 
+- (void)dealloc {
+    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

@@ -10,6 +10,7 @@
 #import "MJPQueryUtils.h"
 #import "MJPStreamViewController.h"
 #import "MJPUserProfileViewController.h"
+#import "MJPPostStreamItemViewController.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -56,15 +57,6 @@
     
     self.mapView.camera = camera;
     
-    [self.mapView addObserver:self
-               forKeyPath:@"myLocation"
-                  options:NSKeyValueObservingOptionNew
-                  context:NULL];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.mapView.myLocationEnabled = YES;
-    });
-    
     [self.view addSubview:[self addPostButton]];
 }
 
@@ -72,10 +64,22 @@
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
+    [self.mapView addObserver:self
+                   forKeyPath:@"myLocation"
+                      options:NSKeyValueObservingOptionNew
+                      context:NULL];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.mapView.myLocationEnabled = YES;
+    });
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
+    NSLog(@"HELLO");
 }
 
 - (void)dealloc {
-    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
+    NSLog(@"HELLO");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -161,14 +165,15 @@
     }
 }
 
-- (UIButton*)addPostButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self
-               action:@selector(postButtonPushed)
-     forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Post" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
-    return button;
+- (UIImageView*)addPostButton {
+    // TODO: Work on making this less hard-coded. Think of proportions.
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(110.0, 450.0, 100.0, 100.0)];
+    [imageView setImage:[UIImage imageNamed:@"Post.png"]];
+    [imageView setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postButtonPushed)];
+    [postTap setNumberOfTapsRequired:1];
+    [imageView addGestureRecognizer:postTap];
+    return imageView;
 }
 
 
@@ -190,7 +195,9 @@
 }
 
 - (void)postButtonPushed {
-    // TODO: Navigation controller. Show post view. Pop up from bottom with X on post screen.
+    MJPPostStreamItemViewController *newPost = [[MJPPostStreamItemViewController alloc] init];
+    // TODO: Make the post transition from the bottom.
+    [[self navigationController] pushViewController:newPost animated:YES];
 }
 
 

@@ -19,13 +19,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5J-wc-wpE">
-                    <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                    <color key="barTintColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
-                    <items>
-                        <navigationItem title="Post" id="t0F-i4-2PK"/>
-                    </items>
-                </navigationBar>
                 <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="5" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qy-Ox-Mqh">
                     <rect key="frame" x="0.0" y="274" width="320" height="162"/>
                     <date key="date" timeIntervalSinceReferenceDate="430675200.78628099">
