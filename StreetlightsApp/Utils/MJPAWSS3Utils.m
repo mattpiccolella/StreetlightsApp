@@ -4,9 +4,6 @@
 
 #import "MJPAWSS3Utils.h"
 #import "MJPConstants.h"
-#import <AWSiOSSDKv2/AWSCredentialsProvider.h>
-#import <AWSiOSSDKv2/AWSCore.h>
-#import <AWSiOSSDKv2/S3.h>
 
 
 @implementation MJPAWSS3Utils

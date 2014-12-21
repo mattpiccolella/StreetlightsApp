@@ -7,9 +7,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "MJPLoginViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import <AWSiOSSDKv2/S3.h>
 #import "MJPConstants.h"
-#import "MJPAWSS3Utils.h"
 #import "MJPFileUploadUtils.h"
 
 @interface MJPUserProfileViewController ()
