@@ -60,13 +60,6 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
     navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
     
-    UISearchBar* searchBar = [self searchBar];
-    searchBar.delegate = mapViewController;
-    
-    UIView *searchBarView = [self viewWithSearchBar:searchBar];
-    
-    navController.navigationBar.topItem.titleView = searchBarView;
-    
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return;
@@ -107,29 +100,4 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 - (void)applicationWillTerminate:(UIApplication *)application {
     
 }
-
-// Format the search bar that will be added for the initial screen.
-- (UISearchBar*)searchBar {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    float searchBarWidth = 0.6 * screenWidth;
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
-    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [searchBar setBackgroundImage:[UIImage new]];
-    [searchBar setTranslucent:YES];
-    [searchBar setPlaceholder:@"Search & Filter"];
-    return searchBar;
-}
-
-// Add a centered view that will
-- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
-    float searchBarWidth = searchBar.bounds.size.width;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
-    searchBarView.autoresizingMask = 0;
-    [searchBarView addSubview:searchBar];
-    return searchBarView;
-}
-
 @end

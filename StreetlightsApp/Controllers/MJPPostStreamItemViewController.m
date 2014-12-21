@@ -50,6 +50,8 @@
     if ([self.appDelegate currentUser] == nil) {
         // TODO: Look into this. I don't even think this is necessary.
     }
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
 }
 
 - (void)dealloc {
@@ -94,6 +96,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.postDescription.text = @"";
                 [self.activityIndicator setHidden:YES];
+                // TODO: Work on making this transition more sensible.
+                [self.navigationController popViewControllerAnimated:YES];
             });
         } else {
             NSLog(@"Error: %@", error.localizedDescription);
@@ -108,5 +112,10 @@
         return NO;
     }
     return YES;
+}
+
+- (void)backButtonPushed {
+    // TODO: Make this pop from the bottom.
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

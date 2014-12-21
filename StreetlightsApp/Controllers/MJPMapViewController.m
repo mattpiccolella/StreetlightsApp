@@ -43,12 +43,24 @@
     
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Prof" style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StreamIcon.png"] landscapeImagePhone:[UIImage imageNamed:@"StreamIcon.png"] style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile.png"] landscapeImagePhone:[UIImage imageNamed:@"Profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
+    
+    UISearchBar* searchBar = [self searchBar];
+    searchBar.delegate = self;
+    
+    UIView *searchBarView = [self viewWithSearchBar:searchBar];
+    
+    self.navigationController.navigationBar.topItem.titleView = searchBarView;
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
                                                                  zoom:12];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.mapView.myLocationEnabled = YES;
+        NSLog(@"User Location: %@", self.mapView.myLocation);
+    });
     
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestWhenInUseAuthorization];
@@ -58,6 +70,7 @@
     self.mapView.camera = camera;
     
     [self.view addSubview:[self addPostButton]];
+    [self.view addSubview:[self addCurrentLocationButton]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,6 +82,7 @@
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
     dispatch_async(dispatch_get_main_queue(), ^{
+        // TODO: Look why the blue dot is not showing for iOS 8.
         self.mapView.myLocationEnabled = YES;
     });
 }
@@ -176,6 +190,18 @@
     return imageView;
 }
 
+- (UIImageView*)addCurrentLocationButton {
+    // TODO: Work on making this less hard-coded. Think of proportions.
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(240.0, 465.0, 80.0, 80.0)];
+    [imageView setImage:[UIImage imageNamed:@"CurrentLocation.png"]];
+    [imageView setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(currentLocationButtonPushed)];
+    [postTap setNumberOfTapsRequired:1];
+    [imageView addGestureRecognizer:postTap];
+    return imageView;
+
+}
+
 
 
 - (void)leftButtonPushed {
@@ -200,5 +226,34 @@
     [[self navigationController] pushViewController:newPost animated:YES];
 }
 
+- (void)currentLocationButtonPushed {
+    NSLog(@"YAY!");
+    // TODO: Make this navigate to current location.
+    [self.mapView animateToLocation:self.currentLocation.coordinate];
+}
+
+// Format the search bar that will be added for the initial screen.
+- (UISearchBar*)searchBar {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    float searchBarWidth = 0.6 * screenWidth;
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
+    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [searchBar setBackgroundImage:[UIImage new]];
+    [searchBar setTranslucent:YES];
+    [searchBar setPlaceholder:@"Search & Filter"];
+    return searchBar;
+}
+
+// Add a centered view that will
+- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
+    float searchBarWidth = searchBar.bounds.size.width;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
+    searchBarView.autoresizingMask = 0;
+    [searchBarView addSubview:searchBar];
+    return searchBarView;
+}
 
 @end

@@ -42,11 +42,9 @@
 		5C7F749019A439F80095117F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F748419A439F80095117F /* SystemConfiguration.framework */; };
 		5C7F749219A43B580095117F /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F749119A43B580095117F /* GoogleMaps.framework */; };
 		5C7F749B19A4ED550095117F /* MapIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749919A4ED550095117F /* MapIcon.png */; };
-		5C7F749C19A4ED550095117F /* StreamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749A19A4ED550095117F /* StreamIcon.png */; };
 		5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */; };
 		5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */; };
 		5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A719A4F0980095117F /* NotificationIcon.png */; };
-		5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A919A4F0A00095117F /* ProfileIcon.png */; };
 		5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */; };
 		5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */; };
 		5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74B119A52C810095117F /* MJPStreamItem.m */; };
@@ -61,6 +59,10 @@
 		5CE458291A46922D00EFF937 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE458281A46922D00EFF937 /* GoogleMaps.framework */; };
 		5CE4582B1A46934C00EFF937 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4582A1A46934C00EFF937 /* GoogleMaps.bundle */; };
 		5CE4582D1A475F9B00EFF937 /* Post.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4582C1A475F9B00EFF937 /* Post.png */; };
+		5CE4582F1A4763A400EFF937 /* CurrentLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4582E1A4763A400EFF937 /* CurrentLocation.png */; };
+		5CE458331A47713500EFF937 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458321A47713500EFF937 /* X.png */; };
+		5CE458351A4772BC00EFF937 /* StreamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458341A4772BC00EFF937 /* StreamIcon.png */; };
+		5CE458371A4773BF00EFF937 /* Profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458361A4773BF00EFF937 /* Profile.png */; };
 		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
@@ -125,12 +127,10 @@
 		5C7F748419A439F80095117F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5C7F749119A43B580095117F /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		5C7F749919A4ED550095117F /* MapIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapIcon.png; sourceTree = "<group>"; };
-		5C7F749A19A4ED550095117F /* StreamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StreamIcon.png; sourceTree = "<group>"; };
 		5C7F749D19A4EF630095117F /* MJPUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUserProfileViewController.h; sourceTree = "<group>"; };
 		5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUserProfileViewController.m; sourceTree = "<group>"; };
 		5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPUserProfileViewController.xib; sourceTree = "<group>"; };
 		5C7F74A719A4F0980095117F /* NotificationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationIcon.png; sourceTree = "<group>"; };
-		5C7F74A919A4F0A00095117F /* ProfileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProfileIcon.png; sourceTree = "<group>"; };
 		5C7F74AB19A5266B0095117F /* MJPStreamItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItemTableViewCell.h; sourceTree = "<group>"; };
 		5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItemTableViewCell.m; sourceTree = "<group>"; };
 		5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPStreamItemTableViewCell.xib; sourceTree = "<group>"; };
@@ -148,6 +148,10 @@
 		5CE458281A46922D00EFF937 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		5CE4582A1A46934C00EFF937 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
 		5CE4582C1A475F9B00EFF937 /* Post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Post.png; sourceTree = "<group>"; };
+		5CE4582E1A4763A400EFF937 /* CurrentLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrentLocation.png; sourceTree = "<group>"; };
+		5CE458321A47713500EFF937 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
+		5CE458341A4772BC00EFF937 /* StreamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StreamIcon.png; sourceTree = "<group>"; };
+		5CE458361A4773BF00EFF937 /* Profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile.png; sourceTree = "<group>"; };
 		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
 		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
@@ -156,21 +160,6 @@
 		5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItemViewController.m; sourceTree = "<group>"; };
 		5CE8713D19AFEDA500C963AF /* MJPStreamItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPStreamItemViewController.xib; sourceTree = "<group>"; };
 		5CE8714219B4EE2300C963AF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		5CE8715219B4EEEA00C963AF /* autoscaling-2011-01-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "autoscaling-2011-01-01.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/autoscaling-2011-01-01.json"; sourceTree = "<group>"; };
-		5CE8715319B4EEEA00C963AF /* cib-2014-06-30.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "cib-2014-06-30.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/cib-2014-06-30.json"; sourceTree = "<group>"; };
-		5CE8715419B4EEEA00C963AF /* css-2014-06-30.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "css-2014-06-30.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/css-2014-06-30.json"; sourceTree = "<group>"; };
-		5CE8715519B4EEEA00C963AF /* dynamodb-2012-08-10.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "dynamodb-2012-08-10.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/dynamodb-2012-08-10.json"; sourceTree = "<group>"; };
-		5CE8715619B4EEEA00C963AF /* ec2-2014-06-15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "ec2-2014-06-15.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/ec2-2014-06-15.json"; sourceTree = "<group>"; };
-		5CE8715719B4EEEA00C963AF /* elasticloadbalancing-2012-06-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "elasticloadbalancing-2012-06-01.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/elasticloadbalancing-2012-06-01.json"; sourceTree = "<group>"; };
-		5CE8715819B4EEEA00C963AF /* email-2010-12-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "email-2010-12-01.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/email-2010-12-01.json"; sourceTree = "<group>"; };
-		5CE8715919B4EEEA00C963AF /* kinesis-2013-12-02.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "kinesis-2013-12-02.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/kinesis-2013-12-02.json"; sourceTree = "<group>"; };
-		5CE8715A19B4EEEA00C963AF /* mobileanalytics-2014-06-30.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "mobileanalytics-2014-06-30.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/mobileanalytics-2014-06-30.json"; sourceTree = "<group>"; };
-		5CE8715B19B4EEEA00C963AF /* monitoring-2010-08-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "monitoring-2010-08-01.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/monitoring-2010-08-01.json"; sourceTree = "<group>"; };
-		5CE8715C19B4EEEA00C963AF /* s3-2006-03-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "s3-2006-03-01.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/s3-2006-03-01.json"; sourceTree = "<group>"; };
-		5CE8715D19B4EEEA00C963AF /* sdb-2009-04-15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "sdb-2009-04-15.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/sdb-2009-04-15.json"; sourceTree = "<group>"; };
-		5CE8715E19B4EEEA00C963AF /* sns-2010-03-31.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "sns-2010-03-31.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/sns-2010-03-31.json"; sourceTree = "<group>"; };
-		5CE8715F19B4EEEA00C963AF /* sqs-2012-11-05.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "sqs-2012-11-05.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/sqs-2012-11-05.json"; sourceTree = "<group>"; };
-		5CE8716019B4EEEA00C963AF /* sts-2011-06-15.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "sts-2011-06-15.json"; path = "../../../../Downloads/aws-ios-sdk-2.0.6/service-definitions/sts-2011-06-15.json"; sourceTree = "<group>"; };
 		5CE871C519B4F7D700C963AF /* MJPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPConstants.h; sourceTree = "<group>"; };
 		5CE871C619B4F7D700C963AF /* MJPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -347,28 +336,15 @@
 		5C7F746919A3BC510095117F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5CE458361A4773BF00EFF937 /* Profile.png */,
+				5CE458341A4772BC00EFF937 /* StreamIcon.png */,
+				5CE458321A47713500EFF937 /* X.png */,
+				5CE4582E1A4763A400EFF937 /* CurrentLocation.png */,
 				5CE4582C1A475F9B00EFF937 /* Post.png */,
-				5CE8715219B4EEEA00C963AF /* autoscaling-2011-01-01.json */,
-				5CE8715319B4EEEA00C963AF /* cib-2014-06-30.json */,
-				5CE8715419B4EEEA00C963AF /* css-2014-06-30.json */,
-				5CE8715519B4EEEA00C963AF /* dynamodb-2012-08-10.json */,
-				5CE8715619B4EEEA00C963AF /* ec2-2014-06-15.json */,
-				5CE8715719B4EEEA00C963AF /* elasticloadbalancing-2012-06-01.json */,
-				5CE8715819B4EEEA00C963AF /* email-2010-12-01.json */,
-				5CE8715919B4EEEA00C963AF /* kinesis-2013-12-02.json */,
-				5CE8715A19B4EEEA00C963AF /* mobileanalytics-2014-06-30.json */,
-				5CE8715B19B4EEEA00C963AF /* monitoring-2010-08-01.json */,
-				5CE8715C19B4EEEA00C963AF /* s3-2006-03-01.json */,
-				5CE8715D19B4EEEA00C963AF /* sdb-2009-04-15.json */,
-				5CE8715E19B4EEEA00C963AF /* sns-2010-03-31.json */,
-				5CE8715F19B4EEEA00C963AF /* sqs-2012-11-05.json */,
-				5CE8716019B4EEEA00C963AF /* sts-2011-06-15.json */,
 				5CE8713919AC263400C963AF /* images.jpeg */,
 				5C3EA4AE19A599DC007EF291 /* Pinpoint.png */,
 				5C7F74A719A4F0980095117F /* NotificationIcon.png */,
-				5C7F74A919A4F0A00095117F /* ProfileIcon.png */,
 				5C7F749919A4ED550095117F /* MapIcon.png */,
-				5C7F749A19A4ED550095117F /* StreamIcon.png */,
 				5C7F74B319A536B10095117F /* DummyData.json */,
 			);
 			path = Resources;
@@ -477,24 +453,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE4582F1A4763A400EFF937 /* CurrentLocation.png in Resources */,
 				5C7F747419A3BDC60095117F /* MJPMapViewController.xib in Resources */,
+				5CE458351A4772BC00EFF937 /* StreamIcon.png in Resources */,
 				5C7F746819A3BB900095117F /* MJPLoginViewController.xib in Resources */,
 				5C7F743E19A3BB2A0095117F /* InfoPlist.strings in Resources */,
 				5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */,
 				5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */,
 				5CE8713A19AC263400C963AF /* images.jpeg in Resources */,
-				5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
 				5CE4582B1A46934C00EFF937 /* GoogleMaps.bundle in Resources */,
 				5CE4582D1A475F9B00EFF937 /* Post.png in Resources */,
 				5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */,
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
-				5C7F749C19A4ED550095117F /* StreamIcon.png in Resources */,
 				5C7F74B419A536B10095117F /* DummyData.json in Resources */,
+				5CE458331A47713500EFF937 /* X.png in Resources */,
 				5CE8713F19AFEDA500C963AF /* MJPStreamItemViewController.xib in Resources */,
 				5C3EA4AF19A599DC007EF291 /* Pinpoint.png in Resources */,
 				5C7F744619A3BB2A0095117F /* Images.xcassets in Resources */,
+				5CE458371A4773BF00EFF937 /* Profile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
