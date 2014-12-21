@@ -7,6 +7,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
+#import "MJPMapViewController.h"
 
 static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
@@ -52,12 +53,21 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 }
 
 - (void)loggedInView {
-    // Open a default tab bar controller
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
-    tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
     
-    self.window.rootViewController = tabBarController;
+    MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+
+    navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
+    
+    UISearchBar* searchBar = [self searchBar];
+    searchBar.delegate = mapViewController;
+    
+    UIView *searchBarView = [self viewWithSearchBar:searchBar];
+    
+    navController.navigationBar.topItem.titleView = searchBarView;
+    
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return;
 }
@@ -96,6 +106,27 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     
+}
+
+// Format the search bar that will be added for the initial screen.
+- (UISearchBar*)searchBar {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    float searchBarWidth = 0.6 * screenWidth;
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
+    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [searchBar setBackgroundImage:[UIImage new]];
+    [searchBar setTranslucent:YES];
+    [searchBar setPlaceholder:@"Search & Filter"];
+    return searchBar;
+}
+
+// Add a centered view that will
+- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
+    searchBarView.autoresizingMask = 0;
+    [searchBarView addSubview:searchBar];
+    return searchBarView;
 }
 
 @end

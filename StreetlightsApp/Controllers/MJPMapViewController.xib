@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPMapViewController">
@@ -19,31 +19,23 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5zU-6I-k5b">
-                    <rect key="frame" x="-1" y="519" width="320" height="49"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <items>
-                        <tabBarItem systemItem="favorites" id="YHh-WU-nwf"/>
-                        <tabBarItem systemItem="more" id="9Vl-YX-a0P"/>
-                    </items>
-                </tabBar>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H12-pw-Th3">
-                    <rect key="frame" x="0.0" y="478" width="321" height="41"/>
+                    <rect key="frame" x="0.0" y="527" width="321" height="41"/>
                     <subviews>
-                        <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="F9X-7M-hEx">
-                            <rect key="frame" x="18" y="6" width="174" height="31"/>
-                            <color key="tintColor" red="1" green="0.16366779889999999" blue="0.16735195420000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="distanceChanged:" destination="-1" eventType="valueChanged" id="mza-az-qr3"/>
-                                <action selector="sliderChangeEnded:" destination="-1" eventType="touchUpInside" id="gve-dY-lRS"/>
-                            </connections>
-                        </slider>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4.0 mi. away" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZK4-V0-agf">
                             <rect key="frame" x="199" y="10" width="102" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </label>
+                        <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="F9X-7M-hEx">
+                            <rect key="frame" x="19" y="6" width="174" height="31"/>
+                            <color key="tintColor" red="1" green="0.16366779889999999" blue="0.16735195420000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="distanceChanged:" destination="-1" eventType="valueChanged" id="mza-az-qr3"/>
+                                <action selector="sliderChangeEnded:" destination="-1" eventType="touchUpInside" id="gve-dY-lRS"/>
+                            </connections>
+                        </slider>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.80078125" blue="0.39840898722627738" alpha="1" colorSpace="deviceRGB"/>
                 </view>
@@ -51,16 +43,9 @@
                     <rect key="frame" x="280" y="24" width="20" height="20"/>
                 </activityIndicatorView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdZ-ss-IOu" customClass="GMSMapView">
-                    <rect key="frame" x="0.0" y="56" width="320" height="420"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vFw-XP-2Fk">
-                    <rect key="frame" x="0.0" y="24" width="320" height="44"/>
-                    <color key="barTintColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
-                    <items>
-                        <navigationItem title="Around" id="A66-0H-j1m"/>
-                    </items>
-                </navigationBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>

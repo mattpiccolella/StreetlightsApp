@@ -45,8 +45,6 @@
 		5C7F749C19A4ED550095117F /* StreamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749A19A4ED550095117F /* StreamIcon.png */; };
 		5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */; };
 		5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */; };
-		5C7F74A519A4EF9A0095117F /* MJPNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */; };
-		5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */; };
 		5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A719A4F0980095117F /* NotificationIcon.png */; };
 		5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A919A4F0A00095117F /* ProfileIcon.png */; };
 		5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */; };
@@ -130,9 +128,6 @@
 		5C7F749D19A4EF630095117F /* MJPUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUserProfileViewController.h; sourceTree = "<group>"; };
 		5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUserProfileViewController.m; sourceTree = "<group>"; };
 		5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPUserProfileViewController.xib; sourceTree = "<group>"; };
-		5C7F74A219A4EF9A0095117F /* MJPNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPNotificationsViewController.h; sourceTree = "<group>"; };
-		5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPNotificationsViewController.m; sourceTree = "<group>"; };
-		5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPNotificationsViewController.xib; sourceTree = "<group>"; };
 		5C7F74A719A4F0980095117F /* NotificationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationIcon.png; sourceTree = "<group>"; };
 		5C7F74A919A4F0A00095117F /* ProfileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProfileIcon.png; sourceTree = "<group>"; };
 		5C7F74AB19A5266B0095117F /* MJPStreamItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItemTableViewCell.h; sourceTree = "<group>"; };
@@ -331,9 +326,6 @@
 				5C7F749D19A4EF630095117F /* MJPUserProfileViewController.h */,
 				5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */,
 				5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */,
-				5C7F74A219A4EF9A0095117F /* MJPNotificationsViewController.h */,
-				5C7F74A319A4EF9A0095117F /* MJPNotificationsViewController.m */,
-				5C7F74A419A4EF9A0095117F /* MJPNotificationsViewController.xib */,
 				5C7F746B19A3BD980095117F /* MJPStreamViewController.h */,
 				5C7F746C19A3BD980095117F /* MJPStreamViewController.m */,
 				5C7F746D19A3BD980095117F /* MJPStreamViewController.xib */,
@@ -487,7 +479,6 @@
 				5C7F743E19A3BB2A0095117F /* InfoPlist.strings in Resources */,
 				5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */,
 				5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */,
-				5C7F74A619A4EF9A0095117F /* MJPNotificationsViewController.xib in Resources */,
 				5CE8713A19AC263400C963AF /* images.jpeg in Resources */,
 				5C7F74AA19A4F0A00095117F /* ProfileIcon.png in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
@@ -521,7 +512,6 @@
 				5C7F746719A3BB900095117F /* MJPLoginViewController.m in Sources */,
 				5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */,
 				5C7F744419A3BB2A0095117F /* MJPAppDelegate.m in Sources */,
-				5C7F74A519A4EF9A0095117F /* MJPNotificationsViewController.m in Sources */,
 				5C7F746E19A3BD980095117F /* MJPStreamViewController.m in Sources */,
 				5CE8713E19AFEDA500C963AF /* MJPStreamItemViewController.m in Sources */,
 				5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */,

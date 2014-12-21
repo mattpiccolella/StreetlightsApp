@@ -7,7 +7,6 @@
 #import "MJPStreamViewController.h"
 #import "MJPMapViewController.h"
 #import "MJPUserProfileViewController.h"
-#import "MJPNotificationsViewController.h"
 #import "MJPPostStreamItemViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "MJPUser.h"
@@ -60,16 +59,13 @@
     postStreamItemViewController.tabBarItem.title = @"Post";
     postStreamItemViewController.tabBarItem.image = [UIImage imageNamed:@"Pinpoint.png"];
     
-    MJPNotificationsViewController *notificationsController = [[MJPNotificationsViewController alloc] init];
-    notificationsController.tabBarItem.title = @"Noti's";
-    notificationsController.tabBarItem.image = [UIImage imageNamed:@"NotificationIcon.png"];
     
     MJPUserProfileViewController *userProfileController = [[MJPUserProfileViewController alloc] init];
     userProfileController.tabBarItem.title = @"Profile";
     userProfileController.tabBarItem.image = [UIImage imageNamed:@"ProfileIcon.png"];
     
     
-    return @[mapViewController, streamNavController, postStreamItemViewController, notificationsController, userProfileController];
+    return @[mapViewController, streamNavController, postStreamItemViewController, userProfileController];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -96,7 +92,11 @@
                         
                         tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
                         
-                        [UIApplication sharedApplication].delegate.window.rootViewController = tabBarController;
+                        MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
+                        
+                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+                        
+                        [UIApplication sharedApplication].delegate.window.rootViewController = navController;
                     });
                     MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
                     PFQuery *query = [PFQuery queryWithClassName:@"User"];
