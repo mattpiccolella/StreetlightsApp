@@ -61,6 +61,8 @@
         UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
         dispatch_async( dispatch_get_main_queue(), ^{
             [self.userImage.imageView setImage:profilePicture];
+            self.userImage.imageView.layer.cornerRadius = self.userImage.imageView.frame.size.width / 2;
+            self.userImage.imageView.clipsToBounds = YES;
             [self.activityIndicator setHidden:YES];
         });
     });
@@ -113,15 +115,15 @@
         userPhotoObject[@"profilePicture"] = userPhoto;
         [userPhotoObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                NSLog(@"SUCCESS!");
                 [self.appDelegate setCurrentUser:userPhotoObject];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.activityIndicator setHidden:YES];
                     [self.userImage.imageView setImage:[UIImage imageWithData:[[userPhotoObject objectForKey:@"profilePicture"] getData]]];
+                    self.userImage.imageView.layer.cornerRadius = self.userImage.imageView.frame.size.width / 2;
+                    self.userImage.imageView.clipsToBounds = YES;
                 });
             } else {
                 // TODO: Display better errors.
-                NSLog(@"ERROR!");
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.activityIndicator setHidden:YES];
                 });

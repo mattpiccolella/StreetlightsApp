@@ -8,6 +8,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2;
+    self.userImage.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

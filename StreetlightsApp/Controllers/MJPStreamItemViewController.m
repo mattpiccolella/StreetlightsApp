@@ -53,6 +53,8 @@
         dispatch_async( dispatch_get_main_queue(), ^{
             NSLog(@"Setting this.");
             [self.profilePicture setImage:profilePicture];
+            self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
+            self.profilePicture.clipsToBounds = YES;
         });
     });
     
