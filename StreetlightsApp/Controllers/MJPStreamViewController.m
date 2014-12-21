@@ -71,9 +71,11 @@ NSMutableArray *friendItems;
 
 - (void)viewWillAppear:(BOOL)animated {
     
+    NSLog(@"Hello!");
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
+    [self.distanceSlider setHidden:NO];
     
     [streamItemView reloadData];
 }
@@ -178,9 +180,7 @@ NSMutableArray *friendItems;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PFObject *selectedStreamItem = [self.appDelegate.streamItemArray objectAtIndex:indexPath.row];
     MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem];
-    UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
-    UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
-    [navController pushViewController:dummyItem animated:YES];
+    [self.navigationController pushViewController:dummyItem animated:YES];
 }
 
 - (void)leftButtonPushed {

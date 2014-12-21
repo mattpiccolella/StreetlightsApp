@@ -37,12 +37,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
+    
     if ([self.appDelegate hasUserCredentials]) {
         if ([self.appDelegate currentUser] != nil) {
-            NSLog(@"YES");
             [self setProfileUI:[self.appDelegate currentUser]];
         } else {
-            NSLog(@"NO");
             // TODO: Parse should retrieve this otherwise. But, we should have it.
         }
     } else {
@@ -57,7 +57,6 @@
     [self.userName setText:user[@"name"]];
     [self.userFirstName setTitle:user[@"name"]];
     // TODO: Do stuff with number of friends, etc.
-    NSLog(@"%@", self.appDelegate.currentUser);
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
         dispatch_async( dispatch_get_main_queue(), ^{
@@ -148,5 +147,9 @@
         [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
     }
     return string;
+}
+
+-(void)backButtonPushed {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

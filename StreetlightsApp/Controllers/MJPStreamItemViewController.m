@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 
 
+
 @end
 
 @implementation MJPStreamItemViewController
@@ -71,15 +72,17 @@
     GMSCameraUpdate *update = [GMSCameraUpdate setTarget:marker.position zoom:14.0];
     [self.mapView moveCamera:update];
     
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.navigationBar.topItem.title = @"Pinpoint";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)backButtonPushed {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
