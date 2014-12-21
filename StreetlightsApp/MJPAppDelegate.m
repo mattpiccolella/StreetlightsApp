@@ -66,6 +66,8 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     UIView *searchBarView = [self viewWithSearchBar:searchBar];
     
     navController.navigationBar.topItem.titleView = searchBarView;
+
+    navController.navigationBar.topItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Prof" style:UIBarButtonItemStyleDone target:nil action:nil];
     
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
@@ -113,7 +115,7 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     float searchBarWidth = 0.6 * screenWidth;
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
     searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [searchBar setBackgroundImage:[UIImage new]];
     [searchBar setTranslucent:YES];
@@ -123,7 +125,10 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
 // Add a centered view that will
 - (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
+    float searchBarWidth = searchBar.bounds.size.width;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
     searchBarView.autoresizingMask = 0;
     [searchBarView addSubview:searchBar];
     return searchBarView;

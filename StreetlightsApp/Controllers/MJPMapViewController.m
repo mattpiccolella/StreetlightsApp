@@ -8,6 +8,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <Parse/Parse.h>
 #import "MJPQueryUtils.h"
+#import "MJPStreamViewController.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -39,6 +40,9 @@
     [super viewDidLoad];
     
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    UINavigationController* navController = (UINavigationController*) self.appDelegate.window.rootViewController;
+    navController.navigationBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Map" style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
@@ -153,5 +157,14 @@
         [self.locationManager stopUpdatingLocation];
     }
 }
+
+- (void)leftButtonPushed {
+    MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
+    
+    UINavigationController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
+    
+    [navController pushViewController:streamViewController animated:TRUE];
+}
+
 
 @end

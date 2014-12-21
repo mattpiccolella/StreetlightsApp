@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jyt-Co-ffW">
-                    <rect key="frame" x="0.0" y="67" width="321" height="460"/>
+                    <rect key="frame" x="0.0" y="55" width="321" height="472"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="g0B-Wu-OyJ"/>
@@ -30,13 +30,6 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fLx-La-faw">
                     <rect key="frame" x="150" y="274" width="20" height="20"/>
                 </activityIndicatorView>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KZv-1z-D5L">
-                    <rect key="frame" x="1" y="23" width="320" height="44"/>
-                    <color key="barTintColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
-                    <items>
-                        <navigationItem title="Around" id="iiC-Xp-ay2"/>
-                    </items>
-                </navigationBar>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X95-CZ-Lpm">
                     <rect key="frame" x="0.0" y="527" width="321" height="41"/>
                     <subviews>

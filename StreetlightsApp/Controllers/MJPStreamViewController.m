@@ -65,10 +65,7 @@ NSMutableArray *friendItems;
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
     
-    UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
-    UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
-    self.navigationController.navigationBar.translucent = NO;
-    [navController setNavigationBarHidden:YES];
+    UITabBarController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
     
     
     [streamItemView reloadData];
