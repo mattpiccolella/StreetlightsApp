@@ -64,6 +64,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
+    
+    [self.view addSubview:[self addPostButton]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -159,6 +161,18 @@
     }
 }
 
+- (UIButton*)addPostButton {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button addTarget:self
+               action:@selector(postButtonPushed)
+     forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"Post" forState:UIControlStateNormal];
+    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    return button;
+}
+
+
+
 - (void)leftButtonPushed {
     MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
     
@@ -173,6 +187,10 @@
     UINavigationController *navController = (UINavigationController*) [self.appDelegate.window rootViewController];
     
     [navController pushViewController:profileView animated:YES];
+}
+
+- (void)postButtonPushed {
+    // TODO: Navigation controller. Show post view. Pop up from bottom with X on post screen.
 }
 
 
