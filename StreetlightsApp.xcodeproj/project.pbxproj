@@ -63,6 +63,7 @@
 		5CE458331A47713500EFF937 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458321A47713500EFF937 /* X.png */; };
 		5CE458351A4772BC00EFF937 /* StreamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458341A4772BC00EFF937 /* StreamIcon.png */; };
 		5CE458371A4773BF00EFF937 /* Profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458361A4773BF00EFF937 /* Profile.png */; };
+		5CE458391A4774CF00EFF937 /* Map.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458381A4774CF00EFF937 /* Map.png */; };
 		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
@@ -152,6 +153,7 @@
 		5CE458321A47713500EFF937 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		5CE458341A4772BC00EFF937 /* StreamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StreamIcon.png; sourceTree = "<group>"; };
 		5CE458361A4773BF00EFF937 /* Profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Profile.png; sourceTree = "<group>"; };
+		5CE458381A4774CF00EFF937 /* Map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Map.png; sourceTree = "<group>"; };
 		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
 		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				5CE4582E1A4763A400EFF937 /* CurrentLocation.png */,
 				5CE4582C1A475F9B00EFF937 /* Post.png */,
 				5CE8713919AC263400C963AF /* images.jpeg */,
+				5CE458381A4774CF00EFF937 /* Map.png */,
 				5C3EA4AE19A599DC007EF291 /* Pinpoint.png */,
 				5C7F74A719A4F0980095117F /* NotificationIcon.png */,
 				5C7F749919A4ED550095117F /* MapIcon.png */,
@@ -459,6 +462,7 @@
 				5C7F746819A3BB900095117F /* MJPLoginViewController.xib in Resources */,
 				5C7F743E19A3BB2A0095117F /* InfoPlist.strings in Resources */,
 				5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */,
+				5CE458391A4774CF00EFF937 /* Map.png in Resources */,
 				5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */,
 				5CE8713A19AC263400C963AF /* images.jpeg in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
