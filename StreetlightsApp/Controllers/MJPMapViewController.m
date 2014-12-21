@@ -199,10 +199,7 @@
     [postTap setNumberOfTapsRequired:1];
     [imageView addGestureRecognizer:postTap];
     return imageView;
-
 }
-
-
 
 - (void)leftButtonPushed {
     MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
@@ -227,7 +224,6 @@
 }
 
 - (void)currentLocationButtonPushed {
-    NSLog(@"YAY!");
     // TODO: Make this navigate to current location.
     [self.mapView animateToLocation:self.currentLocation.coordinate];
 }
@@ -254,6 +250,14 @@
     searchBarView.autoresizingMask = 0;
     [searchBarView addSubview:searchBar];
     return searchBarView;
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    // TODO: Make the selectors appear.
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    // TODO: Make the selectors disappear.
 }
 
 @end
