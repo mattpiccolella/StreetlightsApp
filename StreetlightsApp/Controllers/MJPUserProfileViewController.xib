@@ -10,7 +10,6 @@
                 <outlet property="activityIndicator" destination="dEq-Es-KMw" id="zA9-z8-K6D"/>
                 <outlet property="numberOfFriends" destination="TMk-SJ-hC4" id="52W-dl-PIP"/>
                 <outlet property="numberOfPosts" destination="2NP-Ii-4FA" id="2Qd-se-vcB"/>
-                <outlet property="userFirstName" destination="9LY-X1-THU" id="hkQ-Cs-63Q"/>
                 <outlet property="userImage" destination="6Rz-SD-nEN" id="Ocs-yx-wHK"/>
                 <outlet property="userName" destination="LR0-hL-HN8" id="sWz-cT-nHn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -36,13 +35,6 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M17-wf-KX6">
-                    <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                    <color key="barTintColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
-                    <items>
-                        <navigationItem title="Title" id="9LY-X1-THU"/>
-                    </items>
-                </navigationBar>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You haven't added your bio yet, but it's very easy to!" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="222" translatesAutoresizingMaskIntoConstraints="NO" id="W7H-e3-C3p">
                     <rect key="frame" x="78" y="94" width="222" height="44"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>

@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "MJPQueryUtils.h"
 #import "MJPStreamViewController.h"
+#import "MJPUserProfileViewController.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -40,9 +41,9 @@
     [super viewDidLoad];
     
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    UINavigationController* navController = (UINavigationController*) self.appDelegate.window.rootViewController;
-    navController.navigationBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Map" style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Prof" style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
@@ -163,7 +164,15 @@
     
     UINavigationController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
     
-    [navController pushViewController:streamViewController animated:TRUE];
+    [navController pushViewController:streamViewController animated:FALSE];
+}
+
+- (void)rightButtonPushed {
+    MJPUserProfileViewController *profileView = [[MJPUserProfileViewController alloc] init];
+    
+    UINavigationController *navController = (UINavigationController*) [self.appDelegate.window rootViewController];
+    
+    [navController pushViewController:profileView animated:YES];
 }
 
 

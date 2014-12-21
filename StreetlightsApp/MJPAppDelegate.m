@@ -66,8 +66,6 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     UIView *searchBarView = [self viewWithSearchBar:searchBar];
     
     navController.navigationBar.topItem.titleView = searchBarView;
-
-    navController.navigationBar.topItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Prof" style:UIBarButtonItemStyleDone target:nil action:nil];
     
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];

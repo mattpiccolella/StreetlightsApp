@@ -51,6 +51,7 @@
 }
 
 - (void)setProfileUI:(PFObject*) user {
+    [self.navigationItem setTitle:[NSString stringWithFormat:@"User Profile"]];
     [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
     [self.userName setText:user[@"name"]];

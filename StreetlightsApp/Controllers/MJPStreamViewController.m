@@ -9,6 +9,8 @@
 #import "MJPStreamItemViewController.h"
 #import <Parse/Parse.h>
 #import "MJPQueryUtils.h"
+#import "MJPMapViewController.h"
+#import "MJPUserProfileViewController.h"
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -22,7 +24,7 @@
 @property (strong, nonatomic) CLLocation *currentLocation;
 @end
 
-@implementation MJPStreamViewController 
+@implementation MJPStreamViewController
 
 static NSString *cellIdentifier = @"streamViewCell";
 static NSInteger cellHeight = 80;
@@ -40,6 +42,14 @@ NSMutableArray *friendItems;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Map" style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Prof" style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
+
+    UISearchBar *searchBar = [self searchBar];
+    searchBar.delegate = self;
+
+    self.navigationItem.titleView = [self viewWithSearchBar:searchBar];
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -64,9 +74,6 @@ NSMutableArray *friendItems;
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
-    
-    UITabBarController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
-    
     
     [streamItemView reloadData];
 }
@@ -174,5 +181,46 @@ NSMutableArray *friendItems;
     UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
     UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
     [navController pushViewController:dummyItem animated:YES];
+}
+
+- (void)leftButtonPushed {
+    // We only push the left button in the case that we want to go back to map. Kinda hack-ish.
+    // TODO: Think of a way to make this less shitty later.
+    
+    UINavigationController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
+    
+    [navController popViewControllerAnimated:FALSE];
+}
+
+- (void)rightButtonPushed {
+    MJPUserProfileViewController *profileView = [[MJPUserProfileViewController alloc] init];
+    
+    UINavigationController *navController = (UINavigationController*) [self.appDelegate.window rootViewController];
+    
+    [navController pushViewController:profileView animated:YES];
+}
+
+// Format the search bar that will be added for the initial screen.
+- (UISearchBar*)searchBar {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    float searchBarWidth = 0.6 * screenWidth;
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
+    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [searchBar setBackgroundImage:[UIImage new]];
+    [searchBar setTranslucent:YES];
+    [searchBar setPlaceholder:@"Search & Filter"];
+    return searchBar;
+}
+
+// Add a centered view that will
+- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
+    float searchBarWidth = searchBar.bounds.size.width;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
+    searchBarView.autoresizingMask = 0;
+    [searchBarView addSubview:searchBar];
+    return searchBarView;
 }
 @end
