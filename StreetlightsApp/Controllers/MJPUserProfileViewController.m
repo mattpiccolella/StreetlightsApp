@@ -1,19 +1,13 @@
-//
 //  MJPUserProfileViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/20/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPAppDelegate.h"
 #import "MJPUserProfileViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "MJPLoginViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import <AWSiOSSDKv2/S3.h>
 #import "MJPConstants.h"
-#import "MJPAWSS3Utils.h"
 #import "MJPFileUploadUtils.h"
 
 @interface MJPUserProfileViewController ()
@@ -26,13 +20,13 @@
 - (IBAction)editProfile:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *userImage;
 - (IBAction)changeUserImage:(id)sender;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
 @implementation MJPUserProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
@@ -40,49 +34,40 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     if ([self.appDelegate hasUserCredentials]) {
         if ([self.appDelegate currentUser] != nil) {
+            NSLog(@"YES");
             [self setProfileUI:[self.appDelegate currentUser]];
         } else {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://107.170.105.12/get_user/%@", [self.appDelegate currentUserId]]];
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-            NSURLSessionDataTask *getUserTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
-                                                                                                                              NSURLResponse *response,
-                                                                                                                              NSError *error) {
-                if (!error) {
-                    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                    if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                        MJPUser *user = [MJPUser getUserFromJSON:response];
-                        //[user setUserId:[self.appDelegate currentUserId]];
-                        [self.appDelegate setCurrentUser:user];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self setProfileUI:user];
-                        });
-                    }
-                } else {
-                    NSLog(@"Error: %@", error.localizedDescription);
-                }
-            }];
-            [getUserTask resume];
+            NSLog(@"NO");
+            // TODO: Parse should retrieve this otherwise. But, we should have it.
         }
     } else {
         [self loginRedirect];
     }
 }
 
-- (void)setProfileUI:(MJPUser*) user {
-    [self.userName setText:user.name];
-    [self.userFirstName setTitle:user.name];
+- (void)setProfileUI:(PFObject*) user {
+    [self.navigationItem setTitle:[NSString stringWithFormat:@"User Profile"]];
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
+    [self.userName setText:user[@"name"]];
+    [self.userFirstName setTitle:user[@"name"]];
     // TODO: Do stuff with number of friends, etc.
-    [self.userImage.imageView setImage:[user getUserProfileImage]];
+    NSLog(@"%@", self.appDelegate.currentUser);
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [self.userImage.imageView setImage:profilePicture];
+            [self.activityIndicator setHidden:YES];
+        });
+    });
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -104,6 +89,7 @@
 - (IBAction)editProfile:(id)sender {
     // TODO: Present the edit view. Allow users to edit their profile.
 }
+
 - (IBAction)changeUserImage:(id)sender {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
@@ -123,39 +109,33 @@
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *newUserImage = info[UIImagePickerControllerOriginalImage];
         NSData *imageData = UIImageJPEGRepresentation(newUserImage, 0.7);
-        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", [[self.appDelegate currentUser] email]];
-        NSString *userId = [[self.appDelegate currentUser] email];
-        
-        NSMutableURLRequest *profPicRequest = [MJPFileUploadUtils getProfileImageUploadRequestWithData:imageData andFileName:fileName andUserId:userId];
-        NSURLSessionDataTask *profPicRequestTask = [[NSURLSession sharedSession] dataTaskWithRequest:profPicRequest completionHandler:^(NSData *data,
-                                                                                                                          NSURLResponse *response,
-                                                                                                                          NSError *error) {
-            if (!error) {
-                NSDictionary *dataResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if (!dataResponse) {
-                    NSLog(@"FUCK WHY THE FUCK IS IT NULL?");
-                }
-                if (!data) {
-                    NSLog(@"HOW CAN THE FUCKING DATA BE NULL?");
-                }
-                if ([[dataResponse objectForKey:@"status"]  isEqual:@"success"]) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setProfileUI:[self.appDelegate currentUser]];
-                    });
-                } else {
-                    NSLog(@"Something went wrong.");
-                }
+        PFFile *userPhoto = [PFFile fileWithData:imageData];
+        PFObject *userPhotoObject = [self.appDelegate currentUser];
+        userPhotoObject[@"profilePicture"] = userPhoto;
+        [userPhotoObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"SUCCESS!");
+                [self.appDelegate setCurrentUser:userPhotoObject];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.activityIndicator setHidden:YES];
+                    [self.userImage.imageView setImage:[UIImage imageWithData:[[userPhotoObject objectForKey:@"profilePicture"] getData]]];
+                });
             } else {
-                NSLog(@"Error: %@", error.localizedDescription);
+                // TODO: Display better errors.
+                NSLog(@"ERROR!");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.activityIndicator setHidden:YES];
+                });
             }
         }];
-        [profPicRequestTask resume];
         
     } else {
         // TODO: Display an error in the case the user entered something other than an image.
         NSLog(@"ERROR");
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

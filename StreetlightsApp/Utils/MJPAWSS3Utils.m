@@ -1,16 +1,9 @@
-//
 //  MJPAWSS3Utils.m
-//  StreetlightsApp
-//
-//  Created by Matt on 9/1/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPAWSS3Utils.h"
 #import "MJPConstants.h"
-#import <AWSiOSSDKv2/AWSCredentialsProvider.h>
-#import <AWSiOSSDKv2/AWSCore.h>
-#import <AWSiOSSDKv2/S3.h>
 
 
 @implementation MJPAWSS3Utils

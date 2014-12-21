@@ -1,15 +1,13 @@
-//
 //  MJPAppDelegate.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/19/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPAppDelegate.h"
 #import "Controllers/MJPLoginViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <Parse/Parse.h>
+#import "MJPMapViewController.h"
 
 static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
@@ -17,16 +15,16 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     id services_;
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Parse setApplicationId:@"p5AXszvVReZoSxb9O6I82VGv9yESwzkO9JZ0I2rA"
+                  clientKey:@"cKrKEYY3JngYz3ELhmnbyfL59x6BN8iOgi4pyyKo"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    self.searchEveryone = FALSE;
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     self.searchRadius = 4.0;
     
-    self.everyoneArray = [[NSMutableArray alloc] init];
-    self.friendArray = [[NSMutableArray alloc] init];
+    self.streamItemArray = [[NSArray alloc] init];
     
     if ([kAPIKey length] == 0) {
         // Blow up if APIKey has not yet been set.
@@ -42,6 +40,10 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     
     // Whenever a person opens the app, check for user credentials.
     if ([self hasUserCredentials]) {
+        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+        [query getObjectInBackgroundWithId:[[NSUserDefaults standardUserDefaults] objectForKey:@"userId"] block:^(PFObject *object, NSError *error) {
+            [self setCurrentUser:object];
+        }];
         [self loggedInView];
         return YES;
     } else {
@@ -51,12 +53,14 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 }
 
 - (void)loggedInView {
-    // Open a default tab bar controller
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
-    tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
     
-    self.window.rootViewController = tabBarController;
+    MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+
+    navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
+    
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return;
 }
@@ -69,39 +73,31 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
 - (BOOL)hasUserCredentials {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:@"email"] != nil && [userDefaults objectForKey:@"password"] != nil && [userDefaults objectForKey:@"user_id"] != nil;
+    return [userDefaults objectForKey:@"userId"] != nil;
 }
          
 - (id)currentUserId {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:@"user_id"];
+    return [userDefaults objectForKey:@"userId"];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (void)applicationWillResignActive:(UIApplication *)application {
+
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
     [FBAppCall handleDidBecomeActive];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+- (void)applicationWillTerminate:(UIApplication *)application {
+    
 }
-
 @end

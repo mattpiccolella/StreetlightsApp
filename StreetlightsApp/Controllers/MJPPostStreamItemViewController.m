@@ -1,10 +1,6 @@
-//
 //  MJPPostStreamItemViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/20/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPPostStreamItemViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
@@ -26,8 +22,7 @@
     BOOL hasSetLocation_;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -35,8 +30,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.activityIndicator setHidden:true];
@@ -48,35 +42,24 @@
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
     
+    // Why did I need this?
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
     
     if ([self.appDelegate currentUser] == nil) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://107.170.105.12/get_user/%@", [self.appDelegate currentUserId]]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        NSURLSessionDataTask *getUserTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
-                                                                                                                          NSURLResponse *response,
-                                                                                                                          NSError *error) {
-            if (!error) {
-                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                    MJPUser *user = [MJPUser getUserFromJSON:response];
-                    //[user setUserId:[self.appDelegate currentUserId]];
-                    [self.appDelegate setCurrentUser:user];
-                }
-            } else {
-                NSLog(@"Error: %@", error.localizedDescription);
-            }
-        }];
-        [getUserTask resume];
+        // TODO: Look into this. I don't even think this is necessary.
     }
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)dealloc {
+    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
+}
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
@@ -92,41 +75,35 @@
 }
 
 - (IBAction)post:(id)sender {
+    [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
     CLLocation *currentLocation = [self.mapView myLocation];
     float latitude = (float) currentLocation.coordinate.latitude;
     float longitude = (float) currentLocation.coordinate.longitude;
     
-    // TODO: Fix the search radius to a non-fixed value.
-    NSString *postString = [NSString stringWithFormat:@"userid=%@&description=%@&latitude=%f&longitude=%f&expiration=%d",
-                            [self.appDelegate currentUserId], self.postDescription.text,
-                            latitude, longitude, 50];;
-    NSData *data = [postString dataUsingEncoding:NSUTF8StringEncoding];
-
-    [self.activityIndicator startAnimating];
-    NSURL *url = [NSURL URLWithString:@"http://107.170.105.12/create_new_post"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    request.HTTPBody = data;
-    // Create a task.
-    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data,
-                                                                                                                      NSURLResponse *response,
-                                                                                                                      NSError *error) {
+    long expirationOffset = [self.expirationTime countDownDuration];
+    
+    PFObject *parseStreamItem = [PFObject objectWithClassName:@"StreamItem"];
+    [parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
+    [parseStreamItem setObject:self.postDescription.text forKey:@"description"];
+    [parseStreamItem setObject:[NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]] forKey:@"postedTimestamp"];
+    [parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];
+    [parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+    [parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+    
+    [parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.postDescription.text = @"";
-                    [self.activityIndicator setHidden:YES];
-                });
-            } else {
-                // TODO: Do something if we don't succeed.
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.postDescription.text = @"";
+                [self.activityIndicator setHidden:YES];
+                // TODO: Work on making this transition more sensible.
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         } else {
             NSLog(@"Error: %@", error.localizedDescription);
+            // TODO: Notify somebody of something. We can't save stream items.
         }
     }];
-    [newPostTask resume];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -135,5 +112,10 @@
         return NO;
     }
     return YES;
+}
+
+- (void)backButtonPushed {
+    // TODO: Make this pop from the bottom.
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

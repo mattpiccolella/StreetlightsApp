@@ -1,17 +1,13 @@
-//
 //  MJPUser.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/25/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPUser.h"
+#import <Parse/Parse.h>
 
 @implementation MJPUser
 
-- (id)initWithName:(NSString*)name email:(NSString*)email password:(NSString*)password
-{
+- (id)initWithName:(NSString*)name email:(NSString*)email password:(NSString*)password {
     self = [super init];
     if (self) {
         self.name = name;
@@ -27,6 +23,15 @@
                             user.name, user.email, user.password, user.biography];;
     NSData *data = [userString dataUsingEncoding:NSUTF8StringEncoding];
     return data;
+}
+
++ (PFObject*) getPFObjectFromUser:(MJPUser*) user {
+    PFObject *parseUser = [PFObject objectWithClassName:@"User"];
+    parseUser[@"name"] = user.name;
+    parseUser[@"email"] = user.email;
+    parseUser[@"password"] = user.password;
+    parseUser[@"biography"] = user.biography;
+    return parseUser;
 }
 
 + (MJPUser*) getUserFromJSON:(NSDictionary*) userDictionary {

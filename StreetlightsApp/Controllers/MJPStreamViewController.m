@@ -1,40 +1,37 @@
-//
 //  MJPStreamViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/19/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPStreamViewController.h"
 #import "MJPAppDelegate.h"
 #import "MJPStreamItemTableViewCell.h"
 #import "MJPStreamItem.h"
 #import "MJPStreamItemViewController.h"
+#import <Parse/Parse.h>
+#import "MJPQueryUtils.h"
+#import "MJPMapViewController.h"
+#import "MJPUserProfileViewController.h"
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
-- (IBAction)scopeChanged:(id)sender;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @end
 
-@implementation MJPStreamViewController 
+@implementation MJPStreamViewController
 
 static NSString *cellIdentifier = @"streamViewCell";
 static NSInteger cellHeight = 80;
 NSMutableArray *everyoneItems;
 NSMutableArray *friendItems;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -42,10 +39,17 @@ NSMutableArray *friendItems;
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Map.png"] landscapeImagePhone:[UIImage imageNamed:@"Map.png"] style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile.png"] landscapeImagePhone:[UIImage imageNamed:@"Profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
+
+    UISearchBar *searchBar = [self searchBar];
+    searchBar.delegate = self;
+
+    self.navigationItem.titleView = [self viewWithSearchBar:searchBar];
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -65,48 +69,36 @@ NSMutableArray *friendItems;
     [self.activityIndicator startAnimating];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    self.scopeSelector.selectedSegmentIndex = [self.appDelegate searchEveryone];
+- (void)viewWillAppear:(BOOL)animated {
     
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
     
-    UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
-    UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
-    self.navigationController.navigationBar.translucent = NO;
-    [navController setNavigationBarHidden:YES];
-    
-    
     [streamItemView reloadData];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (self.appDelegate.searchEveryone) {
-        return [self.appDelegate.friendArray count];
-    } else {
-        return [self.appDelegate.everyoneArray count];
-    }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.appDelegate.streamItemArray count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MJPStreamItemTableViewCell *cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         [streamItemView registerNib:[UINib nibWithNibName:@"MJPStreamItemTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
         cell = [streamItemView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
-    MJPStreamItem *streamItem;
-    if (self.appDelegate.searchEveryone) {
-        streamItem = ((MJPStreamItem*)[self.appDelegate.friendArray objectAtIndex:indexPath.row]);
-    } else {
-        streamItem = ((MJPStreamItem*)[self.appDelegate.everyoneArray objectAtIndex:indexPath.row]);
-    }
-    MJPUser *user = streamItem.user;
-    cell.userName.text = user.name;
-    cell.postInfo.text = streamItem.postDescription;
+    PFObject *streamItem = [self.appDelegate.streamItemArray objectAtIndex:indexPath.row];
+    PFObject *streamItemUser = streamItem[@"user"];
+    cell.userName.text = streamItemUser[@"name"];
+    cell.postInfo.text = streamItem[@"description"];
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *profilePicture = [UIImage imageWithData:[streamItemUser[@"profilePicture"] getData]];
+        NSLog(@"Are we doing this?");
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [cell.userImage setImage:profilePicture];
+        });
+    });
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
     // TODO: Make actual profile images.
     cell.userImage.image = [UIImage imageNamed:@"images.jpeg"];
@@ -117,8 +109,7 @@ NSMutableArray *friendItems;
     return cellHeight;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -135,50 +126,19 @@ NSMutableArray *friendItems;
     [self fetchNewStreamItems];
 }
 
-- (IBAction)scopeChanged:(id)sender {
-    [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
-    
-    [streamItemView reloadData];
-}
-
 - (void)fetchNewStreamItems {
-    NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
-                                 self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
-                                 self.distanceSlider.value];
-    NSLog(@"Stream formatted string: %@", formattedString);
-    NSURL *url = [NSURL URLWithString:formattedString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    // Create a task.
-    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (!error) {
-            [self.appDelegate.everyoneArray removeAllObjects];
-            [self.appDelegate.friendArray removeAllObjects];
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
-                    MJPUser *user = [[MJPUser alloc] initWithName:[[streamItem objectForKey:@"user"] objectForKey:@"name"] email:nil password:nil];
-                    NSString *description = [streamItem objectForKey:@"description"];
-                    NSNumber *created = [NSNumber numberWithDouble:[[streamItem objectForKey:@"created"] doubleValue]];
-                    NSNumber *expiration = [NSNumber numberWithDouble:[[streamItem objectForKey:@"expiration"] doubleValue]];
-                    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:created expiredTimestamp:expiration friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
-                    [self.appDelegate.everyoneArray addObject:newStreamItem];
-                    if ([newStreamItem isFriend]) {
-                        [self.appDelegate.friendArray addObject:newStreamItem];
-                    }
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.activityIndicator setHidden:YES];
-                    [streamItemView reloadData];
-                    [self.refreshControl endRefreshing];
-                });
-            } else {
-                NSLog(@"%@", [response objectForKey:@"status"]);
-            }
-        } else {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
+    float longitude = self.currentLocation.coordinate.longitude;
+    float latitude = self.currentLocation.coordinate.latitude;
+    float radius = self.distanceSlider.value;
+    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForLatitude:latitude longitude:longitude radius:radius];
+    [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.appDelegate setStreamItemArray:objects];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator setHidden:YES];
+            [streamItemView reloadData];
+            [self.refreshControl endRefreshing];
+        });
     }];
-    [newPostTask resume];
 }
 
 - (void)handleRefresh {
@@ -194,7 +154,7 @@ NSMutableArray *friendItems;
 
 - (void)loadInitialStreamItems {
     // Bad hack. We try to load only based off of whether there are any objects available.
-    if ([self.appDelegate.everyoneArray count] == 0) {
+    if ([self.appDelegate.streamItemArray count] == 0) {
         [self fetchNewStreamItems];
     } else {
         [self.activityIndicator setHidden:YES];
@@ -202,14 +162,12 @@ NSMutableArray *friendItems;
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     // TODO: Try to fail gracefully.
     NSLog(@"didFailWithError: %@", error);
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     NSLog(@"We are updating our location.");
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     self.currentLocation = newLocation;
@@ -217,17 +175,52 @@ NSMutableArray *friendItems;
     [self.locationManager stopUpdatingLocation];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    MJPStreamItem *selectedStreamItem;
-    if (self.appDelegate.searchEveryone) {
-        selectedStreamItem = [self.appDelegate.friendArray objectAtIndex:indexPath.row];
-    } else {
-        selectedStreamItem = [self.appDelegate.everyoneArray objectAtIndex:indexPath.row];
-    }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    PFObject *selectedStreamItem = [self.appDelegate.streamItemArray objectAtIndex:indexPath.row];
     MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem];
     UITabBarController *tabController = (UITabBarController*) self.appDelegate.window.rootViewController;
     UINavigationController *navController = (UINavigationController*) [[tabController viewControllers] objectAtIndex:1];
     [navController pushViewController:dummyItem animated:YES];
+}
+
+- (void)leftButtonPushed {
+    // We only push the left button in the case that we want to go back to map. Kinda hack-ish.
+    // TODO: Think of a way to make this less shitty later.
+    
+    UINavigationController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
+    
+    [navController popViewControllerAnimated:FALSE];
+}
+
+- (void)rightButtonPushed {
+    MJPUserProfileViewController *profileView = [[MJPUserProfileViewController alloc] init];
+    
+    UINavigationController *navController = (UINavigationController*) [self.appDelegate.window rootViewController];
+    
+    [navController pushViewController:profileView animated:YES];
+}
+
+// Format the search bar that will be added for the initial screen.
+- (UISearchBar*)searchBar {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    float searchBarWidth = 0.6 * screenWidth;
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
+    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [searchBar setBackgroundImage:[UIImage new]];
+    [searchBar setTranslucent:YES];
+    [searchBar setPlaceholder:@"Search & Filter"];
+    return searchBar;
+}
+
+// Add a centered view that will
+- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
+    float searchBarWidth = searchBar.bounds.size.width;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
+    searchBarView.autoresizingMask = 0;
+    [searchBarView addSubview:searchBar];
+    return searchBarView;
 }
 @end

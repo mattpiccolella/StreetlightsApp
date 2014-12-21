@@ -1,25 +1,24 @@
-//
 //  MJPMapViewController.m
-//  StreetlightsApp
-//
-//  Created by Matt on 8/19/14.
+//  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
-//
 
 #import "MJPMapViewController.h"
 #import "MJPAppDelegate.h"
 #import "MJPStreamItem.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import <Parse/Parse.h>
+#import "MJPQueryUtils.h"
+#import "MJPStreamViewController.h"
+#import "MJPUserProfileViewController.h"
+#import "MJPPostStreamItemViewController.h"
 
 @interface MJPMapViewController ()
-@property (strong, nonatomic) IBOutlet UISegmentedControl *scopeSelector;
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)distanceChanged:(id)sender;
 - (IBAction)sliderChangeEnded:(id)sender;
-- (IBAction)scopeChanged:(id)sender;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
@@ -31,8 +30,7 @@
     BOOL hasLoadedInitialMarkers_;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -40,15 +38,29 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
 
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StreamIcon.png"] landscapeImagePhone:[UIImage imageNamed:@"StreamIcon.png"] style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile.png"] landscapeImagePhone:[UIImage imageNamed:@"Profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
+    
+    UISearchBar* searchBar = [self searchBar];
+    searchBar.delegate = self;
+    
+    UIView *searchBarView = [self viewWithSearchBar:searchBar];
+    
+    self.navigationController.navigationBar.topItem.titleView = searchBarView;
+
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
                                                                  zoom:12];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.mapView.myLocationEnabled = YES;
+        NSLog(@"User Location: %@", self.mapView.myLocation);
+    });
     
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestWhenInUseAuthorization];
@@ -57,32 +69,34 @@
     
     self.mapView.camera = camera;
     
+    [self.view addSubview:[self addPostButton]];
+    [self.view addSubview:[self addCurrentLocationButton]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
+    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
+    [self.distanceLabel setText:newLabel];
     [self.mapView addObserver:self
-               forKeyPath:@"myLocation"
-                  options:NSKeyValueObservingOptionNew
-                  context:NULL];
-    
+                   forKeyPath:@"myLocation"
+                      options:NSKeyValueObservingOptionNew
+                      context:NULL];
     dispatch_async(dispatch_get_main_queue(), ^{
+        // TODO: Look why the blue dot is not showing for iOS 8.
         self.mapView.myLocationEnabled = YES;
     });
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.scopeSelector setSelectedSegmentIndex:[self.appDelegate searchEveryone]];
-
-    self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
-    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
-    [self.distanceLabel setText:newLabel];
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
+    NSLog(@"HELLO");
 }
 
 - (void)dealloc {
-    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
+    NSLog(@"HELLO");
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -111,89 +125,51 @@
     [self fetchNewStreamItems];
 }
 
-- (IBAction)scopeChanged:(id)sender {
-    [self.appDelegate setSearchEveryone:self.scopeSelector.selectedSegmentIndex];
-    
-    [self addMarkers];
-}
-
 - (void) addMarkers {
     [self.mapView clear];
     // TODO: Add custom markers.
-    if (self.scopeSelector.selectedSegmentIndex) {
-        for (MJPStreamItem *streamItem in self.appDelegate.friendArray) {
-            GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.title = streamItem.user.name;
-            marker.snippet = streamItem.postDescription;
-            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
-            marker.map = self.mapView;
-        }
-    } else {
-        for (MJPStreamItem *streamItem in self.appDelegate.everyoneArray) {
-            GMSMarker *marker = [[GMSMarker alloc] init];
-            marker.title = streamItem.user.name;
-            marker.snippet = streamItem.description;
-            marker.position = CLLocationCoordinate2DMake([streamItem latitude], [streamItem longitude]);
-            marker.map = self.mapView;
-        }
+    for (PFObject *streamItem in self.appDelegate.streamItemArray) {
+        GMSMarker *marker = [[GMSMarker alloc] init];
+        marker.title = streamItem[@"user"][@"name"];
+        marker.snippet = streamItem[@"description"];
+        marker.position = CLLocationCoordinate2DMake([streamItem[@"latitude"] floatValue], [streamItem[@"longitude"] floatValue]);
+        marker.map = self.mapView;
     }
 }
 
 - (void)fetchNewStreamItems {
-    NSString *formattedString = [NSString stringWithFormat:@"http://107.170.105.12/get_posts/%f/%f/%f",
-                                 self.currentLocation.coordinate.longitude, self.currentLocation.coordinate.latitude,
-                                 self.distanceSlider.value];
-    NSURL *url = [NSURL URLWithString:formattedString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    // Create a task.
-    NSURLSessionDataTask *newPostTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (!error) {
-            [self.appDelegate.everyoneArray removeAllObjects];
-            [self.appDelegate.friendArray removeAllObjects];
-            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if ([[response objectForKey:@"status"]  isEqual:@"success"]) {
-                for (NSDictionary *streamItem in [response objectForKey:@"results"]) {
-                    NSString *userName = [[streamItem objectForKey:@"user"] objectForKey:@"name"];
-                    MJPUser *user = [[MJPUser alloc] initWithName:userName email:nil password:nil];
-                    NSString *description = [streamItem objectForKey:@"description"];
-                    MJPStreamItem *newStreamItem = [[MJPStreamItem alloc] initWithUser:user description:description postedTimestamp:0 expiredTimestamp:0 friend:NO latitude:[[streamItem objectForKey:@"latitude"] floatValue] longitude:[[streamItem objectForKey:@"longitude"] floatValue]];
-                    [self.appDelegate.everyoneArray addObject:newStreamItem];
-                    if ([newStreamItem isFriend]) {
-                        [self.appDelegate.friendArray addObject:newStreamItem];
-                    }
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.activityIndicator setHidden:YES];
-                    [self addMarkers];
-                });
-            } else {
-                NSLog(@"%@", [response objectForKey:@"status"]);
-            }
-        } else {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
+    float longitude = self.currentLocation.coordinate.longitude;
+    float latitude = self.currentLocation.coordinate.latitude;
+    float radius = self.distanceSlider.value;
+    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForLatitude:latitude longitude:longitude radius:radius];
+    [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.appDelegate setStreamItemArray:objects];
+        [self addMarkers];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.activityIndicator setHidden:YES];
+        });
     }];
-    [newPostTask resume];
 }
 
 - (void)loadInitialMarkers {
     // Bad hack. We try to load only based off of whether there are any objects available.
-    if ([self.appDelegate.everyoneArray count] == 0) {
+    if ([self.appDelegate.streamItemArray count] == 0) {
         [self fetchNewStreamItems];
+        [self.activityIndicator setHidden:YES];
     } else {
         [self.activityIndicator setHidden:YES];
         [self addMarkers];
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     // TODO: Try to fail gracefully.
     NSLog(@"didFailWithError: %@", error);
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     if (hasLoadedInitialMarkers_ == NO) {
         self.currentLocation = newLocation;
@@ -201,6 +177,83 @@
         [self loadInitialMarkers];
         [self.locationManager stopUpdatingLocation];
     }
+}
+
+- (UIImageView*)addPostButton {
+    // TODO: Work on making this less hard-coded. Think of proportions.
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(110.0, 450.0, 100.0, 100.0)];
+    [imageView setImage:[UIImage imageNamed:@"Post.png"]];
+    [imageView setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postButtonPushed)];
+    [postTap setNumberOfTapsRequired:1];
+    [imageView addGestureRecognizer:postTap];
+    return imageView;
+}
+
+- (UIImageView*)addCurrentLocationButton {
+    // TODO: Work on making this less hard-coded. Think of proportions.
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(240.0, 465.0, 80.0, 80.0)];
+    [imageView setImage:[UIImage imageNamed:@"CurrentLocation.png"]];
+    [imageView setUserInteractionEnabled:YES];
+    UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(currentLocationButtonPushed)];
+    [postTap setNumberOfTapsRequired:1];
+    [imageView addGestureRecognizer:postTap];
+    return imageView;
+
+}
+
+
+
+- (void)leftButtonPushed {
+    MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
+    
+    UINavigationController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
+    
+    [navController pushViewController:streamViewController animated:FALSE];
+}
+
+- (void)rightButtonPushed {
+    MJPUserProfileViewController *profileView = [[MJPUserProfileViewController alloc] init];
+    
+    UINavigationController *navController = (UINavigationController*) [self.appDelegate.window rootViewController];
+    
+    [navController pushViewController:profileView animated:YES];
+}
+
+- (void)postButtonPushed {
+    MJPPostStreamItemViewController *newPost = [[MJPPostStreamItemViewController alloc] init];
+    // TODO: Make the post transition from the bottom.
+    [[self navigationController] pushViewController:newPost animated:YES];
+}
+
+- (void)currentLocationButtonPushed {
+    NSLog(@"YAY!");
+    // TODO: Make this navigate to current location.
+    [self.mapView animateToLocation:self.currentLocation.coordinate];
+}
+
+// Format the search bar that will be added for the initial screen.
+- (UISearchBar*)searchBar {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    float searchBarWidth = 0.6 * screenWidth;
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
+    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [searchBar setBackgroundImage:[UIImage new]];
+    [searchBar setTranslucent:YES];
+    [searchBar setPlaceholder:@"Search & Filter"];
+    return searchBar;
+}
+
+// Add a centered view that will
+- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
+    float searchBarWidth = searchBar.bounds.size.width;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
+    searchBarView.autoresizingMask = 0;
+    [searchBarView addSubview:searchBar];
+    return searchBarView;
 }
 
 @end
