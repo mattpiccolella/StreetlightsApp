@@ -7,6 +7,6 @@
 
 @interface MJPStreamItemViewController : UIViewController
 
-- (id)initWithStreamItem:(PFObject *)streamItem;
+- (id)initWithStreamItem:(PFObject *)streamItem location:(CLLocation *)location;
 
 @end

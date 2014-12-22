@@ -15,8 +15,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *timeRemaining;
 
 @property (strong, nonatomic) PFObject *streamItem;
+@property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
+@property (strong, nonatomic) IBOutlet UILabel *favorites;
+@property (strong, nonatomic) IBOutlet UILabel *shares;
 
 
 
@@ -32,7 +35,7 @@
     return self;
 }
 
-- (id)initWithStreamItem:(PFObject *)streamItem {
+- (id)initWithStreamItem:(PFObject *)streamItem location:(CLLocation*)location {
     self = [super init];
     if (self) {
         self.streamItem = streamItem;
@@ -75,6 +78,16 @@
     [self.mapView moveCamera:update];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
+    
+    // TODO: Change this once we get favorites and shares done.
+    self.favorites.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
+    self.shares.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
+    
+    // Set the date of amount of time remaining.
+    NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
+    self.timeRemaining.text = [NSString stringWithFormat:@"%dm", (int) timeInterval / 60];
     
 }
 
