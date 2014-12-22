@@ -15,6 +15,14 @@
 @property (strong, nonatomic) IBOutlet UIDatePicker *expirationTime;
 - (IBAction)post:(id)sender;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIButton *everyoneButton;
+@property (strong, nonatomic) IBOutlet UIButton *friendsButton;
+- (IBAction)tapEveryone:(id)sender;
+- (IBAction)tapFriends:(id)sender;
+
+
+@property BOOL everyoneSelected;
+
 
 @end
 
@@ -25,7 +33,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.everyoneSelected = TRUE;
     }
     return self;
 }
@@ -52,6 +60,11 @@
     }
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
+    
+    self.postDescription.text = @"What's up?";
+    self.postDescription.textColor = [UIColor lightGrayColor];
+    
+    [self selectEveryone];
 }
 
 - (void)dealloc {
@@ -117,5 +130,43 @@
 - (void)backButtonPushed {
     // TODO: Make this pop from the bottom.
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@"What's up?"]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor]; //optional
+    }
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"What's up?";
+        textView.textColor = [UIColor lightGrayColor];
+    }
+    [textView resignFirstResponder];
+}
+- (IBAction)tapEveryone:(id)sender {
+    [self selectEveryone];
+}
+
+- (IBAction)tapFriends:(id)sender {
+    [self selectFriends];
+}
+
+
+- (void)selectEveryone {
+    self.everyoneSelected = TRUE;
+    [self.everyoneButton setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.friendsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+}
+
+- (void)selectFriends {
+    self.everyoneSelected = FALSE;
+    [self.friendsButton setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.everyoneButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 }
 @end

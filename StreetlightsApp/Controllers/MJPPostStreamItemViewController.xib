@@ -8,7 +8,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPPostStreamItemViewController">
             <connections>
                 <outlet property="activityIndicator" destination="0Lv-zd-vRH" id="JuA-Z5-cye"/>
+                <outlet property="everyoneButton" destination="O5W-bx-lCm" id="EZP-4X-bCQ"/>
                 <outlet property="expirationTime" destination="5qy-Ox-Mqh" id="anV-Op-7d1"/>
+                <outlet property="friendsButton" destination="9rX-SK-9FP" id="Lfv-kq-sgS"/>
                 <outlet property="mapView" destination="UNm-zH-VyP" id="KaB-7R-4mp"/>
                 <outlet property="postDescription" destination="vD4-Ug-n8Q" id="7VL-RF-UU1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -25,31 +27,68 @@
                         <!--2014-08-25 16:00:00 +0000-->
                     </date>
                 </datePicker>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQj-4t-BCB">
-                    <rect key="frame" x="136" y="477" width="36" height="30"/>
-                    <state key="normal" title="Post!">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="post:" destination="-1" eventType="touchUpInside" id="0of-VJ-JWO"/>
-                    </connections>
-                </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vD4-Ug-n8Q">
-                    <rect key="frame" x="0.0" y="202" width="320" height="72"/>
+                    <rect key="frame" x="8" y="202" width="304" height="72"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <attributedString key="attributedText"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Label">
+                            <attributes>
+                                <font key="NSFont" size="18" name="Avenir-Book"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="5Ci-b9-aWa"/>
                     </connections>
                 </textView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNm-zH-VyP" customClass="GMSMapView">
-                    <rect key="frame" x="0.0" y="64" width="320" height="130"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="194"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-zd-vRH">
                     <rect key="frame" x="150" y="274" width="20" height="20"/>
                 </activityIndicatorView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7rg-K2-amz">
+                    <rect key="frame" x="0.0" y="515" width="320" height="53"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9D-X2-3oq">
+                            <rect key="frame" x="123" y="12" width="74" height="30"/>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
+                            <state key="normal" title="ADD">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="post:" destination="-1" eventType="touchUpInside" id="eAT-7d-O8l"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rX-SK-9FP">
+                    <rect key="frame" x="190" y="466" width="74" height="30"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
+                    <state key="normal" title="Friends">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tapFriends:" destination="-1" eventType="touchUpInside" id="L4T-Zn-GEz"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5W-bx-lCm">
+                    <rect key="frame" x="42" y="460" width="97" height="40"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="23"/>
+                    <state key="normal" title="Everyone">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="tapEveryone:" destination="-1" eventType="touchUpInside" id="4Jf-pa-617"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>

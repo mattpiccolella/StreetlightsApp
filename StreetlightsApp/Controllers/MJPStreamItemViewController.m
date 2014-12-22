@@ -39,6 +39,7 @@
     self = [super init];
     if (self) {
         self.streamItem = streamItem;
+        self.currentLocation = location;
     }
     return self;
 }
@@ -68,9 +69,12 @@
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
     self.timePosted.text = [dateFormatter stringFromDate:date];
     
+    double pointLatitude = [self.streamItem[@"latitude"] floatValue];
+    double pointLongitude = [self.streamItem[@"longitude"] floatValue];
+    
     // Add a marker for the location of the point.
     GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake([self.streamItem[@"latitude"] floatValue], [self.streamItem[@"longitude"] floatValue]);
+    marker.position = CLLocationCoordinate2DMake(pointLatitude, pointLongitude);
     marker.map = self.mapView;
     
     // Move the map to the location of the marker
@@ -89,6 +93,8 @@
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
     self.timeRemaining.text = [NSString stringWithFormat:@"%dm", (int) timeInterval / 60];
     
+    self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [self distanceFromLatitude:pointLatitude longitude:pointLongitude]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,6 +104,21 @@
 
 - (void)backButtonPushed {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+// Find the distance between our current location and the point in question.
+- (double)distanceFromLatitude:(double)latitude longitude:(double)longitude {
+    double currentLatitude = self.currentLocation.coordinate.latitude;
+    double currentLongitude = self.currentLocation.coordinate.longitude;
+    
+    float MILES_PER_LONG = 53.0;
+    float MILES_PER_LAT = 69.0;
+    
+    double dLatitudeMiles = (currentLatitude - latitude) / MILES_PER_LAT;
+    double dLongitudeMiles = (currentLongitude - longitude) / MILES_PER_LONG;
+
+    // Find the distance between the two points.
+    return sqrt((dLatitudeMiles * dLatitudeMiles) + (dLongitudeMiles * dLongitudeMiles));
 }
 
 @end

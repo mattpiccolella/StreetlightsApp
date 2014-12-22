@@ -225,7 +225,7 @@ NSMutableArray *friendItems;
     return searchBar;
 }
 
-// Add a centered view that will
+// Add a centered view that will contain our search bar.
 - (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
     float searchBarWidth = searchBar.bounds.size.width;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -235,4 +235,5 @@ NSMutableArray *friendItems;
     [searchBarView addSubview:searchBar];
     return searchBarView;
 }
+
 @end
