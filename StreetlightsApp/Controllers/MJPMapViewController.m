@@ -50,11 +50,12 @@
     UISearchBar* searchBar = [self searchBar];
     searchBar.delegate = self;
     
-    [[searchBar.subviews objectAtIndex:0] setFont:[UIFont fontWithName:@"Avenir" size:14]];
-    
     UIView *searchBarView = [self viewWithSearchBar:searchBar];
     
     self.navigationController.navigationBar.topItem.titleView = searchBarView;
+    
+    // TODO: Look into why this only appears after navigation.
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont fontWithName:@"Avenir" size:14]];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619

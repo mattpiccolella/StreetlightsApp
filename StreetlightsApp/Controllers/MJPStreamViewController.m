@@ -53,6 +53,9 @@ NSMutableArray *friendItems;
 
     self.navigationItem.titleView = [self viewWithSearchBar:searchBar];
     
+    // TODO: Look into why this only appears after navigation.
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont fontWithName:@"Avenir" size:14]];
+    
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
