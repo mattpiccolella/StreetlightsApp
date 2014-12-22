@@ -27,7 +27,7 @@
 @implementation MJPStreamViewController
 
 static NSString *cellIdentifier = @"streamViewCell";
-static NSInteger cellHeight = 80;
+static NSInteger cellHeight = 96;
 NSMutableArray *everyoneItems;
 NSMutableArray *friendItems;
 
@@ -94,6 +94,17 @@ NSMutableArray *friendItems;
     PFObject *streamItemUser = streamItem[@"user"];
     cell.userName.text = streamItemUser[@"name"];
     cell.postInfo.text = streamItem[@"description"];
+    
+    // TODO: Add functionality for actually favoriting and sharing things.
+    cell.favorites.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
+    cell.shares.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
+    
+    // Set the date of amount of time remaining.
+    NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
+    cell.timeRemaining.text = [NSString stringWithFormat:@"%dm", (int) timeInterval / 60];
+    
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[streamItemUser[@"profilePicture"] getData]];
         dispatch_async( dispatch_get_main_queue(), ^{

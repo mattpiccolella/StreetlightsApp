@@ -8,5 +8,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *userName;
 @property (strong, nonatomic) IBOutlet UILabel *postInfo;
 @property (strong, nonatomic) IBOutlet UIImageView *userImage;
+@property (strong, nonatomic) IBOutlet UILabel *timeRemaining;
+@property (strong, nonatomic) IBOutlet UILabel *favorites;
+@property (strong, nonatomic) IBOutlet UILabel *shares;
 
 @end
