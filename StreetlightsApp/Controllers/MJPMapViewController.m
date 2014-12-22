@@ -50,6 +50,8 @@
     UISearchBar* searchBar = [self searchBar];
     searchBar.delegate = self;
     
+    [[searchBar.subviews objectAtIndex:0] setFont:[UIFont fontWithName:@"Avenir" size:14]];
+    
     UIView *searchBarView = [self viewWithSearchBar:searchBar];
     
     self.navigationController.navigationBar.topItem.titleView = searchBarView;
@@ -184,7 +186,7 @@
 
 - (UIImageView*)addPostButton {
     // TODO: Work on making this less hard-coded. Think of proportions.
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(110.0, 450.0, 100.0, 100.0)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(85.0, 425.0, 150.0, 150.0)];
     [imageView setImage:[UIImage imageNamed:@"Post.png"]];
     [imageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postButtonPushed)];
@@ -195,7 +197,7 @@
 
 - (UIImageView*)addCurrentLocationButton {
     // TODO: Work on making this less hard-coded. Think of proportions.
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(240.0, 465.0, 80.0, 80.0)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(220.0, 450.0, 120.0, 120.0)];
     [imageView setImage:[UIImage imageNamed:@"CurrentLocation.png"]];
     [imageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(currentLocationButtonPushed)];
