@@ -456,7 +456,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5C7F742B19A3BB2A0095117F /* Build configuration list for PBXProject "StreetlightsApp" */;
+			buildConfigurationList = 5C7F742B19A3BB2A0095117F /* Build configuration list for PBXProject "Around" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -737,7 +737,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C7F742B19A3BB2A0095117F /* Build configuration list for PBXProject "StreetlightsApp" */ = {
+		5C7F742B19A3BB2A0095117F /* Build configuration list for PBXProject "Around" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5C7F745A19A3BB2A0095117F /* Debug */,
