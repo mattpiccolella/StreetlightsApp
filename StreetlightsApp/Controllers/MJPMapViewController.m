@@ -11,6 +11,7 @@
 #import "MJPStreamViewController.h"
 #import "MJPUserProfileViewController.h"
 #import "MJPPostStreamItemViewController.h"
+#import "MJPStreamItemWindow.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -68,6 +69,8 @@
     [self.locationManager startUpdatingLocation];
     
     self.mapView.camera = camera;
+    
+    self.mapView.delegate = self;
     
     [self.view addSubview:[self addPostButton]];
     [self.view addSubview:[self addCurrentLocationButton]];
@@ -258,6 +261,15 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     // TODO: Make the selectors disappear.
+}
+
+- (UIView*)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
+    MJPStreamItemWindow *customWindow = [[[NSBundle mainBundle] loadNibNamed:@"MJPStreamItemWindow" owner:self options:nil] objectAtIndex:0];
+    customWindow.layer.cornerRadius = 5.0;
+    customWindow.layer.masksToBounds = YES;
+    customWindow.streamItemDescription.text = marker.snippet;
+    customWindow.posterName.text = marker.title;
+    return customWindow;
 }
 
 @end
