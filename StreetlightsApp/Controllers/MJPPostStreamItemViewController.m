@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *friendsButton;
 - (IBAction)tapEveryone:(id)sender;
 - (IBAction)tapFriends:(id)sender;
+- (IBAction)addPhoto:(id)sender;
 
 
 @property BOOL everyoneSelected;
@@ -155,6 +156,9 @@
 
 - (IBAction)tapFriends:(id)sender {
     [self selectFriends];
+}
+
+- (IBAction)addPhoto:(id)sender {
 }
 
 

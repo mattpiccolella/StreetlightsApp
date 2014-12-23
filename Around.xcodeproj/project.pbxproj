@@ -70,7 +70,8 @@
 		5CE4584A1A47A9F000EFF937 /* Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458491A47A9F000EFF937 /* Share.png */; };
 		5CE4584C1A47AB8C00EFF937 /* Clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4584B1A47AB8C00EFF937 /* Clock.png */; };
 		5CE4584E1A47AB9A00EFF937 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4584D1A47AB9A00EFF937 /* Star.png */; };
-		5CE458551A49BF5D00EFF937 /* Post.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458541A49BF5D00EFF937 /* Post.png */; };
+		5CE458571A49C0E700EFF937 /* Post.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458561A49C0E700EFF937 /* Post.png */; };
+		5CE458591A49C2D700EFF937 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458581A49C2D700EFF937 /* Camera.png */; };
 		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
@@ -168,7 +169,8 @@
 		5CE458491A47A9F000EFF937 /* Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Share.png; sourceTree = "<group>"; };
 		5CE4584B1A47AB8C00EFF937 /* Clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clock.png; sourceTree = "<group>"; };
 		5CE4584D1A47AB9A00EFF937 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
-		5CE458541A49BF5D00EFF937 /* Post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Post.png; sourceTree = "<group>"; };
+		5CE458561A49C0E700EFF937 /* Post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Post.png; sourceTree = "<group>"; };
+		5CE458581A49C2D700EFF937 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
 		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
 		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
@@ -359,10 +361,10 @@
 				5CE4583C1A47783A00EFF937 /* Back.png */,
 				5CE458471A47A7C100EFF937 /* Compass.png */,
 				5CE458361A4773BF00EFF937 /* Profile.png */,
+				5CE458581A49C2D700EFF937 /* Camera.png */,
 				5CE458341A4772BC00EFF937 /* StreamIcon.png */,
 				5CE458321A47713500EFF937 /* X.png */,
 				5CE4582E1A4763A400EFF937 /* CurrentLocation.png */,
-				5CE458541A49BF5D00EFF937 /* Post.png */,
 				5CE8713919AC263400C963AF /* images.jpeg */,
 				5CE458381A4774CF00EFF937 /* Map.png */,
 				5CE458491A47A9F000EFF937 /* Share.png */,
@@ -370,6 +372,7 @@
 				5CE4584D1A47AB9A00EFF937 /* Star.png */,
 				5C3EA4AE19A599DC007EF291 /* Pinpoint.png */,
 				5C7F74A719A4F0980095117F /* NotificationIcon.png */,
+				5CE458561A49C0E700EFF937 /* Post.png */,
 				5C7F749919A4ED550095117F /* MapIcon.png */,
 				5C7F74B319A536B10095117F /* DummyData.json */,
 			);
@@ -479,7 +482,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CE458551A49BF5D00EFF937 /* Post.png in Resources */,
+				5CE458571A49C0E700EFF937 /* Post.png in Resources */,
 				5CE4584E1A47AB9A00EFF937 /* Star.png in Resources */,
 				5CE4582F1A4763A400EFF937 /* CurrentLocation.png in Resources */,
 				5C7F747419A3BDC60095117F /* MJPMapViewController.xib in Resources */,
@@ -489,6 +492,7 @@
 				5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */,
 				5CE458391A4774CF00EFF937 /* Map.png in Resources */,
 				5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */,
+				5CE458591A49C2D700EFF937 /* Camera.png in Resources */,
 				5CE8713A19AC263400C963AF /* images.jpeg in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
 				5CE4582B1A46934C00EFF937 /* GoogleMaps.bundle in Resources */,
