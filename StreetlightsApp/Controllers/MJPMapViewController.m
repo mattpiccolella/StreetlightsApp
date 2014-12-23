@@ -198,7 +198,7 @@
 
 - (UIImageView*)addCurrentLocationButton {
     // TODO: Work on making this less hard-coded. Think of proportions.
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(220.0, 450.0, 120.0, 120.0)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(220.0, 450.0, 80.0, 80.0)];
     [imageView setImage:[UIImage imageNamed:@"CurrentLocation.png"]];
     [imageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(currentLocationButtonPushed)];
