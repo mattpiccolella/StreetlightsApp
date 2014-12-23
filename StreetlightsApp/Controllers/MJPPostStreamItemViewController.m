@@ -6,6 +6,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "MJPAppDelegate.h"
 #import "MJPStreamItem.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface MJPPostStreamItemViewController ()
 
@@ -20,6 +21,7 @@
 - (IBAction)tapEveryone:(id)sender;
 - (IBAction)tapFriends:(id)sender;
 - (IBAction)addPhoto:(id)sender;
+@property (strong, nonatomic) PFObject *parseStreamItem;
 
 
 @property BOOL everyoneSelected;
@@ -50,6 +52,8 @@
                    forKeyPath:@"myLocation"
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
+    
+    self.parseStreamItem = [PFObject objectWithClassName:@"StreamItem"];
     
     // Why did I need this?
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -89,6 +93,7 @@
 }
 
 - (IBAction)post:(id)sender {
+    NSLog(@"HERE WE GO!");
     [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
     CLLocation *currentLocation = [self.mapView myLocation];
@@ -97,15 +102,15 @@
     
     long expirationOffset = [self.expirationTime countDownDuration];
     
-    PFObject *parseStreamItem = [PFObject objectWithClassName:@"StreamItem"];
-    [parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
-    [parseStreamItem setObject:self.postDescription.text forKey:@"description"];
-    [parseStreamItem setObject:[NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]] forKey:@"postedTimestamp"];
-    [parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];
-    [parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
-    [parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+    [self.parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
+    [self.parseStreamItem setObject:self.postDescription.text forKey:@"description"];
+    [self.parseStreamItem setObject:[NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]] forKey:@"postedTimestamp"];
+    [self.parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];
+    [self.parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+    [self.parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
     
-    [parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [self.parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"Finally we finished!");
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.postDescription.text = @"";
@@ -159,6 +164,42 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    imagePicker.delegate = self;
+    
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
+    
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+
+}
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+                // Set the image for the stream item for this post.
+        UIImage *originalImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        CGRect rect=[[info objectForKey:@"UIImagePickerControllerCropRect"] CGRectValue];
+        CGImageRef imageRef = CGImageCreateWithImageInRect([originalImage CGImage], rect);
+        UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+        NSData *imageData = UIImageJPEGRepresentation(originalImage, 0.7);
+        PFFile *postPhoto = [PFFile fileWithData:imageData];
+        self.parseStreamItem[@"postPicture"] = postPhoto;
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 154)];
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
+        [imageView setImage:originalImage];
+        [self.view addSubview:imageView];
+        [self.mapView setHidden:TRUE];
+    } else {
+        // TODO: Display an error in the case the user entered something other than an image.
+        NSLog(@"ERROR");
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
