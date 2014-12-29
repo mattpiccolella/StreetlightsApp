@@ -99,9 +99,9 @@ NSMutableArray *friendItems;
     cell.userName.text = streamItemUser[@"name"];
     cell.postInfo.text = streamItem[@"description"];
     
-    // TODO: Add functionality for actually favoriting and sharing things.
-    cell.favorites.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
-    cell.shares.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
+    cell.favorites.text = [NSString stringWithFormat:@"%u", streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0];
+    // TODO: Fix once we actually share.
+    cell.shares.text = [NSString stringWithFormat:@"0"];
     
     // Set the date of amount of time remaining.
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];
@@ -116,8 +116,6 @@ NSMutableArray *friendItems;
         });
     });
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
-    // TODO: Make actual profile images.
-    cell.userImage.image = [UIImage imageNamed:@"images.jpeg"];
     return cell;
 }
 
