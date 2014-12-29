@@ -75,6 +75,7 @@ NSMutableArray *friendItems;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];

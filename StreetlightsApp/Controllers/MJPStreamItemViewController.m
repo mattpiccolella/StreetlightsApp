@@ -23,6 +23,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *shares;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 
+@property (strong, nonatomic) IBOutlet UIButton *trashButton;
+- (IBAction)deleteStreamItem:(id)sender;
+
 
 
 @end
@@ -136,8 +139,16 @@
 }
 
 - (void)handleDeletion {
-    if (self.appDelegate.currentUser == self.streamItem[@"user"]) {
-        NSLog(@"Same user!!!");
+    if (![self.appDelegate.currentUser.objectId isEqualToString:[self.streamItem[@"user"] objectId]]) {
+        [self.trashButton setHidden:YES];
     }
+}
+- (IBAction)deleteStreamItem:(id)sender {
+    [self.streamItem deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"Successfully deleted stream item.");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    }];
 }
 @end

@@ -108,7 +108,7 @@
     [self.parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];
     [self.parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
     [self.parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
-    
+    [self.parseStreamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
     [self.parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         NSLog(@"Finally we finished!");
         if (!error) {

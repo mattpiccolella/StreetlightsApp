@@ -15,6 +15,7 @@
                 <outlet property="shares" destination="Qy7-uh-qfA" id="sGE-hB-8ag"/>
                 <outlet property="timePosted" destination="GQl-er-zEb" id="pfF-5H-Vqp"/>
                 <outlet property="timeRemaining" destination="a5j-BY-V1U" id="5W8-re-SfB"/>
+                <outlet property="trashButton" destination="L9O-1m-TZg" id="VqF-YF-dhS"/>
                 <outlet property="userName" destination="1pD-BO-Z2y" id="7HP-s7-Z28"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -87,6 +88,15 @@
                     <color key="textColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9O-1m-TZg">
+                    <rect key="frame" x="260" y="506" width="30" height="30"/>
+                    <state key="normal" image="Trash.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="deleteStreamItem:" destination="-1" eventType="touchUpInside" id="PzG-K9-gJh"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>
@@ -95,6 +105,7 @@
         <image name="Clock.png" width="50" height="50"/>
         <image name="Share.png" width="38" height="52"/>
         <image name="Star.png" width="56" height="52"/>
+        <image name="Trash.png" width="42" height="52"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
