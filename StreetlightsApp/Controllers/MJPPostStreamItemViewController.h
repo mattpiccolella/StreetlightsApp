@@ -4,6 +4,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPPostStreamItemViewController : UIViewController <UITextViewDelegate, UIImagePickerControllerDelegate>
+@interface MJPPostStreamItemViewController : UIViewController <UIImagePickerControllerDelegate, UITextViewDelegate, UINavigationControllerDelegate>
 
 @end

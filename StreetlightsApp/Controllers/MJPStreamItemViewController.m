@@ -6,6 +6,7 @@
 #import "MJPStreamItem.h"
 #import "MJPUser.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "MJPAppDelegate.h"
 
 @interface MJPStreamItemViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *userName;
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet UILabel *favorites;
 @property (strong, nonatomic) IBOutlet UILabel *shares;
+@property (strong, nonatomic) MJPAppDelegate *appDelegate;
 
 
 
@@ -47,19 +49,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     // Set the fields for the current stream item.
     self.userName.text = self.streamItem[@"user"][@"name"];
     self.postDescription.text = self.streamItem[@"description"];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[self.streamItem[@"user"][@"profilePicture"] getData]];
-        NSLog(@"Are we doing this?");
         dispatch_async( dispatch_get_main_queue(), ^{
-            NSLog(@"Setting this.");
             [self.profilePicture setImage:profilePicture];
             self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
             self.profilePicture.clipsToBounds = YES;
         });
+        if (self.streamItem[@"postPicture"]) {
+            UIImage *postPicture = [UIImage imageWithData:[self.streamItem[@"postPicture"] getData]];
+            dispatch_async( dispatch_get_main_queue(), ^{
+                CGRect screenBounds = [[UIScreen mainScreen] bounds];
+                UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 256)];
+                [imageView setContentMode:UIViewContentModeScaleAspectFit];
+                [imageView setImage:postPicture];
+                [self.view addSubview:imageView];
+                [self.mapView setHidden:TRUE];
+            });
+        }
     });
     
     // Get the dates
@@ -95,6 +108,7 @@
     
     self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [self distanceFromLatitude:pointLatitude longitude:pointLongitude]];
     
+    [self handleDeletion];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,4 +135,9 @@
     return sqrt((dLatitudeMiles * dLatitudeMiles) + (dLongitudeMiles * dLongitudeMiles));
 }
 
+- (void)handleDeletion {
+    if (self.appDelegate.currentUser == self.streamItem[@"user"]) {
+        NSLog(@"Same user!!!");
+    }
+}
 @end

@@ -12,6 +12,7 @@
 #import "MJPUserProfileViewController.h"
 #import "MJPPostStreamItemViewController.h"
 #import "MJPStreamItemWindow.h"
+#import "MJPStreamItemViewController.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -140,6 +141,7 @@
         marker.snippet = streamItem[@"description"];
         marker.position = CLLocationCoordinate2DMake([streamItem[@"latitude"] floatValue], [streamItem[@"longitude"] floatValue]);
         marker.map = self.mapView;
+        marker.userData = streamItem;
     }
 }
 
@@ -273,6 +275,12 @@
     customWindow.streamItemDescription.text = marker.snippet;
     customWindow.posterName.text = marker.title;
     return customWindow;
+}
+
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
+    PFObject *selectedStreamItem = marker.userData;
+    MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem location:self.currentLocation];
+    [self.navigationController pushViewController:dummyItem animated:YES];
 }
 
 @end

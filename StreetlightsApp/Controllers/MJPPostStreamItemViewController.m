@@ -183,9 +183,9 @@
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
                 // Set the image for the stream item for this post.
         UIImage *originalImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        CGRect rect=[[info objectForKey:@"UIImagePickerControllerCropRect"] CGRectValue];
-        CGImageRef imageRef = CGImageCreateWithImageInRect([originalImage CGImage], rect);
-        UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+        //CGRect rect=[[info objectForKey:@"UIImagePickerControllerCropRect"] CGRectValue];
+        //CGImageRef imageRef = CGImageCreateWithImageInRect([originalImage CGImage], rect);
+        //UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
         NSData *imageData = UIImageJPEGRepresentation(originalImage, 0.7);
         PFFile *postPhoto = [PFFile fileWithData:imageData];
         self.parseStreamItem[@"postPicture"] = postPhoto;
