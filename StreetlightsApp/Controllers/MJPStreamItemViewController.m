@@ -26,6 +26,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *trashButton;
 - (IBAction)deleteStreamItem:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIButton *favoriteButton;
+- (IBAction)favoritePost:(id)sender;
+
 
 
 @end
@@ -100,8 +103,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
     
     // TODO: Change this once we get favorites and shares done.
-    self.favorites.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
-    self.shares.text = [NSString stringWithFormat:@"%u", arc4random() % 8];
+    self.shares.text = [NSString stringWithFormat:@"%u", 0];
     
     // Set the date of amount of time remaining.
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
@@ -112,6 +114,7 @@
     self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [self distanceFromLatitude:pointLatitude longitude:pointLongitude]];
     
     [self handleDeletion];
+    [self setFavoriteUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,10 +148,47 @@
 }
 - (IBAction)deleteStreamItem:(id)sender {
     [self.streamItem deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"Successfully deleted stream item.");
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        if (succeeded) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        } else {
+            // TODO: Handle this error.
+        }
     }];
 }
+- (IBAction)favoritePost:(id)sender {
+    if (!self.streamItem[@"favoriteIds"]) {
+        [self.streamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
+    }
+    if (![self.streamItem[@"favoriteIds"] containsObject:self.appDelegate.currentUser.objectId]) {
+        // This user hasn't favorited the post, favorite it.
+        [self.streamItem[@"favoriteIds"] addObject:[self.appDelegate.currentUser objectId]];
+    } else {
+        // This user has favorited the post, un-favorite it.
+        [self.streamItem[@"favoriteIds"] removeObject:[self.appDelegate.currentUser objectId]];
+    }
+    [self setFavoriteUI];
+    [self.streamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            // TODO: Handle this error.
+        }
+    }];
+}
+
+- (void)setFavoriteUI {
+    if (self.streamItem[@"favoriteIds"]) {
+        if ([self.streamItem[@"favoriteIds"] containsObject:self.appDelegate.currentUser.objectId]) {
+            [self.favoriteButton setImage:[UIImage imageNamed:@"GoldStar.png"] forState:UIControlStateNormal];
+        } else {
+            [self.favoriteButton setImage:[UIImage imageNamed:@"Star.png"] forState:UIControlStateNormal];
+        }
+        self.favorites.text = [NSString stringWithFormat:@"%u", [self.streamItem[@"favoriteIds"] count]];
+    } else {
+        [self.favoriteButton setImage:[UIImage imageNamed:@"Star.png"] forState:UIControlStateNormal];
+        self.favorites.text = [NSString stringWithFormat:@"0"];
+    }
+}
+
+
 @end
