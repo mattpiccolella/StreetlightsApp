@@ -12,6 +12,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MJPLoginViewController.h"
 #import "MJPChangePasswordViewController.h"
+#import "MJPQueryUtils.h"
+#import "MJPPostHistoryTableViewController.h"
 
 @interface MJPUserSettingsTableViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *profilePicture;
@@ -129,6 +131,13 @@
 }
 
 - (IBAction)viewPostHistory:(id)sender {
+    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForUser:self.appDelegate.currentUser];
+    [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        MJPPostHistoryTableViewController *postHistory = [[MJPPostHistoryTableViewController alloc] initWithPosts:objects];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController pushViewController:postHistory animated:YES];
+        });
+    }];
 }
 
 - (void)loginRedirect {

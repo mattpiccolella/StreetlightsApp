@@ -26,4 +26,10 @@
     return streamItemQuery;
 }
 
++ (PFQuery*) getStreamItemsForUser:(PFObject*) user {
+    PFQuery *streamItemQuery = [PFQuery queryWithClassName:@"StreamItem"];
+    [streamItemQuery whereKey:@"userId" equalTo:[user objectId]];
+    return streamItemQuery;
+}
+
 @end

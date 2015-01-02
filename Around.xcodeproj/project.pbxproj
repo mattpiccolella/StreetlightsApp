@@ -13,6 +13,7 @@
 		5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3EA4B219A59B0E007EF291 /* MJPPostStreamItemViewController.xib */; };
 		5C57EC0C1A567749002EE8C9 /* MJPChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC0A1A567749002EE8C9 /* MJPChangePasswordViewController.m */; };
 		5C57EC0D1A567749002EE8C9 /* MJPChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC0B1A567749002EE8C9 /* MJPChangePasswordViewController.xib */; };
+		5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -105,6 +106,8 @@
 		5C57EC091A567749002EE8C9 /* MJPChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPChangePasswordViewController.h; sourceTree = "<group>"; };
 		5C57EC0A1A567749002EE8C9 /* MJPChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPChangePasswordViewController.m; sourceTree = "<group>"; };
 		5C57EC0B1A567749002EE8C9 /* MJPChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPChangePasswordViewController.xib; sourceTree = "<group>"; };
+		5C57EC0E1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPostHistoryTableViewController.h; sourceTree = "<group>"; };
+		5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPostHistoryTableViewController.m; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -350,6 +353,8 @@
 				5C7F746B19A3BD980095117F /* MJPStreamViewController.h */,
 				5C7F746C19A3BD980095117F /* MJPStreamViewController.m */,
 				5C7F746D19A3BD980095117F /* MJPStreamViewController.xib */,
+				5C57EC0E1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.h */,
+				5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */,
 				5CE8713B19AFEDA500C963AF /* MJPStreamItemViewController.h */,
 				5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */,
 				5CE8713D19AFEDA500C963AF /* MJPStreamItemViewController.xib */,
@@ -558,6 +563,7 @@
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */,
+				5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */,
 				5CB31D421A566CD800FCB459 /* MJPUserSettingsTableViewController.m in Sources */,
 				5CB31D311A56445600FCB459 /* MJPPhotoUtils.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,

@@ -103,6 +103,7 @@
     long expirationOffset = [self.expirationTime countDownDuration];
     
     [self.parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
+    [self.parseStreamItem setObject:[[self.appDelegate currentUser] objectId] forKey:@"userId"];
     [self.parseStreamItem setObject:self.postDescription.text forKey:@"description"];
     [self.parseStreamItem setObject:[NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]] forKey:@"postedTimestamp"];
     [self.parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];

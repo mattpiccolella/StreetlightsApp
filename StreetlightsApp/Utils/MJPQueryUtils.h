@@ -8,5 +8,6 @@
 @interface MJPQueryUtils : NSObject
 
 + (PFQuery*) getStreamItemsForLatitude:(float)latitude longitude:(float)longitude radius:(float)radius;
++ (PFQuery*) getStreamItemsForUser:(PFObject*)user;
 
 @end
