@@ -16,12 +16,9 @@
     NSNumber *min_lat = [NSNumber numberWithFloat:(latitude - (radius / MILES_PER_LAT))];
     NSNumber *currentTime = [NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]];
     [streamItemQuery whereKey:@"longitude" lessThan:max_long];
-    NSLog(@"Min and Max Long: %@ %@", max_long, min_long);
-    NSLog(@"Min and Max Lat: %@ %@", max_lat, min_lat);
     [streamItemQuery whereKey:@"longitude" greaterThan:min_long];
     [streamItemQuery whereKey:@"latitude" lessThan:max_lat];
     [streamItemQuery whereKey:@"latitude" greaterThan:min_lat];
-    NSLog(@"Expired Timestamp: %@", currentTime);
     [streamItemQuery whereKey:@"expiredTimestamp" greaterThan:currentTime];
     [streamItemQuery includeKey:@"user"];
     [streamItemQuery includeKey:@"profilePicture"];
