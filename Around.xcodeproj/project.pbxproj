@@ -14,6 +14,7 @@
 		5C57EC0C1A567749002EE8C9 /* MJPChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC0A1A567749002EE8C9 /* MJPChangePasswordViewController.m */; };
 		5C57EC0D1A567749002EE8C9 /* MJPChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC0B1A567749002EE8C9 /* MJPChangePasswordViewController.xib */; };
 		5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */; };
+		5C57EC121A56F6A5002EE8C9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C57EC111A56F6A5002EE8C9 /* FacebookSDK.framework */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -77,7 +78,6 @@
 		5CE4584E1A47AB9A00EFF937 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4584D1A47AB9A00EFF937 /* Star.png */; };
 		5CE458571A49C0E700EFF937 /* Post.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458561A49C0E700EFF937 /* Post.png */; };
 		5CE458591A49C2D700EFF937 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458581A49C2D700EFF937 /* Camera.png */; };
-		5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8713419AACF8600C963AF /* FacebookSDK.framework */; };
 		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
 		5CE8713E19AFEDA500C963AF /* MJPStreamItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */; };
@@ -108,6 +108,7 @@
 		5C57EC0B1A567749002EE8C9 /* MJPChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPChangePasswordViewController.xib; sourceTree = "<group>"; };
 		5C57EC0E1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPostHistoryTableViewController.h; sourceTree = "<group>"; };
 		5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPostHistoryTableViewController.m; sourceTree = "<group>"; };
+		5C57EC111A56F6A5002EE8C9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -184,7 +185,6 @@
 		5CE4584D1A47AB9A00EFF937 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		5CE458561A49C0E700EFF937 /* Post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Post.png; sourceTree = "<group>"; };
 		5CE458581A49C2D700EFF937 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
-		5CE8713419AACF8600C963AF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
 		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
 		5CE8713919AC263400C963AF /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
@@ -206,6 +206,7 @@
 				5C89015A1A262C2B003BCDDB /* MobileCoreServices.framework in Frameworks */,
 				5C89015B1A262C2B003BCDDB /* Security.framework in Frameworks */,
 				5C89015C1A262C2B003BCDDB /* StoreKit.framework in Frameworks */,
+				5C57EC121A56F6A5002EE8C9 /* FacebookSDK.framework in Frameworks */,
 				5C7F748719A439F80095117F /* CoreLocation.framework in Frameworks */,
 				5CB31D3B1A5653A700FCB459 /* GoogleMaps.framework in Frameworks */,
 				5C7F749019A439F80095117F /* SystemConfiguration.framework in Frameworks */,
@@ -219,7 +220,6 @@
 				5C7F748A19A439F80095117F /* ImageIO.framework in Frameworks */,
 				5C7F748B19A439F80095117F /* libc++.dylib in Frameworks */,
 				5C7F748C19A439F80095117F /* libicucore.A.dylib in Frameworks */,
-				5CE8713519AACF8600C963AF /* FacebookSDK.framework in Frameworks */,
 				5C7F748E19A439F80095117F /* OpenGLES.framework in Frameworks */,
 				5C7F748F19A439F80095117F /* QuartzCore.framework in Frameworks */,
 				5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */,
@@ -262,6 +262,7 @@
 		5C7F743219A3BB2A0095117F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C57EC111A56F6A5002EE8C9 /* FacebookSDK.framework */,
 				5CB31D3C1A56541100FCB459 /* GoogleMaps.bundle */,
 				5CB31D3A1A5653A700FCB459 /* GoogleMaps.framework */,
 				5C8901531A262C2B003BCDDB /* AudioToolbox.framework */,
@@ -271,7 +272,6 @@
 				5C8901571A262C2B003BCDDB /* StoreKit.framework */,
 				5C8901511A262BD3003BCDDB /* Parse.framework */,
 				5CE8714219B4EE2300C963AF /* libsqlite3.dylib */,
-				5CE8713419AACF8600C963AF /* FacebookSDK.framework */,
 				5C7F747919A439F80095117F /* AVFoundation.framework */,
 				5C7F747A19A439F80095117F /* CoreData.framework */,
 				5C7F747B19A439F80095117F /* CoreLocation.framework */,
