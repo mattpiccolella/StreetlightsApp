@@ -75,11 +75,6 @@
     
     self.mapView.delegate = self;
     
-    [self.mapView addObserver:self
-                   forKeyPath:@"myLocation"
-                      options:NSKeyValueObservingOptionNew
-                      context:NULL];
-    
     
     [self.view addSubview:[self addPostButton]];
     [self.view addSubview:[self addCurrentLocationButton]];
@@ -89,13 +84,14 @@
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
+    
+    [self.mapView addObserver:self
+                   forKeyPath:@"myLocation"
+                      options:NSKeyValueObservingOptionNew
+                      context:NULL];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
-}
-
-- (void)dealloc {
     [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
 }
 

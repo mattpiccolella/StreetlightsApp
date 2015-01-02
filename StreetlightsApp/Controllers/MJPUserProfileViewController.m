@@ -58,15 +58,17 @@
     [self.userName setText:user[@"name"]];
     [self.userFirstName setTitle:user[@"name"]];
     // TODO: Do stuff with number of friends, etc.
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            [self.userImage setImage:profilePicture forState:UIControlStateNormal];
-            [self.userImage setImage:profilePicture forState:UIControlStateSelected];
-            [MJPPhotoUtils circularCrop:self.userImage.imageView];
-            [self.activityIndicator setHidden:YES];
+    if (self.appDelegate.currentUser[@"profilePicture"]) {
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
+            dispatch_async( dispatch_get_main_queue(), ^{
+                [self.userImage setImage:profilePicture forState:UIControlStateNormal];
+                [self.userImage setImage:profilePicture forState:UIControlStateSelected];
+                [self.activityIndicator setHidden:YES];
+            });
         });
-    });
+    }
+    [MJPPhotoUtils circularCrop:self.userImage.imageView];
 }
 
 - (void)didReceiveMemoryWarning {
