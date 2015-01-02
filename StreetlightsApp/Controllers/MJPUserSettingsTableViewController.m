@@ -11,6 +11,7 @@
 #import "MJPPhotoUtils.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MJPLoginViewController.h"
+#import "MJPChangePasswordViewController.h"
 
 @interface MJPUserSettingsTableViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *profilePicture;
@@ -123,6 +124,8 @@
 }
 
 - (IBAction)changePassword:(id)sender {
+    MJPChangePasswordViewController *changePassword = [[MJPChangePasswordViewController alloc] init];
+    [self.navigationController pushViewController:changePassword animated:YES];
 }
 
 - (IBAction)viewPostHistory:(id)sender {

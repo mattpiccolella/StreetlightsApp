@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPChangePasswordViewController : UIViewController
+@interface MJPChangePasswordViewController : UIViewController<UITextFieldDelegate>
 
 @end
