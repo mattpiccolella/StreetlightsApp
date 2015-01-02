@@ -6,7 +6,6 @@
 #import "MJPAppDelegate.h"
 #import "MJPStreamViewController.h"
 #import "MJPMapViewController.h"
-#import "MJPUserProfileViewController.h"
 #import "MJPPostStreamItemViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "MJPUser.h"

@@ -9,7 +9,6 @@
 #import <Parse/Parse.h>
 #import "MJPQueryUtils.h"
 #import "MJPStreamViewController.h"
-#import "MJPUserProfileViewController.h"
 #import "MJPPostStreamItemViewController.h"
 #import "MJPStreamItemWindow.h"
 #import "MJPStreamItemViewController.h"

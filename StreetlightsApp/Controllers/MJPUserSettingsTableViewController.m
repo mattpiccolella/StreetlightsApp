@@ -19,6 +19,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *userName;
 @property (strong, nonatomic) IBOutlet UILabel *userEmail;
 - (IBAction)logout:(id)sender;
+- (IBAction)changePassword:(id)sender;
+- (IBAction)viewPostHistory:(id)sender;
 
 @end
 
@@ -118,6 +120,12 @@
     [userDefaults removeObjectForKey:@"user_id"];
     [userDefaults synchronize];
     [self loginRedirect];
+}
+
+- (IBAction)changePassword:(id)sender {
+}
+
+- (IBAction)viewPostHistory:(id)sender {
 }
 
 - (void)loginRedirect {

@@ -10,7 +10,6 @@
 #import <Parse/Parse.h>
 #import "MJPQueryUtils.h"
 #import "MJPMapViewController.h"
-#import "MJPUserProfileViewController.h"
 #import "MJPUserSettingsTableViewController.h"
 
 @interface MJPStreamViewController () 
