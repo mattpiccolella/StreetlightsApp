@@ -13,6 +13,7 @@
 #import "MJPPostStreamItemViewController.h"
 #import "MJPStreamItemWindow.h"
 #import "MJPStreamItemViewController.h"
+#import "MJPUserSettingsTableViewController.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -210,11 +211,12 @@
 }
 
 - (void)rightButtonPushed {
-    MJPUserProfileViewController *profileView = [[MJPUserProfileViewController alloc] init];
+    UIStoryboard *settingsStoryboard = [UIStoryboard storyboardWithName:@"MJPSettings" bundle:nil];
+    MJPUserSettingsTableViewController *settingsViewController = [settingsStoryboard instantiateInitialViewController];
     
     UINavigationController *navController = (UINavigationController*) [self.appDelegate.window rootViewController];
     
-    [navController pushViewController:profileView animated:YES];
+    [navController pushViewController:settingsViewController animated:YES];
 }
 
 - (void)postButtonPushed {

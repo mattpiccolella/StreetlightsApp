@@ -41,8 +41,6 @@
 		5C7F748F19A439F80095117F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F748319A439F80095117F /* QuartzCore.framework */; };
 		5C7F749019A439F80095117F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F748419A439F80095117F /* SystemConfiguration.framework */; };
 		5C7F749B19A4ED550095117F /* MapIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749919A4ED550095117F /* MapIcon.png */; };
-		5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */; };
-		5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */; };
 		5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A719A4F0980095117F /* NotificationIcon.png */; };
 		5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */; };
 		5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */; };
@@ -60,6 +58,8 @@
 		5CB31D311A56445600FCB459 /* MJPPhotoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB31D301A56445600FCB459 /* MJPPhotoUtils.m */; };
 		5CB31D3B1A5653A700FCB459 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CB31D3A1A5653A700FCB459 /* GoogleMaps.framework */; };
 		5CB31D3D1A56541100FCB459 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5CB31D3C1A56541100FCB459 /* GoogleMaps.bundle */; };
+		5CB31D3F1A56625000FCB459 /* MJPSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CB31D3E1A56625000FCB459 /* MJPSettings.storyboard */; };
+		5CB31D421A566CD800FCB459 /* MJPUserSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB31D411A566CD800FCB459 /* MJPUserSettingsTableViewController.m */; };
 		5CE4582F1A4763A400EFF937 /* CurrentLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4582E1A4763A400EFF937 /* CurrentLocation.png */; };
 		5CE458331A47713500EFF937 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458321A47713500EFF937 /* X.png */; };
 		5CE458351A4772BC00EFF937 /* StreamIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458341A4772BC00EFF937 /* StreamIcon.png */; };
@@ -137,9 +137,6 @@
 		5C7F748319A439F80095117F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5C7F748419A439F80095117F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5C7F749919A4ED550095117F /* MapIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapIcon.png; sourceTree = "<group>"; };
-		5C7F749D19A4EF630095117F /* MJPUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUserProfileViewController.h; sourceTree = "<group>"; };
-		5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUserProfileViewController.m; sourceTree = "<group>"; };
-		5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPUserProfileViewController.xib; sourceTree = "<group>"; };
 		5C7F74A719A4F0980095117F /* NotificationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationIcon.png; sourceTree = "<group>"; };
 		5C7F74AB19A5266B0095117F /* MJPStreamItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItemTableViewCell.h; sourceTree = "<group>"; };
 		5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItemTableViewCell.m; sourceTree = "<group>"; };
@@ -161,6 +158,9 @@
 		5CB31D301A56445600FCB459 /* MJPPhotoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPhotoUtils.m; sourceTree = "<group>"; };
 		5CB31D3A1A5653A700FCB459 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		5CB31D3C1A56541100FCB459 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		5CB31D3E1A56625000FCB459 /* MJPSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MJPSettings.storyboard; sourceTree = "<group>"; };
+		5CB31D401A566CD800FCB459 /* MJPUserSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUserSettingsTableViewController.h; sourceTree = "<group>"; };
+		5CB31D411A566CD800FCB459 /* MJPUserSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUserSettingsTableViewController.m; sourceTree = "<group>"; };
 		5CE4582E1A4763A400EFF937 /* CurrentLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CurrentLocation.png; sourceTree = "<group>"; };
 		5CE458321A47713500EFF937 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		5CE458341A4772BC00EFF937 /* StreamIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StreamIcon.png; sourceTree = "<group>"; };
@@ -336,9 +336,9 @@
 				5C3EA4B019A59B0E007EF291 /* MJPPostStreamItemViewController.h */,
 				5C3EA4B119A59B0E007EF291 /* MJPPostStreamItemViewController.m */,
 				5C3EA4B219A59B0E007EF291 /* MJPPostStreamItemViewController.xib */,
-				5C7F749D19A4EF630095117F /* MJPUserProfileViewController.h */,
-				5C7F749E19A4EF630095117F /* MJPUserProfileViewController.m */,
-				5C7F749F19A4EF630095117F /* MJPUserProfileViewController.xib */,
+				5CB31D3E1A56625000FCB459 /* MJPSettings.storyboard */,
+				5CB31D401A566CD800FCB459 /* MJPUserSettingsTableViewController.h */,
+				5CB31D411A566CD800FCB459 /* MJPUserSettingsTableViewController.m */,
 				5C7F746B19A3BD980095117F /* MJPStreamViewController.h */,
 				5C7F746C19A3BD980095117F /* MJPStreamViewController.m */,
 				5C7F746D19A3BD980095117F /* MJPStreamViewController.xib */,
@@ -506,7 +506,7 @@
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
 				5CE458481A47A7C200EFF937 /* Compass.png in Resources */,
 				5CE458431A47960300EFF937 /* MJPStreamItemWindow.xib in Resources */,
-				5C7F74A119A4EF630095117F /* MJPUserProfileViewController.xib in Resources */,
+				5CB31D3F1A56625000FCB459 /* MJPSettings.storyboard in Resources */,
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
 				5CE4584C1A47AB8C00EFF937 /* Clock.png in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
@@ -548,7 +548,7 @@
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */,
-				5C7F74A019A4EF630095117F /* MJPUserProfileViewController.m in Sources */,
+				5CB31D421A566CD800FCB459 /* MJPUserSettingsTableViewController.m in Sources */,
 				5CB31D311A56445600FCB459 /* MJPPhotoUtils.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,
 				5CE871C719B4F7D700C963AF /* MJPConstants.m in Sources */,

@@ -11,6 +11,7 @@
 #import "MJPQueryUtils.h"
 #import "MJPMapViewController.h"
 #import "MJPUserProfileViewController.h"
+#import "MJPUserSettingsTableViewController.h"
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -204,11 +205,12 @@ NSMutableArray *friendItems;
 }
 
 - (void)rightButtonPushed {
-    MJPUserProfileViewController *profileView = [[MJPUserProfileViewController alloc] init];
+    UIStoryboard *settingsStoryboard = [UIStoryboard storyboardWithName:@"MJPSettings" bundle:nil];
+    MJPUserSettingsTableViewController *settingsViewController = [settingsStoryboard instantiateInitialViewController];
     
     UINavigationController *navController = (UINavigationController*) [self.appDelegate.window rootViewController];
     
-    [navController pushViewController:profileView animated:YES];
+    [navController pushViewController:settingsViewController animated:YES];
 }
 
 // Format the search bar that will be added for the initial screen.
