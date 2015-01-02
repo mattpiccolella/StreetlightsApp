@@ -50,6 +50,17 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
         [self loggedOutView];
         return YES;
     }
+    
+    // Whenever a person opens the app, check for a cached Facebook session for sharing.
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        
+        // If there's one, just open the session silently, without showing the user the login UI
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
+                                           allowLoginUI:NO
+                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                          // TODO: Maybe do something here?
+        }];
+    }
 }
 
 - (void)loggedInView {
@@ -99,5 +110,9 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [FBSession.activeSession handleOpenURL:url];
 }
 @end

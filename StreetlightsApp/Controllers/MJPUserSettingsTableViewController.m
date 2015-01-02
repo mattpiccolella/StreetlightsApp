@@ -24,6 +24,8 @@
 - (IBAction)logout:(id)sender;
 - (IBAction)changePassword:(id)sender;
 - (IBAction)viewPostHistory:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *facebookSharing;
+- (IBAction)shareWithFacebook:(id)sender;
 
 @end
 
@@ -67,6 +69,8 @@
         });
     }
     [MJPPhotoUtils circularCrop:self.profilePicture.imageView];
+    // Handle Facebook sharing name.
+    [self facebookSharingUI:[FBSession activeSession]];
 }
 
 - (IBAction)changeProfilePicture:(id)sender {
@@ -143,5 +147,45 @@
 - (void)loginRedirect {
     MJPLoginViewController *loginViewController = [[MJPLoginViewController alloc] init];
     self.appDelegate.window.rootViewController = loginViewController;
+}
+- (IBAction)shareWithFacebook:(id)sender {
+    // Open a session showing the user the login UI
+    // You must ALWAYS ask for public_profile permissions when opening a session
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
+                                           allowLoginUI:YES
+                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+        [self facebookSharingUI:session];
+    }];
+    
+    // TODO: Add functionality to remove Facebook sharing.
+}
+
+- (void) facebookSharingUI:(FBSession*)session {
+    if (session.state == FBSessionStateOpen) {
+        [self fetchFacebookUserName];
+    } else if (session.state == FBSessionStateCreatedTokenLoaded) {
+        // This is the state on app launch with cached access token.
+        [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            if (session.state == FBSessionStateOpen) {
+                [self fetchFacebookUserName];
+            }
+        }];
+    } else {
+        // Doesn't seem to be logged in. Do nothing.
+    }
+}
+
+- (void)fetchFacebookUserName {
+    [[FBRequest requestForMe] startWithCompletionHandler:
+     ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+         if (!error) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.facebookSharing setTitle:user.name forState:UIControlStateNormal];
+             });
+         } else {
+             NSLog(@"Error: unable to fetch user profile.");
+             // TODO: Handle the error in this case.
+         }
+     }];
 }
 @end
