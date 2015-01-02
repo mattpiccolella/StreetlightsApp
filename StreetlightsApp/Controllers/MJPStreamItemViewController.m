@@ -29,6 +29,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *favoriteButton;
 - (IBAction)favoritePost:(id)sender;
+- (IBAction)sharePost:(id)sender;
 
 
 
@@ -176,6 +177,19 @@
     }];
 }
 
+- (IBAction)sharePost:(id)sender {
+    // Check for publish permissions
+    if ([FBSession activeSession].state == FBSessionStateOpen) {
+        [self getPermissionsAndPost];
+    } else if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
+        [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            if (session.state == FBSessionStateOpen) {
+                [self getPermissionsAndPost];
+            }
+        }];
+    }
+}
+
 - (void)setFavoriteUI {
     if (self.streamItem[@"favoriteIds"]) {
         if ([self.streamItem[@"favoriteIds"] containsObject:self.appDelegate.currentUser.objectId]) {
@@ -190,5 +204,83 @@
     }
 }
 
+- (void)getPermissionsAndPost {
+    [FBRequestConnection startWithGraphPath:@"/me/permissions" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // Walk the list of permissions looking to see if publish_actions has been granted
+            NSArray *permissions = (NSArray *)[result data];
+            BOOL publishActionsSet = FALSE;
+            for (NSDictionary *perm in permissions) {
+                if ([[perm objectForKey:@"permission"] isEqualToString:@"publish_actions"] &&
+                    [[perm objectForKey:@"status"] isEqualToString:@"granted"]) {
+                    publishActionsSet = TRUE;
+                    break;
+                }
+            }
+            if (!publishActionsSet) {
+                // Permission hasn't been granted, so ask for publish_actions
+                [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                                      defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+                                                          if (!error) {
+                                                              if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+                                                                  NSLog(@"No permission.");
+                                                                  // TODO: Think of what to do here. Just let it go I think.
+                                                              } else {
+                                                                  // Permission granted.
+                                                                  [self postEvent];
+                                                              }
+                                                          } else {
+                                                              NSLog(@"Error requesting permission");
+                                                              // TODO: Handle this better.
+                                                          }
+                                                      }];
+                
+            } else {
+                // Already have the permissions we need.
+                [self postEvent];
+            }
+        } else {
+            // TODO: Handle the error in fetching permissions.
+            NSLog(@"Error fetching permissions");
+        }
+    }];
+}
 
+- (void) postEvent {
+    NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
+    object.provisionedForPost = YES;
+    object[@"type"] = @"streetlightsapp:event";
+    
+    object[@"title"] = @"Around";
+    object[@"description"] = [self.streamItem objectForKey:@"description"];
+    
+    // Post custom object
+    [FBRequestConnection startForPostOpenGraphObject:object completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // get the object ID for the Open Graph object that is now stored in the Object API
+            NSString *objectId = [result objectForKey:@"id"];
+            // create an Open Graph action
+            id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
+            [action setObject:objectId forKey:@"event"];
+            
+            // create action referencing user owned object
+            [FBRequestConnection startForPostWithGraphPath:@"/me/streetlightsapp:post" graphObject:action completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                if(!error) {
+                    NSLog(@"Story posted: %@", [result objectForKey:@"id"]);
+                    [[[UIAlertView alloc] initWithTitle:@"Your story has been posted!"
+                                                message:@"Check your Facebook profile or activity log to see it."
+                                               delegate:self
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil] show];
+                } else {
+                    // An error occurred
+                    NSLog(@"Encountered an error posting to Open Graph: %@", error);
+                }
+            }];
+        } else {
+            // An error occurred
+            NSLog(@"Error posting the Open Graph object to the Object API: %@", error);
+        }
+    }];
+}
 @end

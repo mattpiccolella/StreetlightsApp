@@ -65,9 +65,6 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Clock.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gf1-MJ-Xxz">
                     <rect key="frame" x="8" y="506" width="30" height="30"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Share.png" translatesAutoresizingMaskIntoConstraints="NO" id="NwM-DR-FxP">
-                    <rect key="frame" x="172" y="506" width="30" height="30"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5j-BY-V1U">
                     <rect key="frame" x="46" y="510" width="42" height="21"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
@@ -102,6 +99,15 @@
                     </state>
                     <connections>
                         <action selector="favoritePost:" destination="-1" eventType="touchUpInside" id="xNZ-qX-e1x"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVU-PE-82I">
+                    <rect key="frame" x="172" y="506" width="30" height="30"/>
+                    <state key="normal" image="Share.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="sharePost:" destination="-1" eventType="touchUpInside" id="5tT-im-dld"/>
                     </connections>
                 </button>
             </subviews>
