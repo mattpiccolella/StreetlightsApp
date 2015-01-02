@@ -15,6 +15,7 @@
 		5C57EC0D1A567749002EE8C9 /* MJPChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC0B1A567749002EE8C9 /* MJPChangePasswordViewController.xib */; };
 		5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */; };
 		5C57EC121A56F6A5002EE8C9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C57EC111A56F6A5002EE8C9 /* FacebookSDK.framework */; };
+		5C57EC141A574ACB002EE8C9 /* PathwayGothicOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -109,6 +110,7 @@
 		5C57EC0E1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPostHistoryTableViewController.h; sourceTree = "<group>"; };
 		5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPostHistoryTableViewController.m; sourceTree = "<group>"; };
 		5C57EC111A56F6A5002EE8C9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PathwayGothicOne-Regular.ttf"; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -309,6 +311,7 @@
 		5C7F743A19A3BB2A0095117F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */,
 				5C7F743B19A3BB2A0095117F /* StreetlightsApp-Info.plist */,
 				5C7F743C19A3BB2A0095117F /* InfoPlist.strings */,
 				5C7F743F19A3BB2A0095117F /* main.m */,
@@ -506,6 +509,7 @@
 				5CE4584E1A47AB9A00EFF937 /* Star.png in Resources */,
 				5CE4582F1A4763A400EFF937 /* CurrentLocation.png in Resources */,
 				5C8710EF1A51BD20008E117A /* GoldStar.png in Resources */,
+				5C57EC141A574ACB002EE8C9 /* PathwayGothicOne-Regular.ttf in Resources */,
 				5C7F747419A3BDC60095117F /* MJPMapViewController.xib in Resources */,
 				5CE458351A4772BC00EFF937 /* StreamIcon.png in Resources */,
 				5C7F746819A3BB900095117F /* MJPLoginViewController.xib in Resources */,

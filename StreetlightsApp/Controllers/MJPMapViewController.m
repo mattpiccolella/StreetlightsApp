@@ -48,15 +48,15 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StreamIcon.png"] landscapeImagePhone:[UIImage imageNamed:@"StreamIcon.png"] style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile.png"] landscapeImagePhone:[UIImage imageNamed:@"Profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
     
-    UISearchBar* searchBar = [self searchBar];
-    searchBar.delegate = self;
+    self.navigationItem.titleView = [self appNameView];
     
-    UIView *searchBarView = [self viewWithSearchBar:searchBar];
-    
-    self.navigationController.navigationBar.topItem.titleView = searchBarView;
-    
-    // TODO: Look into why this only appears after navigation.
-    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setFont:[UIFont fontWithName:@"Avenir" size:14]];
+    NSArray *fontFamilies = [UIFont familyNames];
+    for (int i = 0; i < [fontFamilies count]; i++)
+    {
+        NSString *fontFamily = [fontFamilies objectAtIndex:i];
+        NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
+        NSLog (@"%@: %@", fontFamily, fontNames);
+    }
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
@@ -274,4 +274,19 @@
     [self.navigationController pushViewController:dummyItem animated:YES];
 }
 
+
+- (UIView*) appNameView {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    float labelWidth = 0.21 * screenWidth;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, labelWidth, 44.0)];
+    [label setFont:[UIFont fontWithName:@"PathwayGothicOne-Book" size:30]];
+    [label setText:@"Around"];
+    [label setTextColor:[UIColor whiteColor]];
+    UIView *labelView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * labelWidth)), 0.0, labelWidth, 44.0)];
+    [label setCenter:CGPointMake(labelView.frame.size.width / 2, labelView.frame.size.height / 2)];
+    [labelView addSubview:label];
+    [label setCenter:CGPointMake(labelView.frame.size.width / 2, labelView.frame.size.height / 2)];
+    return labelView;
+}
 @end
