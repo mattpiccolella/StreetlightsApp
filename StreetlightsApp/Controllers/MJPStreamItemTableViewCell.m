@@ -3,13 +3,12 @@
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
 
 #import "MJPStreamItemTableViewCell.h"
+#import "MJPPhotoUtils.h"
 
 @implementation MJPStreamItemTableViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
-    self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2;
-    self.userImage.clipsToBounds = YES;
+    [MJPPhotoUtils circularCrop:self.userImage];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

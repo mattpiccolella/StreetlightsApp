@@ -58,4 +58,9 @@
     return croppedImage;
 }
 
++ (void) circularCrop:(UIImageView *)imageView {
+    imageView.layer.cornerRadius = imageView.frame.size.width / 2;
+    imageView.clipsToBounds = YES;
+}
+
 @end

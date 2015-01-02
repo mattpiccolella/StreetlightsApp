@@ -12,4 +12,6 @@
 
 + (UIImage*) croppedImageWithInfo:(NSDictionary*)info;
 
++ (void) circularCrop:(UIImageView*)image;
+
 @end

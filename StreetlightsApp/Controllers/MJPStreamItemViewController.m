@@ -7,6 +7,7 @@
 #import "MJPUser.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "MJPAppDelegate.h"
+#import "MJPPhotoUtils.h"
 
 @interface MJPStreamItemViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *userName;
@@ -65,8 +66,7 @@
         UIImage *profilePicture = [UIImage imageWithData:[self.streamItem[@"user"][@"profilePicture"] getData]];
         dispatch_async( dispatch_get_main_queue(), ^{
             [self.profilePicture setImage:profilePicture];
-            self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width / 2;
-            self.profilePicture.clipsToBounds = YES;
+            [MJPPhotoUtils circularCrop:self.profilePicture];
         });
         if (self.streamItem[@"postPicture"]) {
             UIImage *postPicture = [UIImage imageWithData:[self.streamItem[@"postPicture"] getData]];
