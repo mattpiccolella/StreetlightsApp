@@ -48,7 +48,12 @@ NSMutableArray *friendItems;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Map.png"] landscapeImagePhone:[UIImage imageNamed:@"Map.png"] style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile.png"] landscapeImagePhone:[UIImage imageNamed:@"Profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
     
-    [self.navigationItem setTitleView:[self appNameView]];
+    NSDictionary *settings = @{
+                               NSFontAttributeName                :  [UIFont fontWithName:@"PathwayGothicOne-Book" size:30.0],
+                               NSForegroundColorAttributeName          :  [UIColor whiteColor]};
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:settings];
+    [self.navigationItem setTitle:@"Around"];
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -228,21 +233,6 @@ NSMutableArray *friendItems;
     searchBarView.autoresizingMask = 0;
     [searchBarView addSubview:searchBar];
     return searchBarView;
-}
-
-- (UIView*) appNameView {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    float labelWidth = 0.21 * screenWidth;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, labelWidth, 44.0)];
-    [label setFont:[UIFont fontWithName:@"PathwayGothicOne-Book" size:30]];
-    [label setText:@"Around"];
-    [label setTextColor:[UIColor whiteColor]];
-    UIView *labelView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * labelWidth)), 0.0, labelWidth, 44.0)];
-    [label setCenter:CGPointMake(labelView.frame.size.width / 2, labelView.frame.size.height / 2)];
-    [labelView addSubview:label];
-    [label setCenter:CGPointMake(labelView.frame.size.width / 2, labelView.frame.size.height / 2)];
-    return labelView;
 }
 
 @end

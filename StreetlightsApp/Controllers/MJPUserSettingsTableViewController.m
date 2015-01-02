@@ -55,7 +55,6 @@
 }
 
 - (void)setProfileUI:(PFObject*) user {
-    [self.navigationItem setTitle:[NSString stringWithFormat:@"Edit Profile"]];
     [self.userName setText:user[@"name"]];
     [self.userEmail setText:user[@"email"]];
     // TODO: Do stuff with number of friends, etc.
