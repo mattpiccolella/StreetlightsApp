@@ -72,9 +72,16 @@
     self.mapView.delegate = self;
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"WE ARE HERE RIGHT NOW!");
         self.mapView.myLocationEnabled = YES;
         NSLog(@"User Location: %@", self.mapView.myLocation);
     });
+    
+    [self.mapView addObserver:self
+                   forKeyPath:@"myLocation"
+                      options:NSKeyValueObservingOptionNew
+                      context:NULL];
+    
     
     [self.view addSubview:[self addPostButton]];
     [self.view addSubview:[self addCurrentLocationButton]];
@@ -84,14 +91,6 @@
     self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
-    [self.mapView addObserver:self
-                   forKeyPath:@"myLocation"
-                      options:NSKeyValueObservingOptionNew
-                      context:NULL];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // TODO: Look why the blue dot is not showing for iOS 8.
-        self.mapView.myLocationEnabled = YES;
-    });
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
