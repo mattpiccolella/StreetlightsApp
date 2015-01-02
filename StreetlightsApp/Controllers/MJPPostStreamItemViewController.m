@@ -94,7 +94,6 @@
 }
 
 - (IBAction)post:(id)sender {
-    NSLog(@"HERE WE GO!");
     [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
     CLLocation *currentLocation = [self.mapView myLocation];
@@ -111,7 +110,6 @@
     [self.parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
     [self.parseStreamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
     [self.parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"Finally we finished!");
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.postDescription.text = @"";

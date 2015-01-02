@@ -42,32 +42,6 @@
     [super didReceiveMemoryWarning];
 }
 
-+ (NSArray *)getTabBarViewControllers {
-    MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
-    mapViewController.tabBarItem.title = @"Map";
-    mapViewController.tabBarItem.image = [UIImage imageNamed:@"MapIcon.png"];
-    UINavigationController *mapNavController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-    [mapNavController setNavigationBarHidden:YES];
-    
-    MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
-    streamViewController.tabBarItem.title = @"Stream";
-    streamViewController.tabBarItem.image = [UIImage imageNamed:@"StreamIcon.png"];
-    UINavigationController *streamNavController = [[UINavigationController alloc] initWithRootViewController:streamViewController];
-    [streamNavController setNavigationBarHidden:YES];
-    
-    MJPPostStreamItemViewController *postStreamItemViewController = [[MJPPostStreamItemViewController alloc] init];
-    postStreamItemViewController.tabBarItem.title = @"Post";
-    postStreamItemViewController.tabBarItem.image = [UIImage imageNamed:@"Pinpoint.png"];
-    
-    
-    MJPUserProfileViewController *userProfileController = [[MJPUserProfileViewController alloc] init];
-    userProfileController.tabBarItem.title = @"Profile";
-    userProfileController.tabBarItem.image = [UIImage imageNamed:@"ProfileIcon.png"];
-    
-    
-    return @[mapViewController, streamNavController, postStreamItemViewController, userProfileController];
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
@@ -91,6 +65,8 @@
                         
                         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
                         
+                        navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
+                        
                         [UIApplication sharedApplication].delegate.window.rootViewController = navController;
                     });
                     MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
@@ -102,7 +78,6 @@
                         MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
                         [appDelegate setCurrentUser:object];
                     }];
-                    NSLog(@"We created our object.");
                 }
             }];
         }

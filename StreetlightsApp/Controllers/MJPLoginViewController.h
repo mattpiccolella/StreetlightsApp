@@ -6,6 +6,4 @@
 
 @interface MJPLoginViewController : UIViewController <UITextFieldDelegate>
 
-+ (NSArray *)getTabBarViewControllers;
-
 @end

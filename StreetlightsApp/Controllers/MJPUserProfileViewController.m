@@ -107,7 +107,6 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
-    NSLog(@"This is it!");
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *croppedImage = [MJPPhotoUtils croppedImageWithInfo:info];
         NSData *imageData = UIImageJPEGRepresentation(croppedImage, 0.7);
