@@ -175,7 +175,6 @@
         self.currentLocation = newLocation;
         hasLoadedInitialMarkers_ = YES;
         [self loadInitialMarkers];
-        [self.locationManager stopUpdatingLocation];
     }
 }
 
@@ -225,7 +224,6 @@
 }
 
 - (void)currentLocationButtonPushed {
-    // TODO: Make this navigate to current location.
     [self.mapView animateToLocation:self.currentLocation.coordinate];
 }
 
