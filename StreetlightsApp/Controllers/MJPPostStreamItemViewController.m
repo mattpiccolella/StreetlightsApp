@@ -7,6 +7,7 @@
 #import "MJPAppDelegate.h"
 #import "MJPStreamItem.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "MJPPhotoUtils.h"
 
 @interface MJPPostStreamItemViewController ()
 
@@ -181,18 +182,14 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-                // Set the image for the stream item for this post.
-        UIImage *originalImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        //CGRect rect=[[info objectForKey:@"UIImagePickerControllerCropRect"] CGRectValue];
-        //CGImageRef imageRef = CGImageCreateWithImageInRect([originalImage CGImage], rect);
-        //UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
-        NSData *imageData = UIImageJPEGRepresentation(originalImage, 0.7);
+        UIImage *croppedImage = [MJPPhotoUtils croppedImageWithInfo:info];
+        NSData *imageData = UIImageJPEGRepresentation(croppedImage, 0.7);
         PFFile *postPhoto = [PFFile fileWithData:imageData];
         self.parseStreamItem[@"postPicture"] = postPhoto;
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 154)];
         [imageView setContentMode:UIViewContentModeScaleAspectFit];
-        [imageView setImage:originalImage];
+        [imageView setImage:croppedImage];
         [self.view addSubview:imageView];
         [self.mapView setHidden:TRUE];
     } else {

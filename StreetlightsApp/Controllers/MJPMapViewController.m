@@ -62,11 +62,6 @@
                                                             longitude:-73.9619
                                                                  zoom:12];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.mapView.myLocationEnabled = YES;
-        NSLog(@"User Location: %@", self.mapView.myLocation);
-    });
-    
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -75,6 +70,11 @@
     self.mapView.camera = camera;
     
     self.mapView.delegate = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.mapView.myLocationEnabled = YES;
+        NSLog(@"User Location: %@", self.mapView.myLocation);
+    });
     
     [self.view addSubview:[self addPostButton]];
     [self.view addSubview:[self addCurrentLocationButton]];

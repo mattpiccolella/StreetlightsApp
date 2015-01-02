@@ -61,9 +61,9 @@
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
         dispatch_async( dispatch_get_main_queue(), ^{
-            [self.userImage.imageView setImage:profilePicture];
-            self.userImage.imageView.layer.cornerRadius = self.userImage.imageView.frame.size.width / 2;
-            self.userImage.imageView.clipsToBounds = YES;
+            [self.userImage setImage:profilePicture forState:UIControlStateNormal];
+            [self.userImage setImage:profilePicture forState:UIControlStateSelected];
+            [MJPPhotoUtils circularCrop:self.userImage.imageView];
             [self.activityIndicator setHidden:YES];
         });
     });
