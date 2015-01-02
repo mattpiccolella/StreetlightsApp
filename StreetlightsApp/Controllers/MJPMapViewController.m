@@ -62,6 +62,12 @@
                                                             longitude:-73.9619
                                                                  zoom:12];
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"WE ARE HERE RIGHT NOW!");
+        [self.mapView setMyLocationEnabled:YES];
+        NSLog(@"User Location: %@", self.mapView.myLocation);
+    });
+    
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -70,12 +76,6 @@
     self.mapView.camera = camera;
     
     self.mapView.delegate = self;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"WE ARE HERE RIGHT NOW!");
-        self.mapView.myLocationEnabled = YES;
-        NSLog(@"User Location: %@", self.mapView.myLocation);
-    });
     
     [self.mapView addObserver:self
                    forKeyPath:@"myLocation"
@@ -95,11 +95,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
-    NSLog(@"HELLO");
+    NSLog(@"HELLO 1");
 }
 
 - (void)dealloc {
-    NSLog(@"HELLO");
+    [self.mapView removeObserver:self forKeyPath:@"myLocation" context:NULL];
+    NSLog(@"HELLO 2");
 }
 
 - (void)didReceiveMemoryWarning {

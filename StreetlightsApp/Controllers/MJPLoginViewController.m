@@ -87,11 +87,6 @@
                 if (succeeded) {
                     [self.activityIndicator setHidden:YES];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        UITabBarController *tabBarController = [[UITabBarController alloc] init];
-                        [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0]];
-                        
-                        tabBarController.viewControllers = [MJPLoginViewController getTabBarViewControllers];
-                        
                         MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
                         
                         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
