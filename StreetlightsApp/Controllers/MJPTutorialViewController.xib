@@ -28,7 +28,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeS-yW-B1m">
-                    <rect key="frame" x="31" y="530" width="120" height="30"/>
+                    <rect key="frame" x="31" y="515" width="120" height="30"/>
                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
                     <state key="normal" title="Register">
@@ -39,7 +39,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihH-P5-r7o">
-                    <rect key="frame" x="169" y="530" width="120" height="30"/>
+                    <rect key="frame" x="169" y="515" width="120" height="30"/>
                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="22"/>
                     <state key="normal" title="Login">

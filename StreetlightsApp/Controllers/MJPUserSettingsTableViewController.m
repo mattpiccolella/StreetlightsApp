@@ -10,7 +10,7 @@
 #import "MJPAppDelegate.h"
 #import "MJPPhotoUtils.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "MJPLoginViewController.h"
+#import "MJPRegisterViewController.h"
 #import "MJPChangePasswordViewController.h"
 #import "MJPQueryUtils.h"
 #import "MJPPostHistoryTableViewController.h"
@@ -145,7 +145,7 @@
 }
 
 - (void)loginRedirect {
-    MJPLoginViewController *loginViewController = [[MJPLoginViewController alloc] init];
+    MJPRegisterViewController *loginViewController = [[MJPRegisterViewController alloc] init];
     self.appDelegate.window.rootViewController = loginViewController;
 }
 - (IBAction)shareWithFacebook:(id)sender {

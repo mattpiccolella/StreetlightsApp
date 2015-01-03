@@ -3,7 +3,7 @@
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
 
 #import "MJPAppDelegate.h"
-#import "Controllers/MJPLoginViewController.h"
+#import "Controllers/MJPRegisterViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
@@ -67,7 +67,6 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 }
 
 - (void)loggedInView {
-    
     MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
@@ -81,7 +80,8 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
 - (void)loggedOutView {
     MJPTutorialViewController *tutorialViewController = [[MJPTutorialViewController alloc] init];
-    self.window.rootViewController = tutorialViewController;
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:tutorialViewController];
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
 }
 

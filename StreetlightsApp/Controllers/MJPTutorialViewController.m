@@ -8,6 +8,8 @@
 
 #import "MJPTutorialViewController.h"
 #import "MJPHomeScreenViewController.h"
+#import "MJPRegisterViewController.h"
+#import "MJPAppDelegate.h"
 
 @interface MJPTutorialViewController ()
 
@@ -17,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
 - (IBAction)registerButtonPressed:(id)sender;
 - (IBAction)loginButtonPressed:(id)sender;
+@property (strong, nonatomic) MJPAppDelegate *appDelegate;
 
 
 @end
@@ -39,6 +42,11 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
 - (void)viewDidLoad {
     // Do any additional setup after loading the view.
     
+    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2]];
+    
+    self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
     self.pageController.dataSource = self;
@@ -49,7 +57,7 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     // Change the size of page view controller
-    self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 40);
+    self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 60);
     
     [self addChildViewController:self.pageController];
     [self.view addSubview:self.pageController.view];
@@ -57,6 +65,12 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     
     self.registerButton.layer.cornerRadius = 5;
     self.loginButton.layer.cornerRadius = 5;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -129,6 +143,8 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
-    // TODO: Present login view.
+    MJPRegisterViewController *loginViewController = [[MJPRegisterViewController alloc] init];
+    
+    [self.navigationController pushViewController:loginViewController animated:YES];
 }
 @end

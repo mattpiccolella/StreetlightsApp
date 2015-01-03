@@ -2,7 +2,7 @@
 //  AroundApp
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
 
-#import "MJPLoginViewController.h"
+#import "MJPRegisterViewController.h"
 #import "MJPAppDelegate.h"
 #import "MJPStreamViewController.h"
 #import "MJPMapViewController.h"
@@ -11,7 +11,7 @@
 #import "MJPUser.h"
 #import <Parse/Parse.h>
 
-@interface MJPLoginViewController ()
+@interface MJPRegisterViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *nameField;
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation MJPLoginViewController
+@implementation MJPRegisterViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,6 +35,9 @@
     [super viewDidLoad];
     
     [self.activityIndicator setHidden:TRUE];
+    
+    [self.navigationController setNavigationBarHidden:NO];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,5 +84,9 @@
             }];
         }
     }];
+}
+
+- (void)backButtonPushed {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end
