@@ -178,17 +178,28 @@
 }
 
 - (IBAction)sharePost:(id)sender {
-    // Check for publish permissions
-    if ([FBSession activeSession].state == FBSessionStateOpen) {
-        [self getPermissionsAndPost];
-    } else if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
-        [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-            if (session.state == FBSessionStateOpen) {
-                [self getPermissionsAndPost];
-            }
-        }];
-    }
+    NSLog(@"HELLO");
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self shareToFacebook];
+    }];
+    UIAlertAction *twitterAction = [UIAlertAction actionWithTitle:@"Twitter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // TODO: Implement this.
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // Dismiss view controller.
+    }];
+    [alertController addAction:facebookAction];
+    [alertController addAction:twitterAction];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"The %@ button was tapped.", [actionSheet buttonTitleAtIndex:buttonIndex]);
+}
+
 
 - (void)setFavoriteUI {
     if (self.streamItem[@"favoriteIds"]) {
@@ -204,7 +215,20 @@
     }
 }
 
-- (void)getPermissionsAndPost {
+- (void) shareToFacebook {
+    // Check for publish permissions
+    if ([FBSession activeSession].state == FBSessionStateOpen) {
+        [self getFacebookPermissionsAndPost];
+    } else if ([FBSession activeSession].state == FBSessionStateCreatedTokenLoaded) {
+        [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            if (session.state == FBSessionStateOpen) {
+                [self getFacebookPermissionsAndPost];
+            }
+        }];
+    }
+}
+
+- (void)getFacebookPermissionsAndPost {
     [FBRequestConnection startWithGraphPath:@"/me/permissions" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             // Walk the list of permissions looking to see if publish_actions has been granted
@@ -227,7 +251,7 @@
                                                                   // TODO: Think of what to do here. Just let it go I think.
                                                               } else {
                                                                   // Permission granted.
-                                                                  [self postEvent];
+                                                                  [self postFacebookEvent];
                                                               }
                                                           } else {
                                                               NSLog(@"Error requesting permission");
@@ -237,7 +261,7 @@
                 
             } else {
                 // Already have the permissions we need.
-                [self postEvent];
+                [self postFacebookEvent];
             }
         } else {
             // TODO: Handle the error in fetching permissions.
@@ -246,7 +270,7 @@
     }];
 }
 
-- (void) postEvent {
+- (void) postFacebookEvent {
     NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
     object.provisionedForPost = YES;
     object[@"type"] = @"streetlightsapp:event";
@@ -262,12 +286,11 @@
             // create an Open Graph action
             id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
             [action setObject:objectId forKey:@"event"];
-            
             // create action referencing user owned object
-            [FBRequestConnection startForPostWithGraphPath:@"/me/streetlightsapp:post" graphObject:action completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            [FBRequestConnection startForPostWithGraphPath:@"/me/streetlightsapp:share" graphObject:action completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 if(!error) {
-                    NSLog(@"Story posted: %@", [result objectForKey:@"id"]);
-                    [[[UIAlertView alloc] initWithTitle:@"Your story has been posted!"
+                    NSLog(@"Story share: %@", [result objectForKey:@"id"]);
+                    [[[UIAlertView alloc] initWithTitle:@"Your event has been shared!"
                                                 message:@"Check your Facebook profile or activity log to see it."
                                                delegate:self
                                       cancelButtonTitle:@"OK"

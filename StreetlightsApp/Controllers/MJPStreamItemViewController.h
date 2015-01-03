@@ -5,7 +5,7 @@
 #import <UIKit/UIKit.h>
 #import "MJPStreamItem.h"
 
-@interface MJPStreamItemViewController : UIViewController
+@interface MJPStreamItemViewController : UIViewController<UIActionSheetDelegate>
 
 - (id)initWithStreamItem:(PFObject *)streamItem location:(CLLocation *)location;
 

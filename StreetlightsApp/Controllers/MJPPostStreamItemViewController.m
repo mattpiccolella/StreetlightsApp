@@ -130,6 +130,10 @@
             // TODO: Notify somebody of something. We can't save stream items.
         }
     }];
+    
+    if (self.facebookSelected) {
+        [self getFacebookPermissionsAndPost];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -164,8 +168,28 @@
 }
 
 - (IBAction)facebookPressed:(id)sender {
-    // TODO: Get an active session before we do this.
-    [self handleFacebookPress];
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
+                                       allowLoginUI:YES
+                                  completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                      [self facebookSharingUI:session];
+    }];
+}
+
+- (void) facebookSharingUI:(FBSession*)session {
+    if (session.state == FBSessionStateOpen) {
+        NSLog(@"Open connection.");
+        [self handleFacebookPress];
+    } else if (session.state == FBSessionStateCreatedTokenLoaded) {
+        // This is the state on app launch with cached access token.
+        [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            if (session.state == FBSessionStateOpen) {
+                NSLog(@"Open connection.");
+                [self handleFacebookPress];
+            }
+        }];
+    } else {
+        // Doesn't seem to be logged in. Do nothing.
+    }
 }
 
 - (IBAction)twitterPressed:(id)sender {
@@ -229,5 +253,82 @@
         [self.shareTwitter setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
         self.twitterSelected = TRUE;
     }
+}
+
+- (void)getFacebookPermissionsAndPost {
+    [FBRequestConnection startWithGraphPath:@"/me/permissions" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // Walk the list of permissions looking to see if publish_actions has been granted
+            NSArray *permissions = (NSArray *)[result data];
+            BOOL publishActionsSet = FALSE;
+            for (NSDictionary *perm in permissions) {
+                if ([[perm objectForKey:@"permission"] isEqualToString:@"publish_actions"] &&
+                    [[perm objectForKey:@"status"] isEqualToString:@"granted"]) {
+                    publishActionsSet = TRUE;
+                    break;
+                }
+            }
+            if (!publishActionsSet) {
+                // Permission hasn't been granted, so ask for publish_actions
+                [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                                      defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+                                                          if (!error) {
+                                                              if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+                                                                  NSLog(@"No permission.");
+                                                                  // TODO: Think of what to do here. Just let it go I think.
+                                                              } else {
+                                                                  // Permission granted.
+                                                                  [self postEvent];
+                                                              }
+                                                          } else {
+                                                              NSLog(@"Error requesting permission");
+                                                              // TODO: Handle this better.
+                                                          }
+                                                      }];
+                
+            } else {
+                // Already have the permissions we need.
+                [self postEvent];
+            }
+        } else {
+            // TODO: Handle the error in fetching permissions.
+            NSLog(@"Error fetching permissions");
+        }
+    }];
+}
+
+- (void) postEvent {
+    NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
+    object.provisionedForPost = YES;
+    object[@"type"] = @"streetlightsapp:event";
+    
+    object[@"title"] = @"Around";
+    object[@"description"] = self.postDescription.text;
+    
+    // Post custom object
+    [FBRequestConnection startForPostOpenGraphObject:object completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // get the object ID for the Open Graph object that is now stored in the Object API
+            NSString *objectId = [result objectForKey:@"id"];
+            NSLog(@"Story posted: %@", objectId);
+            // create an Open Graph action
+            id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
+            [action setObject:objectId forKey:@"event"];
+            /*
+            // create action referencing user owned object
+            [FBRequestConnection startForPostWithGraphPath:@"/me/streetlightsapp:post" graphObject:action completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                if(!error) {
+                    NSLog(@"Story posted: %@", [result objectForKey:@"id"]);
+                } else {
+                    // An error occurred
+                    NSLog(@"Encountered an error posting to Open Graph: %@", error);
+                }
+            }];
+             */
+        } else {
+            // An error occurred
+            NSLog(@"Error posting the Open Graph object to the Object API: %@", error);
+        }
+    }];
 }
 @end

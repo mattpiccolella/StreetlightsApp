@@ -18,6 +18,7 @@
 		5C57EC141A574ACB002EE8C9 /* PathwayGothicOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */; };
 		5C57EC1D1A577EE5002EE8C9 /* FBLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */; };
 		5C57EC1F1A57800C002EE8C9 /* TwitterLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */; };
+		5C57EC221A578365002EE8C9 /* MJPSharingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -115,6 +116,8 @@
 		5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PathwayGothicOne-Regular.ttf"; sourceTree = "<group>"; };
 		5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FBLogo.png; sourceTree = "<group>"; };
 		5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterLogo.png; sourceTree = "<group>"; };
+		5C57EC201A578365002EE8C9 /* MJPSharingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPSharingUtils.h; sourceTree = "<group>"; };
+		5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPSharingUtils.m; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -420,6 +423,8 @@
 		5CE871C419B4F78D00C963AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5C57EC201A578365002EE8C9 /* MJPSharingUtils.h */,
+				5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */,
 				5CE871C519B4F7D700C963AF /* MJPConstants.h */,
 				5CE871C619B4F7D700C963AF /* MJPConstants.m */,
 				5C373F651A1943C300D26022 /* MJPFileUploadUtils.h */,
@@ -576,6 +581,7 @@
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */,
 				5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */,
+				5C57EC221A578365002EE8C9 /* MJPSharingUtils.m in Sources */,
 				5CB31D421A566CD800FCB459 /* MJPUserSettingsTableViewController.m in Sources */,
 				5CB31D311A56445600FCB459 /* MJPPhotoUtils.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,
@@ -707,6 +713,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StreetlightsApp/StreetlightsApp-Prefix.pch";
 				INFOPLIST_FILE = "StreetlightsApp/StreetlightsApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -729,6 +736,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StreetlightsApp/StreetlightsApp-Prefix.pch";
 				INFOPLIST_FILE = "StreetlightsApp/StreetlightsApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
