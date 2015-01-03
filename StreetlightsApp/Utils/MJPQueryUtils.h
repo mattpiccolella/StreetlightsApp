@@ -9,5 +9,6 @@
 
 + (PFQuery*) getStreamItemsForLatitude:(float)latitude longitude:(float)longitude radius:(float)radius;
 + (PFQuery*) getStreamItemsForUser:(PFObject*)user;
++ (PFQuery*) getUserQueryForEmail:(NSString*)email password:(NSString*)password;
 
 @end

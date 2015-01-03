@@ -26,6 +26,8 @@
 		5C57EC301A5860C8002EE8C9 /* TutorialImage3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC2D1A5860C8002EE8C9 /* TutorialImage3.jpg */; };
 		5C57EC361A5868AB002EE8C9 /* MJPTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC341A5868AB002EE8C9 /* MJPTutorialViewController.m */; };
 		5C57EC371A5868AB002EE8C9 /* MJPTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC351A5868AB002EE8C9 /* MJPTutorialViewController.xib */; };
+		5C57EC401A58A4D5002EE8C9 /* MJPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC3E1A58A4D5002EE8C9 /* MJPLoginViewController.m */; };
+		5C57EC411A58A4D5002EE8C9 /* MJPLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC3F1A58A4D5002EE8C9 /* MJPLoginViewController.xib */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -134,6 +136,9 @@
 		5C57EC331A5868AB002EE8C9 /* MJPTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPTutorialViewController.h; sourceTree = "<group>"; };
 		5C57EC341A5868AB002EE8C9 /* MJPTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPTutorialViewController.m; sourceTree = "<group>"; };
 		5C57EC351A5868AB002EE8C9 /* MJPTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPTutorialViewController.xib; sourceTree = "<group>"; };
+		5C57EC3D1A58A4D5002EE8C9 /* MJPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPLoginViewController.h; sourceTree = "<group>"; };
+		5C57EC3E1A58A4D5002EE8C9 /* MJPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPLoginViewController.m; sourceTree = "<group>"; };
+		5C57EC3F1A58A4D5002EE8C9 /* MJPLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPLoginViewController.xib; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -364,6 +369,9 @@
 		5C7F746319A3BB740095117F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5C57EC3D1A58A4D5002EE8C9 /* MJPLoginViewController.h */,
+				5C57EC3E1A58A4D5002EE8C9 /* MJPLoginViewController.m */,
+				5C57EC3F1A58A4D5002EE8C9 /* MJPLoginViewController.xib */,
 				5C57EC331A5868AB002EE8C9 /* MJPTutorialViewController.h */,
 				5C57EC341A5868AB002EE8C9 /* MJPTutorialViewController.m */,
 				5C57EC351A5868AB002EE8C9 /* MJPTutorialViewController.xib */,
@@ -575,6 +583,7 @@
 				5C3EA4AF19A599DC007EF291 /* Pinpoint.png in Resources */,
 				5C7F744619A3BB2A0095117F /* Images.xcassets in Resources */,
 				5C57EC0D1A567749002EE8C9 /* MJPChangePasswordViewController.xib in Resources */,
+				5C57EC411A58A4D5002EE8C9 /* MJPLoginViewController.xib in Resources */,
 				5C57EC271A585717002EE8C9 /* MJPHomeScreenViewController.xib in Resources */,
 				5C57EC2F1A5860C8002EE8C9 /* TutorialImage2.jpg in Resources */,
 				5CE4583D1A47783A00EFF937 /* Back.png in Resources */,
@@ -608,6 +617,7 @@
 				5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */,
 				5C89015F1A265013003BCDDB /* MJPQueryUtils.m in Sources */,
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
+				5C57EC401A58A4D5002EE8C9 /* MJPLoginViewController.m in Sources */,
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */,
 				5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */,

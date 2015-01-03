@@ -139,12 +139,12 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     return [NSMutableArray arrayWithObjects:firstImage, secondImage, thirdImage, nil];
 }
 - (IBAction)registerButtonPressed:(id)sender {
-    // TODO: Present register view.
-}
-
-- (IBAction)loginButtonPressed:(id)sender {
     MJPRegisterViewController *loginViewController = [[MJPRegisterViewController alloc] init];
     
     [self.navigationController pushViewController:loginViewController animated:YES];
+}
+
+- (IBAction)loginButtonPressed:(id)sender {
+    // TODO: Present login view.
 }
 @end

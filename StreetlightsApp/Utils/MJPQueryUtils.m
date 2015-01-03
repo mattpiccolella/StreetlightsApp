@@ -32,4 +32,11 @@
     return streamItemQuery;
 }
 
++ (PFQuery*) getUserQueryForEmail:(NSString*)email password:(NSString*)password {
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"User"];
+    [userQuery whereKey:@"email" equalTo:email];
+    [userQuery whereKey:@"password" equalTo:password];
+    return userQuery;
+}
+
 @end
