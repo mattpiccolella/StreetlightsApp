@@ -67,8 +67,8 @@ NSMutableArray *friendItems;
     streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    [refresh setBackgroundColor:[UIColor lightGrayColor]];
-    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Avenir" size:14], NSFontAttributeName, nil];
+    [refresh setBackgroundColor:[UIColor colorWithRed:229/256.0 green:229/256.0 blue:229/256.0 alpha:1.0]];
+    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[UIColor colorWithRed:0/256.0 green:204/256.0 blue:102/256.0 alpha:1.0], NSForegroundColorAttributeName, [UIFont fontWithName:@"Avenir" size:14], NSFontAttributeName, nil];
     NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:@"Finding new items..." attributes:attributes];
     refresh.attributedTitle = attributedTitle;
     
