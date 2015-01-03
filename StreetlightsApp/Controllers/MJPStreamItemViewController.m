@@ -105,7 +105,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
     
-    self.shares.text = [NSString stringWithFormat:@"%u", [[self.streamItem objectForKey:@"shareCount"] integerValue]];
+    self.shares.text = [NSString stringWithFormat:@"%ld", (long)[[self.streamItem objectForKey:@"shareCount"] integerValue]];
     
     // Set the date of amount of time remaining.
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
@@ -267,7 +267,6 @@
                                                               // TODO: Handle this better.
                                                           }
                                                       }];
-                
             } else {
                 // Already have the permissions we need.
                 [self postFacebookEvent];

@@ -8,6 +8,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
 #import "MJPMapViewController.h"
+#import "MJPTutorialViewController.h"
 
 static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
@@ -79,8 +80,8 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 }
 
 - (void)loggedOutView {
-    MJPLoginViewController *loginViewController = [[MJPLoginViewController alloc] init];
-    self.window.rootViewController = loginViewController;
+    MJPTutorialViewController *tutorialViewController = [[MJPTutorialViewController alloc] init];
+    self.window.rootViewController = tutorialViewController;
     [self.window makeKeyAndVisible];
 }
 
