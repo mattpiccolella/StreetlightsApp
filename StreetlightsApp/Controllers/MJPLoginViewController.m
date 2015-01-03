@@ -16,9 +16,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 - (IBAction)loginButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)emailFieldChanged:(id)sender;
 - (IBAction)passwordFieldChanged:(id)sender;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -49,7 +49,6 @@
     [checkUser getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (object) {
             // Valid! Sign in!
-            NSLog(@"Found user for these two fields");
             MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:object.objectId forKey:@"userId"];
@@ -77,19 +76,20 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+- (void)enableLoginButton {
+    BOOL enabled = (([[self.emailField text] length] != 0) && ([[self.passwordField text] length] != 0));
+    [self.loginButton setEnabled:enabled];
+}
+
+- (void)backButtonPushed {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (IBAction)emailFieldChanged:(id)sender {
     [self enableLoginButton];
 }
 
 - (IBAction)passwordFieldChanged:(id)sender {
     [self enableLoginButton];
-}
-
-- (void)enableLoginButton {
-    [self.loginButton setEnabled:([[self.emailField text] length] != 0 || [[self.passwordField text] length] != 0)];
-}
-
-- (void)backButtonPushed {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

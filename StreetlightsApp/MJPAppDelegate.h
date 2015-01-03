@@ -24,4 +24,6 @@
 
 @property BOOL shouldRefreshStreamItems;
 
+- (void)loggedOutView;
+
 @end

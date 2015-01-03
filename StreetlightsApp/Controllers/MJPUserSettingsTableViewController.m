@@ -121,10 +121,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)logout:(id)sender {
+    [self.appDelegate setCurrentUser:nil];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults removeObjectForKey:@"email"];
-    [userDefaults removeObjectForKey:@"password"];
-    [userDefaults removeObjectForKey:@"user_id"];
+    [userDefaults removeObjectForKey:@"userId"];
     [userDefaults synchronize];
     [self loginRedirect];
 }
@@ -145,8 +144,7 @@
 }
 
 - (void)loginRedirect {
-    MJPRegisterViewController *loginViewController = [[MJPRegisterViewController alloc] init];
-    self.appDelegate.window.rootViewController = loginViewController;
+    [self.appDelegate loggedOutView];
 }
 - (IBAction)shareWithFacebook:(id)sender {
     // Open a session showing the user the login UI

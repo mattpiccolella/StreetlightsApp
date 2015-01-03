@@ -23,7 +23,7 @@
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
-                        <action selector="emailFieldChanged:" destination="-1" eventType="valueChanged" id="6UD-VA-Tmy"/>
+                        <action selector="emailFieldChanged:" destination="-1" eventType="editingChanged" id="LEw-ia-0Mr"/>
                     </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VKh-OW-hSJ">
@@ -31,7 +31,7 @@
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <connections>
-                        <action selector="passwordFieldChanged:" destination="-1" eventType="valueChanged" id="d0n-n6-JlQ"/>
+                        <action selector="passwordFieldChanged:" destination="-1" eventType="editingChanged" id="Wye-DJ-CiH"/>
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-z9-qb3">
