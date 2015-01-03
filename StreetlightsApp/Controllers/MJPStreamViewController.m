@@ -99,8 +99,7 @@ NSMutableArray *friendItems;
     cell.postInfo.text = streamItem[@"description"];
     
     cell.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)(streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0)];
-    // TODO: Fix once we actually share.
-    cell.shares.text = [NSString stringWithFormat:@"0"];
+    cell.shares.text = [NSString stringWithFormat:@"%u", [[streamItem objectForKey:@"shareCount"] integerValue]];
     
     // Set the date of amount of time remaining.
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];

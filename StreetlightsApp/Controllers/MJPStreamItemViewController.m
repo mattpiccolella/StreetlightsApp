@@ -105,8 +105,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
     
-    // TODO: Change this once we get favorites and shares done.
-    self.shares.text = [NSString stringWithFormat:@"%u", 0];
+    self.shares.text = [NSString stringWithFormat:@"%u", [[self.streamItem objectForKey:@"shareCount"] integerValue]];
     
     // Set the date of amount of time remaining.
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
@@ -279,7 +278,7 @@
     }];
 }
 
-- (void) postFacebookEvent {
+- (void)postFacebookEvent {
     NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
     object.provisionedForPost = YES;
     object[@"type"] = @"streetlightsapp:event";
@@ -304,15 +303,34 @@
                                                delegate:self
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil] show];
-                    [self.activityIndicator stopAnimating];
+                    [self incrementStreamItemShares];
                 } else {
-                    // An error occurred
+                    // TODO: Post a message about the error.
                     NSLog(@"Encountered an error posting to Open Graph: %@", error);
+                    [self.activityIndicator stopAnimating];
                 }
             }];
         } else {
-            // An error occurred
+            // TODO: Post a message about the error.
             NSLog(@"Error posting the Open Graph object to the Object API: %@", error);
+            [self.activityIndicator stopAnimating];
+        }
+    }];
+}
+
+- (void)incrementStreamItemShares {
+    NSInteger shareCount = [[self.streamItem objectForKey:@"shareCount"] integerValue];
+    shareCount++;
+    [self.streamItem setObject:[NSNumber numberWithInteger:shareCount] forKey:@"shareCount"];
+    [self.streamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.shares.text = [NSString stringWithFormat:@"%u", [[self.streamItem objectForKey:@"shareCount"] integerValue]];
+                [self.activityIndicator stopAnimating];
+            });
+        } else {
+            NSLog(@"Error: %@", error.localizedDescription);
+            // TODO: Notify somebody of something. We can't save stream items.
         }
     }];
 }

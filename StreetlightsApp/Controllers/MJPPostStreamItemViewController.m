@@ -109,6 +109,14 @@
     
     long expirationOffset = [self.expirationTime countDownDuration];
     
+    NSInteger shareCount = 0;
+    if (self.facebookSelected) {
+        shareCount++;
+    }
+    if (self.twitterSelected) {
+        shareCount++;
+    }
+    
     [self.parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
     [self.parseStreamItem setObject:[[self.appDelegate currentUser] objectId] forKey:@"userId"];
     [self.parseStreamItem setObject:self.postDescription.text forKey:@"description"];
@@ -117,6 +125,7 @@
     [self.parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
     [self.parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
     [self.parseStreamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
+    [self.parseStreamItem setObject:[NSNumber numberWithInteger:shareCount] forKey:@"shareCount"];
     [self.parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
