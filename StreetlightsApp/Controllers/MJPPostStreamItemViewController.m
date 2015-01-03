@@ -170,11 +170,14 @@
     
     imagePicker.delegate = self;
     
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
     
     imagePicker.allowsEditing = YES;
+    
+    // TODO: Make the panning on a cropped image possible.
+    
     [self presentViewController:imagePicker animated:YES completion:nil];
 
 }
