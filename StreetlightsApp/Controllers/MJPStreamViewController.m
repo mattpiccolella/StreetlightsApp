@@ -23,6 +23,9 @@
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) UIView* blankView;
 
 @end
 
@@ -64,11 +67,19 @@ NSMutableArray *friendItems;
     streamItemView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    [refresh setBackgroundColor:[UIColor lightGrayColor]];
+    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont fontWithName:@"Avenir" size:14], NSFontAttributeName, nil];
+    NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:@"Finding new items..." attributes:attributes];
+    refresh.attributedTitle = attributedTitle;
     
     [refresh addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
     [streamItemView addSubview:refresh];
     
     self.refreshControl = refresh;
+    
+    [self setBlankView:[self createBlankView]];
+    [self.blankView setHidden:YES];
+    [self.tableView setBackgroundView:self.blankView];
     
     [self.activityIndicator startAnimating];
 }
@@ -84,6 +95,11 @@ NSMutableArray *friendItems;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self.appDelegate.streamItemArray count] == 0) {
+        [self showBlankView:YES];
+    } else {
+        [self showBlankView:NO];
+    }
     return [self.appDelegate.streamItemArray count];
 }
 
@@ -149,6 +165,9 @@ NSMutableArray *friendItems;
             [self.activityIndicator setHidden:YES];
             [streamItemView reloadData];
             [self.refreshControl endRefreshing];
+            if ([objects count]) {
+                [self.blankView setHidden:YES];
+            }
         });
     }];
 }
@@ -234,4 +253,36 @@ NSMutableArray *friendItems;
     return searchBarView;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ([self.appDelegate.streamItemArray count]) {
+        [self showBlankView:NO];
+        return 1;
+    } else {
+        [self showBlankView:YES];
+        return 0;
+    }
+}
+
+- (UIView*)createBlankView {
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    messageLabel.text = @"No items are currently available in your area. Please pull down to refresh, or post something of your own!";
+    messageLabel.textColor = [UIColor blackColor];
+    messageLabel.numberOfLines = 0;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    messageLabel.font = [UIFont fontWithName:@"Avenir" size:20];
+    [messageLabel sizeToFit];
+    
+    return messageLabel;
+}
+
+- (void)showBlankView:(BOOL)show {
+    if (show) {
+        [self.blankView setHidden:NO];
+        self.tableView.backgroundView = self.blankView;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else {
+        [self.blankView setHidden:YES];
+    }
+}
 @end

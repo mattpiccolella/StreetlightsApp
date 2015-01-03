@@ -11,6 +11,7 @@
                 <outlet property="distanceLabel" destination="bD7-yn-v58" id="93D-qH-oA7"/>
                 <outlet property="distanceSlider" destination="iyq-Wu-gxl" id="u3G-2C-p7Z"/>
                 <outlet property="streamItemView" destination="jyt-Co-ffW" id="pzt-Fc-reU"/>
+                <outlet property="tableView" destination="jyt-Co-ffW" id="0Ce-x8-jTb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
