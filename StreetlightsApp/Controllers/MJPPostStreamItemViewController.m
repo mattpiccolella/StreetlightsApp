@@ -17,15 +17,17 @@
 @property (strong, nonatomic) IBOutlet UIDatePicker *expirationTime;
 - (IBAction)post:(id)sender;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) IBOutlet UIButton *everyoneButton;
-@property (strong, nonatomic) IBOutlet UIButton *friendsButton;
-- (IBAction)tapEveryone:(id)sender;
-- (IBAction)tapFriends:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *shareFacebook;
+@property (strong, nonatomic) IBOutlet UIButton *shareTwitter;
+- (IBAction)facebookPressed:(id)sender;
+- (IBAction)twitterPressed:(id)sender;
+
 - (IBAction)addPhoto:(id)sender;
 @property (strong, nonatomic) PFObject *parseStreamItem;
 
 
-@property BOOL everyoneSelected;
+@property BOOL facebookSelected;
+@property BOOL twitterSelected;
 
 
 @end
@@ -37,7 +39,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.everyoneSelected = TRUE;
+        // These get flipped to false when we set the UI.
+        self.facebookSelected = TRUE;
+        self.twitterSelected = TRUE;
     }
     return self;
 }
@@ -70,7 +74,8 @@
     self.postDescription.text = @"What's up?";
     self.postDescription.textColor = [UIColor lightGrayColor];
     
-    [self selectEveryone];
+    [self handleTwitterPress];
+    [self handleFacebookPress];
     
     [self.navigationItem setTitle:@"Post"];
 }
@@ -157,12 +162,15 @@
     }
     [textView resignFirstResponder];
 }
-- (IBAction)tapEveryone:(id)sender {
-    [self selectEveryone];
+
+- (IBAction)facebookPressed:(id)sender {
+    // TODO: Get an active session before we do this.
+    [self handleFacebookPress];
 }
 
-- (IBAction)tapFriends:(id)sender {
-    [self selectFriends];
+- (IBAction)twitterPressed:(id)sender {
+    // TODO: Get an active session before we do this.
+    [self handleTwitterPress];
 }
 
 - (IBAction)addPhoto:(id)sender {
@@ -203,16 +211,23 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-- (void)selectEveryone {
-    self.everyoneSelected = TRUE;
-    [self.everyoneButton setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [self.friendsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+- (void)handleFacebookPress {
+    if (self.facebookSelected) {
+        [self.shareFacebook setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        self.facebookSelected = FALSE;
+    } else {
+        [self.shareFacebook setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
+        self.facebookSelected = TRUE;
+    }
 }
 
-- (void)selectFriends {
-    self.everyoneSelected = FALSE;
-    [self.friendsButton setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [self.everyoneButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+- (void)handleTwitterPress {
+    if (self.twitterSelected) {
+        [self.shareTwitter setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        self.twitterSelected = FALSE;
+    } else {
+        [self.shareTwitter setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
+        self.twitterSelected = TRUE;
+    }
 }
 @end

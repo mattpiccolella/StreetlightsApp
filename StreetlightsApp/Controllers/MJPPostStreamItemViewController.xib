@@ -8,11 +8,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPPostStreamItemViewController">
             <connections>
                 <outlet property="activityIndicator" destination="0Lv-zd-vRH" id="JuA-Z5-cye"/>
-                <outlet property="everyoneButton" destination="O5W-bx-lCm" id="EZP-4X-bCQ"/>
                 <outlet property="expirationTime" destination="5qy-Ox-Mqh" id="anV-Op-7d1"/>
-                <outlet property="friendsButton" destination="9rX-SK-9FP" id="Lfv-kq-sgS"/>
                 <outlet property="mapView" destination="UNm-zH-VyP" id="KaB-7R-4mp"/>
                 <outlet property="postDescription" destination="vD4-Ug-n8Q" id="7VL-RF-UU1"/>
+                <outlet property="shareFacebook" destination="ZyP-bh-3ug" id="2rx-G4-dev"/>
+                <outlet property="shareTwitter" destination="Joi-04-UzK" id="RTR-QS-RMN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -67,28 +67,6 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rX-SK-9FP">
-                    <rect key="frame" x="238" y="477" width="74" height="30"/>
-                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
-                    <state key="normal" title="Friends">
-                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="tapFriends:" destination="-1" eventType="touchUpInside" id="L4T-Zn-GEz"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5W-bx-lCm">
-                    <rect key="frame" x="133" y="471" width="97" height="40"/>
-                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="16"/>
-                    <state key="normal" title="Everyone">
-                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="tapEveryone:" destination="-1" eventType="touchUpInside" id="4Jf-pa-617"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AfN-sY-wyS">
                     <rect key="frame" x="22" y="477" width="30" height="30"/>
                     <state key="normal" image="Camera.png">
@@ -98,12 +76,38 @@
                         <action selector="addPhoto:" destination="-1" eventType="touchUpInside" id="GLi-v3-Sx5"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZyP-bh-3ug">
+                    <rect key="frame" x="73" y="477" width="117" height="29"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                    <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Facebook" image="FBLogo.png">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="facebookPressed:" destination="-1" eventType="touchUpInside" id="P8g-51-46H"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Joi-04-UzK">
+                    <rect key="frame" x="198" y="477" width="114" height="29"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="18"/>
+                    <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Twitter" image="TwitterLogo.png">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="twitterPressed:" destination="-1" eventType="touchUpInside" id="I5p-zG-qbr"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>
     </objects>
     <resources>
         <image name="Camera.png" width="128" height="128"/>
+        <image name="FBLogo.png" width="29" height="29"/>
+        <image name="TwitterLogo.png" width="29" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

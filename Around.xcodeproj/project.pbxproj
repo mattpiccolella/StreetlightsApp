@@ -16,6 +16,8 @@
 		5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */; };
 		5C57EC121A56F6A5002EE8C9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C57EC111A56F6A5002EE8C9 /* FacebookSDK.framework */; };
 		5C57EC141A574ACB002EE8C9 /* PathwayGothicOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */; };
+		5C57EC1D1A577EE5002EE8C9 /* FBLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */; };
+		5C57EC1F1A57800C002EE8C9 /* TwitterLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -111,6 +113,8 @@
 		5C57EC0F1A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPostHistoryTableViewController.m; sourceTree = "<group>"; };
 		5C57EC111A56F6A5002EE8C9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PathwayGothicOne-Regular.ttf"; sourceTree = "<group>"; };
+		5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FBLogo.png; sourceTree = "<group>"; };
+		5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterLogo.png; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -377,6 +381,7 @@
 		5C7F746919A3BC510095117F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */,
 				5CE4583C1A47783A00EFF937 /* Back.png */,
 				5CE458471A47A7C100EFF937 /* Compass.png */,
 				5C8710EE1A51BD20008E117A /* GoldStar.png */,
@@ -392,6 +397,7 @@
 				5CE4584B1A47AB8C00EFF937 /* Clock.png */,
 				5CE4584D1A47AB9A00EFF937 /* Star.png */,
 				5C3EA4AE19A599DC007EF291 /* Pinpoint.png */,
+				5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */,
 				5C7F74A719A4F0980095117F /* NotificationIcon.png */,
 				5CE458561A49C0E700EFF937 /* Post.png */,
 				5C7F749919A4ED550095117F /* MapIcon.png */,
@@ -517,8 +523,10 @@
 				5C3EA4B419A59B0E007EF291 /* MJPPostStreamItemViewController.xib in Resources */,
 				5CB31D3D1A56541100FCB459 /* GoogleMaps.bundle in Resources */,
 				5CE458391A4774CF00EFF937 /* Map.png in Resources */,
+				5C57EC1F1A57800C002EE8C9 /* TwitterLogo.png in Resources */,
 				5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */,
 				5CE458591A49C2D700EFF937 /* Camera.png in Resources */,
+				5C57EC1D1A577EE5002EE8C9 /* FBLogo.png in Resources */,
 				5CE8713A19AC263400C963AF /* images.jpeg in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
 				5CE458481A47A7C200EFF937 /* Compass.png in Resources */,
