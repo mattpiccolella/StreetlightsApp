@@ -21,10 +21,11 @@
 		5C57EC221A578365002EE8C9 /* MJPSharingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */; };
 		5C57EC261A585717002EE8C9 /* MJPHomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC241A585717002EE8C9 /* MJPHomeScreenViewController.m */; };
 		5C57EC271A585717002EE8C9 /* MJPHomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC251A585717002EE8C9 /* MJPHomeScreenViewController.xib */; };
-		5C57EC2A1A585C6B002EE8C9 /* MJPTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC291A585C6B002EE8C9 /* MJPTutorialViewController.m */; };
 		5C57EC2E1A5860C8002EE8C9 /* TutorialImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC2B1A5860C8002EE8C9 /* TutorialImage1.jpg */; };
 		5C57EC2F1A5860C8002EE8C9 /* TutorialImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC2C1A5860C8002EE8C9 /* TutorialImage2.jpg */; };
 		5C57EC301A5860C8002EE8C9 /* TutorialImage3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC2D1A5860C8002EE8C9 /* TutorialImage3.jpg */; };
+		5C57EC361A5868AB002EE8C9 /* MJPTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC341A5868AB002EE8C9 /* MJPTutorialViewController.m */; };
+		5C57EC371A5868AB002EE8C9 /* MJPTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC351A5868AB002EE8C9 /* MJPTutorialViewController.xib */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -127,11 +128,12 @@
 		5C57EC231A585717002EE8C9 /* MJPHomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPHomeScreenViewController.h; sourceTree = "<group>"; };
 		5C57EC241A585717002EE8C9 /* MJPHomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPHomeScreenViewController.m; sourceTree = "<group>"; };
 		5C57EC251A585717002EE8C9 /* MJPHomeScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPHomeScreenViewController.xib; sourceTree = "<group>"; };
-		5C57EC281A585C6B002EE8C9 /* MJPTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPTutorialViewController.h; sourceTree = "<group>"; };
-		5C57EC291A585C6B002EE8C9 /* MJPTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPTutorialViewController.m; sourceTree = "<group>"; };
 		5C57EC2B1A5860C8002EE8C9 /* TutorialImage1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TutorialImage1.jpg; sourceTree = "<group>"; };
 		5C57EC2C1A5860C8002EE8C9 /* TutorialImage2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TutorialImage2.jpg; sourceTree = "<group>"; };
 		5C57EC2D1A5860C8002EE8C9 /* TutorialImage3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TutorialImage3.jpg; sourceTree = "<group>"; };
+		5C57EC331A5868AB002EE8C9 /* MJPTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPTutorialViewController.h; sourceTree = "<group>"; };
+		5C57EC341A5868AB002EE8C9 /* MJPTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPTutorialViewController.m; sourceTree = "<group>"; };
+		5C57EC351A5868AB002EE8C9 /* MJPTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPTutorialViewController.xib; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -362,6 +364,9 @@
 		5C7F746319A3BB740095117F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5C57EC331A5868AB002EE8C9 /* MJPTutorialViewController.h */,
+				5C57EC341A5868AB002EE8C9 /* MJPTutorialViewController.m */,
+				5C57EC351A5868AB002EE8C9 /* MJPTutorialViewController.xib */,
 				5C57EC231A585717002EE8C9 /* MJPHomeScreenViewController.h */,
 				5C57EC241A585717002EE8C9 /* MJPHomeScreenViewController.m */,
 				5C57EC251A585717002EE8C9 /* MJPHomeScreenViewController.xib */,
@@ -391,8 +396,6 @@
 				5C7F747019A3BDC60095117F /* MJPMapViewController.h */,
 				5C7F747119A3BDC60095117F /* MJPMapViewController.m */,
 				5C7F747219A3BDC60095117F /* MJPMapViewController.xib */,
-				5C57EC281A585C6B002EE8C9 /* MJPTutorialViewController.h */,
-				5C57EC291A585C6B002EE8C9 /* MJPTutorialViewController.m */,
 				5CE458421A47960300EFF937 /* MJPStreamItemWindow.xib */,
 				5CE458441A47982300EFF937 /* MJPStreamItemWindow.h */,
 				5CE458451A47982300EFF937 /* MJPStreamItemWindow.m */,
@@ -563,6 +566,7 @@
 				5CB31D3F1A56625000FCB459 /* MJPSettings.storyboard in Resources */,
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
 				5CE4584C1A47AB8C00EFF937 /* Clock.png in Resources */,
+				5C57EC371A5868AB002EE8C9 /* MJPTutorialViewController.xib in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
 				5C7F74B419A536B10095117F /* DummyData.json in Resources */,
 				5CE458331A47713500EFF937 /* X.png in Resources */,
@@ -609,7 +613,7 @@
 				5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */,
 				5C57EC221A578365002EE8C9 /* MJPSharingUtils.m in Sources */,
 				5CB31D421A566CD800FCB459 /* MJPUserSettingsTableViewController.m in Sources */,
-				5C57EC2A1A585C6B002EE8C9 /* MJPTutorialViewController.m in Sources */,
+				5C57EC361A5868AB002EE8C9 /* MJPTutorialViewController.m in Sources */,
 				5C57EC261A585717002EE8C9 /* MJPHomeScreenViewController.m in Sources */,
 				5CB31D311A56445600FCB459 /* MJPPhotoUtils.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,

@@ -11,14 +11,9 @@
 @interface MJPHomeScreenViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *screenText;
 @property (strong, nonatomic) IBOutlet UIImageView *screenImage;
-@property (strong, nonatomic) IBOutlet UIButton *registerButton;
-@property (strong, nonatomic) IBOutlet UIButton *loginButton;
 
 @property (strong, nonatomic) NSString* screenRawText;
 @property (strong, nonatomic) UIImage* screenRawImage;
-
-- (IBAction)registerButtonPressed:(id)sender;
-- (IBAction)loginButtonPressed:(id)sender;
 
 @end
 
@@ -42,12 +37,6 @@
     
     // Round corners of the buttons.
     
-    self.registerButton.layer.cornerRadius = 5;
-    self.registerButton.layer.borderWidth = 1;
-    
-    self.loginButton.layer.cornerRadius = 5;
-    self.loginButton.layer.borderWidth = 1;
-    
     [self.screenText setText:self.screenRawText];
     [self.screenImage setImage:self.screenRawImage];
     
@@ -56,12 +45,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-- (IBAction)registerButtonPressed:(id)sender {
-    // TODO: Present registration view.
-}
-
-- (IBAction)loginButtonPressed:(id)sender {
-    // TODO: Present login view.
 }
 @end

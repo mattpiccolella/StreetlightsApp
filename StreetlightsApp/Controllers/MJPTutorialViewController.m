@@ -13,6 +13,11 @@
 
 @property (strong, nonatomic) NSMutableArray *textArray;
 @property (strong, nonatomic) NSMutableArray *imageArray;
+@property (strong, nonatomic) IBOutlet UIButton *registerButton;
+@property (strong, nonatomic) IBOutlet UIButton *loginButton;
+- (IBAction)registerButtonPressed:(id)sender;
+- (IBAction)loginButtonPressed:(id)sender;
+
 
 @end
 
@@ -43,9 +48,15 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
+    // Change the size of page view controller
+    self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 40);
+    
     [self addChildViewController:self.pageController];
-    [[self view] addSubview:[self.pageController view]];
+    [self.view addSubview:self.pageController.view];
     [self.pageController didMoveToParentViewController:self];
+    
+    self.registerButton.layer.cornerRadius = 5;
+    self.loginButton.layer.cornerRadius = 5;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,5 +123,12 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     UIImage *secondImage = [UIImage imageNamed:@"TutorialImage2.jpg"];
     UIImage *thirdImage = [UIImage imageNamed:@"TutorialImage3.jpg"];
     return [NSMutableArray arrayWithObjects:firstImage, secondImage, thirdImage, nil];
+}
+- (IBAction)registerButtonPressed:(id)sender {
+    // TODO: Present register view.
+}
+
+- (IBAction)loginButtonPressed:(id)sender {
+    // TODO: Present login view.
 }
 @end
