@@ -10,6 +10,7 @@
 #import "MJPHomeScreenViewController.h"
 #import "MJPRegisterViewController.h"
 #import "MJPAppDelegate.h"
+#import "MJPLoginViewController.h"
 
 @interface MJPTutorialViewController ()
 
@@ -139,12 +140,14 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     return [NSMutableArray arrayWithObjects:firstImage, secondImage, thirdImage, nil];
 }
 - (IBAction)registerButtonPressed:(id)sender {
-    MJPRegisterViewController *loginViewController = [[MJPRegisterViewController alloc] init];
+    MJPRegisterViewController *registerViewController = [[MJPRegisterViewController alloc] init];
     
-    [self.navigationController pushViewController:loginViewController animated:YES];
+    [self.navigationController pushViewController:registerViewController animated:YES];
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
-    // TODO: Present login view.
+    MJPLoginViewController *loginViewController = [[MJPLoginViewController alloc] init];
+    
+    [self.navigationController pushViewController:loginViewController animated:YES];
 }
 @end
