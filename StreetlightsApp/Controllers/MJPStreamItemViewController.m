@@ -24,6 +24,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *shares;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+
 @property (strong, nonatomic) IBOutlet UIButton *trashButton;
 - (IBAction)deleteStreamItem:(id)sender;
 
@@ -216,6 +218,13 @@
 }
 
 - (void) shareToFacebook {
+    // Create activity indicator.
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    self.activityIndicator.center = CGPointMake(bounds.size.width / 2, bounds.size.height / 2);
+    self.activityIndicator.hidesWhenStopped = YES;
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator startAnimating];
     // Check for publish permissions
     if ([FBSession activeSession].state == FBSessionStateOpen) {
         [self getFacebookPermissionsAndPost];
@@ -295,6 +304,7 @@
                                                delegate:self
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil] show];
+                    [self.activityIndicator stopAnimating];
                 } else {
                     // An error occurred
                     NSLog(@"Encountered an error posting to Open Graph: %@", error);
