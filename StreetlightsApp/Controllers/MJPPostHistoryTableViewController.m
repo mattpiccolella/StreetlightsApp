@@ -55,7 +55,7 @@ static NSInteger cellHeight = 96;
     cell.userName.text = self.appDelegate.currentUser[@"name"];
     cell.postInfo.text = streamItem[@"description"];
     
-    cell.favorites.text = [NSString stringWithFormat:@"%u", streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0];
+    cell.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)(streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0)];
     // TODO: Fix once we actually share.
     cell.shares.text = [NSString stringWithFormat:@"0"];
     
@@ -63,7 +63,7 @@ static NSInteger cellHeight = 96;
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    cell.timeRemaining.text = [NSString stringWithFormat:@"%dm", (int) timeInterval / 60];
+    cell.timeRemaining.text = [NSString stringWithFormat:@"%dm", timeInterval > 0 ? (int) timeInterval / 60 : 0];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];

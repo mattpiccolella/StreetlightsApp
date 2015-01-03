@@ -197,7 +197,7 @@
         } else {
             [self.favoriteButton setImage:[UIImage imageNamed:@"Star.png"] forState:UIControlStateNormal];
         }
-        self.favorites.text = [NSString stringWithFormat:@"%u", [self.streamItem[@"favoriteIds"] count]];
+        self.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.streamItem[@"favoriteIds"] count]];
     } else {
         [self.favoriteButton setImage:[UIImage imageNamed:@"Star.png"] forState:UIControlStateNormal];
         self.favorites.text = [NSString stringWithFormat:@"0"];

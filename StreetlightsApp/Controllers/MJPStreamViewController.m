@@ -98,7 +98,7 @@ NSMutableArray *friendItems;
     cell.userName.text = streamItemUser[@"name"];
     cell.postInfo.text = streamItem[@"description"];
     
-    cell.favorites.text = [NSString stringWithFormat:@"%u", streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0];
+    cell.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)(streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0)];
     // TODO: Fix once we actually share.
     cell.shares.text = [NSString stringWithFormat:@"0"];
     

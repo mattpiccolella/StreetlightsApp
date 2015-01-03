@@ -70,6 +70,7 @@
     [MJPPhotoUtils circularCrop:self.profilePicture.imageView];
     // Handle Facebook sharing name.
     [self facebookSharingUI:[FBSession activeSession]];
+    [self.navigationItem setTitle:@"Profile"];
 }
 
 - (IBAction)changeProfilePicture:(id)sender {

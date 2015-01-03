@@ -71,6 +71,8 @@
     self.postDescription.textColor = [UIColor lightGrayColor];
     
     [self selectEveryone];
+    
+    [self.navigationItem setTitle:@"Post"];
 }
 
 - (void)dealloc {
