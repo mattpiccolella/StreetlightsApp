@@ -87,6 +87,14 @@
                    forKeyPath:@"myLocation"
                       options:NSKeyValueObservingOptionNew
                       context:NULL];
+    
+    if (self.appDelegate.shouldRefreshStreamItems) {
+        [self fetchNewStreamItems];
+        self.appDelegate.shouldRefreshStreamItems = FALSE;
+    }
+    
+    // TODO: Work on making this smarter so we don't have to refresh every time.
+    [self addMarkers];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

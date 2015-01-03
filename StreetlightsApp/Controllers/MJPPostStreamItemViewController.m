@@ -128,6 +128,7 @@
     [self.parseStreamItem setObject:[NSNumber numberWithInteger:shareCount] forKey:@"shareCount"];
     [self.parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
+            self.appDelegate.shouldRefreshStreamItems = TRUE;
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.postDescription.text = @"";
                 [self.activityIndicator setHidden:YES];

@@ -61,6 +61,8 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
                                           // TODO: Maybe do something here?
         }];
     }
+    
+    self.shouldRefreshStreamItems = FALSE;
 }
 
 - (void)loggedInView {

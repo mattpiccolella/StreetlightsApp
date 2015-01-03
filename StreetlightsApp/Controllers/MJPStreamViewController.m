@@ -91,6 +91,12 @@ NSMutableArray *friendItems;
     [self.distanceLabel setText:newLabel];
     [self.distanceSlider setHidden:NO];
     
+    if (self.appDelegate.shouldRefreshStreamItems) {
+        [self fetchNewStreamItems];
+        self.appDelegate.shouldRefreshStreamItems = FALSE;
+    }
+    
+    // TODO: Work on making this smarter so we don't have to refresh every time.
     [streamItemView reloadData];
 }
 
@@ -115,7 +121,7 @@ NSMutableArray *friendItems;
     cell.postInfo.text = streamItem[@"description"];
     
     cell.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)(streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0)];
-    cell.shares.text = [NSString stringWithFormat:@"%u", [[streamItem objectForKey:@"shareCount"] integerValue]];
+    cell.shares.text = [NSString stringWithFormat:@"%ld", (long)[[streamItem objectForKey:@"shareCount"] integerValue]];
     
     // Set the date of amount of time remaining.
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];

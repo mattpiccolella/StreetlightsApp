@@ -22,4 +22,6 @@
 - (BOOL)hasUserCredentials;
 - (id)currentUserId;
 
+@property BOOL shouldRefreshStreamItems;
+
 @end

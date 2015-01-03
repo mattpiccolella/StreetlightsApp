@@ -151,6 +151,7 @@
 - (IBAction)deleteStreamItem:(id)sender {
     [self.streamItem deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+            self.appDelegate.shouldRefreshStreamItems = TRUE;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });
@@ -325,7 +326,7 @@
     [self.streamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.shares.text = [NSString stringWithFormat:@"%u", [[self.streamItem objectForKey:@"shareCount"] integerValue]];
+                self.shares.text = [NSString stringWithFormat:@"%ld", (long)[[self.streamItem objectForKey:@"shareCount"] integerValue]];
                 [self.activityIndicator stopAnimating];
             });
         } else {
