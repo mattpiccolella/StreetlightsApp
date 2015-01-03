@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MJPStreamItemWindow : UIView
+
 @property (strong, nonatomic) IBOutlet UILabel *streamItemDescription;
 @property (strong, nonatomic) IBOutlet UILabel *posterName;
 @property (strong, nonatomic) IBOutlet UIImageView *posterImage;
-
-
 
 @end

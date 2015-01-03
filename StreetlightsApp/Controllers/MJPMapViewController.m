@@ -263,14 +263,9 @@
     customWindow.layer.masksToBounds = YES;
     customWindow.streamItemDescription.text = marker.snippet;
     customWindow.posterName.text = marker.title;
-    PFObject *streamItem = marker.userData;
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *profilePicture = [UIImage imageWithData:[streamItem[@"user"][@"profilePicture"] getData]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [customWindow.posterImage setImage:profilePicture];
-            [MJPPhotoUtils circularCrop:customWindow.posterImage];
-        });
-    });
+    
+    // TODO: Work on setting user images.
+    
     return customWindow;
 }
 
