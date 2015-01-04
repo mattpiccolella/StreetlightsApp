@@ -129,12 +129,16 @@ NSMutableArray *friendItems;
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
     cell.timeRemaining.text = [NSString stringWithFormat:@"%dm", (int) timeInterval / 60];
     
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *profilePicture = [UIImage imageWithData:[streamItemUser[@"profilePicture"] getData]];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            [cell.userImage setImage:profilePicture];
+    if (streamItemUser[@"profilePicture"]) {
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage *profilePicture = [UIImage imageWithData:[streamItemUser[@"profilePicture"] getData]];
+            dispatch_async( dispatch_get_main_queue(), ^{
+                [cell.userImage setImage:profilePicture];
+            });
         });
-    });
+    } else {
+        [cell.userImage setImage:[UIImage imageNamed:@"images.jpeg"]];
+    }
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
     return cell;
 }

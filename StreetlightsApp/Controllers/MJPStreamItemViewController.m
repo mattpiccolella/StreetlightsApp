@@ -67,10 +67,17 @@
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[self.streamItem[@"user"][@"profilePicture"] getData]];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            [self.profilePicture setImage:profilePicture];
-            [MJPPhotoUtils circularCrop:self.profilePicture];
-        });
+        if (self.streamItem[@"user"][@"profilePicture"]) {
+            dispatch_async( dispatch_get_main_queue(), ^{
+                [self.profilePicture setImage:profilePicture];
+                [MJPPhotoUtils circularCrop:self.profilePicture];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.profilePicture setImage:[UIImage imageNamed:@"images.jpeg"]];
+                [MJPPhotoUtils circularCrop:self.profilePicture];
+            });
+        }
         if (self.streamItem[@"postPicture"]) {
             UIImage *postPicture = [UIImage imageWithData:[self.streamItem[@"postPicture"] getData]];
             dispatch_async( dispatch_get_main_queue(), ^{
