@@ -45,6 +45,13 @@ BOOL hasSelectedPhoto;
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
     
+    NSDictionary *settings = @{
+                               NSFontAttributeName                :  [UIFont fontWithName:@"PathwayGothicOne-Book" size:30.0],
+                               NSForegroundColorAttributeName          :  [UIColor whiteColor]};
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:settings];
+    [self.navigationItem setTitle:@"Register"];
+    
     hasSelectedPhoto = false;
 }
 
@@ -86,6 +93,8 @@ BOOL hasSelectedPhoto;
                     PFFile *userPhoto = [PFFile fileWithData:imageData];
                     parseUser[@"profilePicture"] = userPhoto;
                 }
+                [self.activityIndicator setHidden:NO];
+                [self.activityIndicator startAnimating];
                 [parseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
                         [self.activityIndicator setHidden:YES];
@@ -97,6 +106,8 @@ BOOL hasSelectedPhoto;
                             navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
                             
                             [UIApplication sharedApplication].delegate.window.rootViewController = navController;
+                            
+                            [self.activityIndicator setHidden:YES];
                         });
                         MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
                         PFQuery *query = [PFQuery queryWithClassName:@"User"];
