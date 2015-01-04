@@ -74,6 +74,43 @@
 }
 
 - (IBAction)changeProfilePicture:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"Take a Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self takePhotoSelected];
+    }];
+    UIAlertAction *photoLibraryAction = [UIAlertAction actionWithTitle:@"Choose from Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self photoLibrarySelected];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // Dismiss view controller.
+    }];
+    [alertController addAction:takePhotoAction];
+    [alertController addAction:photoLibraryAction];
+    if (self.appDelegate.currentUser[@"profilePicture"]) {
+        UIAlertAction *removePhotoAction = [UIAlertAction actionWithTitle:@"Remove Photo" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            [self removePhoto];
+        }];
+        [alertController addAction:removePhotoAction];
+    }
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)takePhotoSelected {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    imagePicker.delegate = self;
+    
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
+    
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (void)photoLibrarySelected {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
     imagePicker.delegate = self;
@@ -84,6 +121,21 @@
     
     imagePicker.allowsEditing = YES;
     [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (void)removePhoto {
+    [self.appDelegate.currentUser removeObjectForKey:@"profilePicture"];
+    [self.appDelegate.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.profilePicture setImage:[UIImage imageNamed:@"images.jpeg"] forState:UIControlStateNormal];
+                [self.profilePicture setImage:[UIImage imageNamed:@"images.jpeg"] forState:UIControlStateSelected];
+            });
+        } else {
+            NSLog(@"couldn't do this!");
+            // TODO: Error. Notify.
+        }
+    }];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -98,7 +150,8 @@
             if (succeeded) {
                 [self.appDelegate setCurrentUser:userPhotoObject];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.profilePicture.imageView setImage:[UIImage imageWithData:[[userPhotoObject objectForKey:@"profilePicture"] getData]]];
+                    [self.profilePicture setImage:[UIImage imageWithData:[[userPhotoObject objectForKey:@"profilePicture"] getData]] forState:UIControlStateNormal];
+                    [self.profilePicture setImage:[UIImage imageWithData:[[userPhotoObject objectForKey:@"profilePicture"] getData]] forState:UIControlStateSelected];
                     [MJPPhotoUtils circularCrop:self.profilePicture.imageView];
                 });
             } else {
