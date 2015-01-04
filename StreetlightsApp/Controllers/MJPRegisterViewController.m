@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *nameField;
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
+@property (strong, nonatomic) IBOutlet UITextField *confirmPasswordField;
 @property (strong, nonatomic) IBOutlet UIButton *registerButton;
 - (IBAction)registerButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -45,8 +46,6 @@ BOOL hasSelectedPhoto;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
     
     hasSelectedPhoto = false;
-    
-    [MJPPhotoUtils circularCrop:[self.registerButton imageView]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,54 +58,64 @@ BOOL hasSelectedPhoto;
 }
 
 - (IBAction)registerButtonPressed:(id)sender {
-    MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    [query whereKey:@"email" equalTo:newUser.email];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if ([objects count] != 0) {
-            NSLog(@"Email already taken");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"Email Already Taken"
-                                            message:@"Sorry, but this email is in use. Please login."
-                                           delegate:self
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil] show];
-            });
-        } else {
-            PFObject *parseUser = [MJPUser getPFObjectFromUser:newUser];
-            if (hasSelectedPhoto) {
-                NSData *imageData = UIImageJPEGRepresentation([self.profilePictureSelector.imageView image], 0.7);
-                PFFile *userPhoto = [PFFile fileWithData:imageData];
-                parseUser[@"profilePicture"] = userPhoto;
-            }
-            [parseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    [self.activityIndicator setHidden:YES];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
-                        
-                        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-                        
-                        navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
-                        
-                        [UIApplication sharedApplication].delegate.window.rootViewController = navController;
-                    });
-                    MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
-                    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-                    [query whereKey:@"email" equalTo:newUser.email];
-                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                        
-                        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                        [userDefaults setObject:object.objectId forKey:@"userId"];
-                        MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
-                        [appDelegate setCurrentUser:object];
-                    }];
-                } else {
-                    NSLog(@"ERROR! We couldn't register the user!");
+    if (![self.passwordField.text isEqualToString:self.confirmPasswordField.text]) {
+        [[[UIAlertView alloc] initWithTitle:@"Passwords don't match"
+                                        message:@"Sorry, but those passwords don't match. Please make sure they match."
+                                       delegate:self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil] show];
+        
+    } else {
+        MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
+        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+        [query whereKey:@"email" equalTo:newUser.email];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if ([objects count] != 0) {
+                NSLog(@"Email already taken");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[[UIAlertView alloc] initWithTitle:@"Email Already Taken"
+                                                message:@"Sorry, but this email is in use. Please login."
+                                               delegate:self
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil] show];
+                });
+            } else {
+                PFObject *parseUser = [MJPUser getPFObjectFromUser:newUser];
+                if (hasSelectedPhoto) {
+                    NSData *imageData = UIImageJPEGRepresentation([self.profilePictureSelector.imageView image], 0.7);
+                    PFFile *userPhoto = [PFFile fileWithData:imageData];
+                    parseUser[@"profilePicture"] = userPhoto;
                 }
-            }];
-        }
-    }];
+                [parseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        [self.activityIndicator setHidden:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
+                            
+                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+                            
+                            navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
+                            
+                            [UIApplication sharedApplication].delegate.window.rootViewController = navController;
+                        });
+                        MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
+                        PFQuery *query = [PFQuery queryWithClassName:@"User"];
+                        [query whereKey:@"email" equalTo:newUser.email];
+                        [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                            
+                            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                            [userDefaults setObject:object.objectId forKey:@"userId"];
+                            MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
+                            [appDelegate setCurrentUser:object];
+                        }];
+                    } else {
+                        NSLog(@"ERROR! We couldn't register the user!");
+                    }
+                }];
+            }
+        }];
+        
+    }
 }
 
 - (void)backButtonPushed {

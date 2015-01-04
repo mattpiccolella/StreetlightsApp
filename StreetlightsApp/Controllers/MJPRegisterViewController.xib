@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPRegisterViewController">
             <connections>
                 <outlet property="activityIndicator" destination="zrk-I1-GLP" id="cf7-lU-M7t"/>
+                <outlet property="confirmPasswordField" destination="jcP-XF-1Kw" id="tgk-xj-g5v"/>
                 <outlet property="emailField" destination="wQQ-fl-4a4" id="gCq-Sp-HZr"/>
                 <outlet property="nameField" destination="fSJ-98-4C3" id="yQq-2p-8B1"/>
                 <outlet property="passwordField" destination="N6b-ur-SkV" id="mu6-jc-BJ9"/>
