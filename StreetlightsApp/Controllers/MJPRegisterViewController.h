@@ -4,6 +4,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MJPRegisterViewController : UIViewController <UITextFieldDelegate>
+@interface MJPRegisterViewController : UIViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end

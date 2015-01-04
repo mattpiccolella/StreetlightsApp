@@ -10,6 +10,7 @@
                 <outlet property="emailField" destination="wQQ-fl-4a4" id="gCq-Sp-HZr"/>
                 <outlet property="nameField" destination="fSJ-98-4C3" id="yQq-2p-8B1"/>
                 <outlet property="passwordField" destination="N6b-ur-SkV" id="mu6-jc-BJ9"/>
+                <outlet property="profilePictureSelector" destination="7cX-Ul-NK8" id="woB-KB-efu"/>
                 <outlet property="registerButton" destination="enT-aX-VbK" id="5T3-sZ-MqK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,6 +25,7 @@
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
+                        <action selector="emailChanged:" destination="-1" eventType="editingChanged" id="SdG-pO-xzF"/>
                         <outlet property="delegate" destination="-1" id="koh-hH-0vo"/>
                     </connections>
                 </textField>
@@ -32,22 +34,21 @@
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <connections>
+                        <action selector="passwordChanged:" destination="-1" eventType="editingChanged" id="rTc-x0-j49"/>
                         <outlet property="delegate" destination="-1" id="Q9d-6o-cie"/>
                     </connections>
                 </textField>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zrk-I1-GLP">
-                    <rect key="frame" x="150" y="309" width="20" height="20"/>
-                </activityIndicatorView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSJ-98-4C3">
-                    <rect key="frame" x="60" y="130" width="200" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jcP-XF-1Kw">
+                    <rect key="frame" x="60" y="244" width="200" height="30"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="h9F-8L-LQ0"/>
+                        <action selector="passwordChanged:" destination="-1" eventType="editingChanged" id="tcA-IB-Mug"/>
+                        <outlet property="delegate" destination="-1" id="ri4-Z4-rRR"/>
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enT-aX-VbK">
-                    <rect key="frame" x="132" y="244" width="57" height="30"/>
+                    <rect key="frame" x="132" y="496" width="57" height="30"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="15"/>
                     <state key="normal" title="Register">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,10 +57,40 @@
                         <action selector="registerButtonPressed:" destination="-1" eventType="touchUpInside" id="Jcg-PK-bcP"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zrk-I1-GLP">
+                    <rect key="frame" x="150" y="301" width="20" height="20"/>
+                </activityIndicatorView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSJ-98-4C3">
+                    <rect key="frame" x="60" y="130" width="200" height="30"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                    <connections>
+                        <action selector="nameChanged:" destination="-1" eventType="editingChanged" id="0Rl-Ho-vkJ"/>
+                        <outlet property="delegate" destination="-1" id="h9F-8L-LQ0"/>
+                    </connections>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose a Profile Picture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXE-MW-hTG">
+                    <rect key="frame" x="60" y="291" width="200" height="21"/>
+                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7cX-Ul-NK8">
+                    <rect key="frame" x="99" y="329" width="122" height="122"/>
+                    <state key="normal" image="images.jpeg">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="changeProfilePicture:" destination="-1" eventType="touchUpInside" id="Jm2-PH-556"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>
     </objects>
+    <resources>
+        <image name="images.jpeg" width="122" height="122"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
