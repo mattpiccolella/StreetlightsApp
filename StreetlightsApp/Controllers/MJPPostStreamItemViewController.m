@@ -34,6 +34,7 @@
 
 @implementation MJPPostStreamItemViewController {
     BOOL hasSetLocation_;
+    BOOL hasPickedPhoto;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -78,6 +79,8 @@
     [self handleFacebookPress];
     
     [self.navigationItem setTitle:@"Post"];
+    
+    hasPickedPhoto = FALSE;
 }
 
 - (void)dealloc {
@@ -208,6 +211,24 @@
 }
 
 - (IBAction)addPhoto:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"Take a Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self takePhotoSelected];
+    }];
+    UIAlertAction *photoLibraryAction = [UIAlertAction actionWithTitle:@"Choose from Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self photoLibrarySelected];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // Dismiss view controller.
+    }];
+    [alertController addAction:takePhotoAction];
+    [alertController addAction:photoLibraryAction];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)takePhotoSelected {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
     imagePicker.delegate = self;
@@ -221,7 +242,22 @@
     // TODO: Make the panning on a cropped image possible.
     
     [self presentViewController:imagePicker animated:YES completion:nil];
+}
 
+- (void)photoLibrarySelected {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    imagePicker.delegate = self;
+    
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
+    
+    imagePicker.allowsEditing = YES;
+    
+    // TODO: Make the panning on a cropped image possible.
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
 
@@ -238,6 +274,7 @@
         [imageView setImage:croppedImage];
         [self.view addSubview:imageView];
         [self.mapView setHidden:TRUE];
+        hasPickedPhoto = TRUE;
     } else {
         // TODO: Display an error in the case the user entered something other than an image.
         NSLog(@"ERROR");
