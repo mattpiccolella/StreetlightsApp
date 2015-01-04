@@ -24,6 +24,7 @@
 
 - (IBAction)addPhoto:(id)sender;
 @property (strong, nonatomic) PFObject *parseStreamItem;
+@property (strong, nonatomic) UIImageView *postImageView;
 
 
 @property BOOL facebookSelected;
@@ -223,6 +224,12 @@
     }];
     [alertController addAction:takePhotoAction];
     [alertController addAction:photoLibraryAction];
+    if (hasPickedPhoto) {
+        UIAlertAction *removePhotoAction = [UIAlertAction actionWithTitle:@"Remove Photo" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            [self removePhoto];
+        }];
+        [alertController addAction:removePhotoAction];
+    }
     [alertController addAction:cancelAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -260,6 +267,13 @@
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
+- (void)removePhoto {
+    [self.parseStreamItem removeObjectForKey:@"postPicture"];
+    [self.postImageView setHidden:YES];
+    [self.mapView setHidden:NO];
+    hasPickedPhoto = FALSE;
+}
+
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
@@ -272,6 +286,7 @@
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 154)];
         [imageView setContentMode:UIViewContentModeScaleAspectFit];
         [imageView setImage:croppedImage];
+        [self setPostImageView:imageView];
         [self.view addSubview:imageView];
         [self.mapView setHidden:TRUE];
         hasPickedPhoto = TRUE;
