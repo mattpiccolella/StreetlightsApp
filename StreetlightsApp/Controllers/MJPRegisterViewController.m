@@ -53,6 +53,8 @@ BOOL hasSelectedPhoto;
     [self.navigationItem setTitle:@"Register"];
     
     hasSelectedPhoto = false;
+    
+    [MJPPhotoUtils circularCrop:self.profilePictureSelector.imageView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -158,6 +160,62 @@ BOOL hasSelectedPhoto;
 }
 
 - (IBAction)changeProfilePicture:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"Take a Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self takePhotoSelected];
+    }];
+    UIAlertAction *photoLibraryAction = [UIAlertAction actionWithTitle:@"Choose from Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self photoLibrarySelected];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // Dismiss view controller.
+    }];
+    [alertController addAction:takePhotoAction];
+    [alertController addAction:photoLibraryAction];
+    if (hasSelectedPhoto) {
+        UIAlertAction *removePhotoAction = [UIAlertAction actionWithTitle:@"Remove Photo" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            [self removePhoto];
+        }];
+        [alertController addAction:removePhotoAction];
+    }
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        UIImage *croppedImage = [MJPPhotoUtils croppedImageWithInfo:info];
+        [self.profilePictureSelector setImage:croppedImage forState:UIControlStateNormal];
+        [self.profilePictureSelector setImage:croppedImage forState:UIControlStateSelected];
+        [MJPPhotoUtils circularCrop:self.profilePictureSelector.imageView];
+        hasSelectedPhoto = TRUE;
+    } else {
+        // TODO: Display an error in the case the user entered something other than an image.
+        NSLog(@"ERROR");
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)takePhotoSelected {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    
+    imagePicker.delegate = self;
+    
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
+    
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (void)photoLibrarySelected {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
     imagePicker.delegate = self;
@@ -170,21 +228,9 @@ BOOL hasSelectedPhoto;
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSString *mediaType = info[UIImagePickerControllerMediaType];
-    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        UIImage *croppedImage = [MJPPhotoUtils croppedImageWithInfo:info];
-        [self.profilePictureSelector.imageView setImage:croppedImage];
-        [MJPPhotoUtils circularCrop:self.profilePictureSelector.imageView];
-        hasSelectedPhoto = TRUE;
-    } else {
-        // TODO: Display an error in the case the user entered something other than an image.
-        NSLog(@"ERROR");
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)removePhoto {
+    [self.profilePictureSelector setImage:[UIImage imageNamed:@"images.jpeg"] forState:UIControlStateNormal];
+    [self.profilePictureSelector setImage:[UIImage imageNamed:@"images.jpeg"] forState:UIControlStateSelected];
+    hasSelectedPhoto = FALSE;
 }
 @end
