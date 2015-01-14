@@ -8,6 +8,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "MJPAppDelegate.h"
 #import "MJPPhotoUtils.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface MJPStreamItemViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *userName;
@@ -140,14 +141,14 @@
     double currentLatitude = self.currentLocation.coordinate.latitude;
     double currentLongitude = self.currentLocation.coordinate.longitude;
     
-    float MILES_PER_LONG = 53.0;
-    float MILES_PER_LAT = 69.0;
+    CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
-    double dLatitudeMiles = (currentLatitude - latitude) / MILES_PER_LAT;
-    double dLongitudeMiles = (currentLongitude - longitude) / MILES_PER_LONG;
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:currentLatitude longitude:currentLongitude];
+    
+    double METERS_TO_MILES = 0.000621371;
 
     // Find the distance between the two points.
-    return sqrt((dLatitudeMiles * dLatitudeMiles) + (dLongitudeMiles * dLongitudeMiles));
+    return [postLocation distanceFromLocation:currentLocation] * METERS_TO_MILES;
 }
 
 - (void)handleDeletion {
