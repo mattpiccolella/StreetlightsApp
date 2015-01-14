@@ -11,6 +11,7 @@
 #import "MJPQueryUtils.h"
 #import "MJPMapViewController.h"
 #import "MJPUserSettingsTableViewController.h"
+#import "MJPAssortedUtils.h"
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -127,7 +128,7 @@ NSMutableArray *friendItems;
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    cell.timeRemaining.text = [NSString stringWithFormat:@"%dm", (int) timeInterval / 60];
+    cell.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(timeInterval / 60)];
     
     if (streamItemUser[@"profilePicture"]) {
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

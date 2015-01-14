@@ -9,6 +9,7 @@
 #import "MJPAppDelegate.h"
 #import "MJPPhotoUtils.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MJPAssortedUtils.h"
 
 @interface MJPStreamItemViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *userName;
@@ -119,7 +120,7 @@
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    self.timeRemaining.text = [NSString stringWithFormat:@"%dm", (int) timeInterval / 60];
+    self.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(timeInterval / 60)];
     
     self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [self distanceFromLatitude:pointLatitude longitude:pointLongitude]];
     
