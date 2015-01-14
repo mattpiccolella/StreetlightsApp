@@ -8,6 +8,7 @@
 
 #import "MJPChangePasswordViewController.h"
 #import "MJPAppDelegate.h"
+#import "MJPViewUtils.h"
 
 @interface MJPChangePasswordViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *oldPassword;
@@ -24,9 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
-    
-    [self.navigationItem setTitle:[NSString stringWithFormat:@"Change Password"]];
+    [MJPViewUtils setNavigationUI:self withTitle:@"Change Password" backButtonName:@"Back.png"];
+    [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
     

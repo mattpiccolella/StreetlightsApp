@@ -14,6 +14,7 @@
 #import "MJPChangePasswordViewController.h"
 #import "MJPQueryUtils.h"
 #import "MJPPostHistoryTableViewController.h"
+#import "MJPViewUtils.h"
 
 @interface MJPUserSettingsTableViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *profilePicture;
@@ -42,7 +43,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
+    [MJPViewUtils setNavigationUI:self withTitle:@"Profile" backButtonName:@"X.png"];
+    [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
     
@@ -70,7 +72,6 @@
     [MJPPhotoUtils circularCrop:self.profilePicture.imageView];
     // Handle Facebook sharing name.
     [self facebookSharingUI:[FBSession activeSession]];
-    [self.navigationItem setTitle:@"Profile"];
 }
 
 - (IBAction)changeProfilePicture:(id)sender {

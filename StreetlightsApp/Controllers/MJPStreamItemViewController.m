@@ -8,6 +8,7 @@
 #import "MJPPhotoUtils.h"
 #import <CoreLocation/CoreLocation.h>
 #import "MJPAssortedUtils.h"
+#import "MJPViewUtils.h"
 
 @interface MJPStreamItemViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *userName;
@@ -110,7 +111,8 @@
     GMSCameraUpdate *update = [GMSCameraUpdate setTarget:marker.position zoom:14.0];
     [self.mapView moveCamera:update];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
+    [MJPViewUtils setNavigationUI:self withTitle:@"Post" backButtonName:@"Back.png"];
+    [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.shares.text = [NSString stringWithFormat:@"%ld", (long)[[self.streamItem objectForKey:@"shareCount"] integerValue]];
     

@@ -10,6 +10,7 @@
 #import "MJPQueryUtils.h"
 #import "MJPMapViewController.h"
 #import "MJPAppDelegate.h"
+#import "MJPViewUtils.h"
 
 @interface MJPLoginViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
@@ -35,15 +36,8 @@
     
     [self.activityIndicator setHidden:TRUE];
     
-    [self.navigationController setNavigationBarHidden:NO];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
-    
-    NSDictionary *settings = @{
-                               NSFontAttributeName                :  [UIFont fontWithName:@"PathwayGothicOne-Book" size:30.0],
-                               NSForegroundColorAttributeName          :  [UIColor whiteColor]};
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:settings];
-    [self.navigationItem setTitle:@"Login"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"Login" backButtonName:@"X.png"];
+    [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
 }
 
 - (void)didReceiveMemoryWarning {

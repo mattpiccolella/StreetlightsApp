@@ -5,9 +5,9 @@
 #import "MJPPostStreamItemViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "MJPAppDelegate.h"
-#import "MJPStreamItem.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MJPPhotoUtils.h"
+#import "MJPViewUtils.h"
 
 @interface MJPPostStreamItemViewController ()
 
@@ -70,16 +70,15 @@
     if ([self.appDelegate currentUser] == nil) {
         // TODO: Look into this. I don't even think this is necessary.
     }
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"] landscapeImagePhone:[UIImage imageNamed:@"X.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
+
+    [MJPViewUtils setNavigationUI:self withTitle:@"Post" backButtonName:@"Back.png"];
+    [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.postDescription.text = @"What's up?";
     self.postDescription.textColor = [UIColor lightGrayColor];
     
     [self handleTwitterPress];
     [self handleFacebookPress];
-    
-    [self.navigationItem setTitle:@"Post"];
     
     hasPickedPhoto = FALSE;
 }

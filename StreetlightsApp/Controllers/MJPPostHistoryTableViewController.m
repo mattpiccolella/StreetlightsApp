@@ -9,6 +9,7 @@
 #import "MJPPostHistoryTableViewController.h"
 #import "MJPStreamItemTableViewCell.h"
 #import "MJPAppDelegate.h"
+#import "MJPViewUtils.h"
 
 @interface MJPPostHistoryTableViewController ()
 
@@ -28,9 +29,8 @@ static NSInteger cellHeight = 96;
     
     self.postHistoryArray = posts;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back.png"] landscapeImagePhone:[UIImage imageNamed:@"Back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(backButtonPushed)];
-    
-    [self.navigationItem setTitle:[NSString stringWithFormat:@"Post History"]];
+    [MJPViewUtils setNavigationUI:self withTitle:@"Post History" backButtonName:@"Back.png"];
+    [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     return self;
 }
