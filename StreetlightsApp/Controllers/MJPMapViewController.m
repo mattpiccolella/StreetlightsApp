@@ -4,7 +4,6 @@
 
 #import "MJPMapViewController.h"
 #import "MJPAppDelegate.h"
-#import "MJPStreamItem.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <Parse/Parse.h>
 #import "MJPQueryUtils.h"

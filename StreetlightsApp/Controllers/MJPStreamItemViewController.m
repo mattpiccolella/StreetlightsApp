@@ -3,8 +3,6 @@
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
 
 #import "MJPStreamItemViewController.h"
-#import "MJPStreamItem.h"
-#import "MJPUser.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "MJPAppDelegate.h"
 #import "MJPPhotoUtils.h"

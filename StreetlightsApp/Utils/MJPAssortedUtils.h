@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface MJPAssortedUtils : NSObject
 
 + (NSString*)stringForRemainingTime:(NSInteger)numberOfMinutes;
+
++ (PFObject*) getPFObjectWithName:(NSString*)name email:(NSString*)email password:(NSString*)password;
 
 @end

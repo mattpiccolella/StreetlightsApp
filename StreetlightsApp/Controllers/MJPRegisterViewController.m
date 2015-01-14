@@ -8,10 +8,10 @@
 #import "MJPMapViewController.h"
 #import "MJPPostStreamItemViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "MJPUser.h"
 #import <Parse/Parse.h>
 #import "MJPPhotoUtils.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "MJPAssortedUtils.h"
 
 @interface MJPRegisterViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *nameField;
@@ -75,9 +75,8 @@ BOOL hasSelectedPhoto;
                               otherButtonTitles:nil] show];
         
     } else {
-        MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
         PFQuery *query = [PFQuery queryWithClassName:@"User"];
-        [query whereKey:@"email" equalTo:newUser.email];
+        [query whereKey:@"email" equalTo:self.emailField.text];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if ([objects count] != 0) {
                 NSLog(@"Email already taken");
@@ -89,7 +88,7 @@ BOOL hasSelectedPhoto;
                                       otherButtonTitles:nil] show];
                 });
             } else {
-                PFObject *parseUser = [MJPUser getPFObjectFromUser:newUser];
+                PFObject *parseUser = [MJPAssortedUtils getPFObjectWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
                 if (hasSelectedPhoto) {
                     NSData *imageData = UIImageJPEGRepresentation([self.profilePictureSelector.imageView image], 0.7);
                     PFFile *userPhoto = [PFFile fileWithData:imageData];
@@ -111,9 +110,8 @@ BOOL hasSelectedPhoto;
                             
                             [self.activityIndicator setHidden:YES];
                         });
-                        MJPUser *newUser = [[MJPUser alloc] initWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
                         PFQuery *query = [PFQuery queryWithClassName:@"User"];
-                        [query whereKey:@"email" equalTo:newUser.email];
+                        [query whereKey:@"email" equalTo:self.emailField.text];
                         [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                             
                             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

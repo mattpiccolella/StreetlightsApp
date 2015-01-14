@@ -3,7 +3,7 @@
 //  Copyright (c) 2014 Matthew Piccolella. All rights reserved.
 
 #import <UIKit/UIKit.h>
-#import "MJPStreamItem.h"
+#import <Parse/Parse.h>
 
 @interface MJPStreamItemViewController : UIViewController<UIActionSheetDelegate>
 

@@ -5,7 +5,6 @@
 #import "MJPStreamViewController.h"
 #import "MJPAppDelegate.h"
 #import "MJPStreamItemTableViewCell.h"
-#import "MJPStreamItem.h"
 #import "MJPStreamItemViewController.h"
 #import <Parse/Parse.h>
 #import "MJPQueryUtils.h"

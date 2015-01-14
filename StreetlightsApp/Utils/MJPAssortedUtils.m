@@ -7,6 +7,7 @@
 //
 
 #import "MJPAssortedUtils.h"
+#import <Parse/Parse.h>
 
 @implementation MJPAssortedUtils
 
@@ -16,6 +17,14 @@
     } else {
         return [NSString stringWithFormat:@"%dh", numberOfMinutes / 60];
     }
+}
+
++ (PFObject*) getPFObjectWithName:(NSString*)name email:(NSString*)email password:(NSString*)password; {
+    PFObject *parseUser = [PFObject objectWithClassName:@"User"];
+    parseUser[@"name"] = name;
+    parseUser[@"email"] = email;
+    parseUser[@"password"] = password;
+    return parseUser;
 }
 
 @end

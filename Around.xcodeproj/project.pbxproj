@@ -62,7 +62,6 @@
 		5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74A719A4F0980095117F /* NotificationIcon.png */; };
 		5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */; };
 		5C7F74AF19A5266B0095117F /* MJPStreamItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */; };
-		5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7F74B119A52C810095117F /* MJPStreamItem.m */; };
 		5C7F74B419A536B10095117F /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F74B319A536B10095117F /* DummyData.json */; };
 		5C8710ED1A51B5BA008E117A /* Trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C8710EC1A51B5BA008E117A /* Trash.png */; };
 		5C8710EF1A51BD20008E117A /* GoldStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C8710EE1A51BD20008E117A /* GoldStar.png */; };
@@ -92,7 +91,6 @@
 		5CE4584E1A47AB9A00EFF937 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4584D1A47AB9A00EFF937 /* Star.png */; };
 		5CE458571A49C0E700EFF937 /* Post.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458561A49C0E700EFF937 /* Post.png */; };
 		5CE458591A49C2D700EFF937 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458581A49C2D700EFF937 /* Camera.png */; };
-		5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713719ABCFB100C963AF /* MJPUser.m */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
 		5CE8713E19AFEDA500C963AF /* MJPStreamItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */; };
 		5CE8713F19AFEDA500C963AF /* MJPStreamItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713D19AFEDA500C963AF /* MJPStreamItemViewController.xib */; };
@@ -183,8 +181,6 @@
 		5C7F74AB19A5266B0095117F /* MJPStreamItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItemTableViewCell.h; sourceTree = "<group>"; };
 		5C7F74AC19A5266B0095117F /* MJPStreamItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItemTableViewCell.m; sourceTree = "<group>"; };
 		5C7F74AD19A5266B0095117F /* MJPStreamItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPStreamItemTableViewCell.xib; sourceTree = "<group>"; };
-		5C7F74B019A52C810095117F /* MJPStreamItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItem.h; sourceTree = "<group>"; };
-		5C7F74B119A52C810095117F /* MJPStreamItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItem.m; sourceTree = "<group>"; };
 		5C7F74B319A536B10095117F /* DummyData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
 		5C8710EC1A51B5BA008E117A /* Trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Trash.png; sourceTree = "<group>"; };
 		5C8710EE1A51BD20008E117A /* GoldStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoldStar.png; sourceTree = "<group>"; };
@@ -218,8 +214,6 @@
 		5CE4584D1A47AB9A00EFF937 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		5CE458561A49C0E700EFF937 /* Post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Post.png; sourceTree = "<group>"; };
 		5CE458581A49C2D700EFF937 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
-		5CE8713619ABCFB100C963AF /* MJPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPUser.h; sourceTree = "<group>"; };
-		5CE8713719ABCFB100C963AF /* MJPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPUser.m; sourceTree = "<group>"; };
 		5CE8713919AC263400C963AF /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
 		5CE8713B19AFEDA500C963AF /* MJPStreamItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItemViewController.h; sourceTree = "<group>"; };
 		5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItemViewController.m; sourceTree = "<group>"; };
@@ -448,10 +442,6 @@
 		5C7F746A19A3BC5D0095117F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5C7F74B019A52C810095117F /* MJPStreamItem.h */,
-				5C7F74B119A52C810095117F /* MJPStreamItem.m */,
-				5CE8713619ABCFB100C963AF /* MJPUser.h */,
-				5CE8713719ABCFB100C963AF /* MJPUser.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -614,12 +604,10 @@
 			files = (
 				5C7F746719A3BB900095117F /* MJPRegisterViewController.m in Sources */,
 				5C57EC0C1A567749002EE8C9 /* MJPChangePasswordViewController.m in Sources */,
-				5C7F74B219A52C810095117F /* MJPStreamItem.m in Sources */,
 				5CE458461A47982300EFF937 /* MJPStreamItemWindow.m in Sources */,
 				5C7F744419A3BB2A0095117F /* MJPAppDelegate.m in Sources */,
 				5C7F746E19A3BD980095117F /* MJPStreamViewController.m in Sources */,
 				5CE8713E19AFEDA500C963AF /* MJPStreamItemViewController.m in Sources */,
-				5CE8713819ABCFB100C963AF /* MJPUser.m in Sources */,
 				5C89015F1A265013003BCDDB /* MJPQueryUtils.m in Sources */,
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
 				5C57EC401A58A4D5002EE8C9 /* MJPLoginViewController.m in Sources */,

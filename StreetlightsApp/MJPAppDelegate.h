@@ -4,7 +4,6 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "MJPUser.h"
 #import <Parse/Parse.h>
 
 @interface MJPAppDelegate : UIResponder <UIApplicationDelegate>
