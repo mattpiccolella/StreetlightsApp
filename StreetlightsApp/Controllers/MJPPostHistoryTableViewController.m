@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @property (strong, nonatomic) NSArray *postHistoryArray;
+@property (strong, nonatomic) UIView* blankView;
 
 @end
 
@@ -38,6 +39,10 @@ static NSInteger cellHeight = 96;
     [super viewDidLoad];
     
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
+    
+    [self setBlankView:[self createBlankView]];
+    [self.blankView setHidden:YES];
+    [self.tableView setBackgroundView:self.blankView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,10 +85,38 @@ static NSInteger cellHeight = 96;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.postHistoryArray count];
+    if ([self.appDelegate.streamItemArray count] == 0) {
+        [self showBlankView:YES];
+    } else {
+        [self showBlankView:NO];
+    }
+    return [self.appDelegate.streamItemArray count];
 }
 
 -(void)backButtonPushed {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (UIView*)createBlankView {
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height)];
+    
+    messageLabel.text = @"You haven't posted anything yet. Post something to get started!";
+    messageLabel.textColor = [UIColor blackColor];
+    messageLabel.numberOfLines = 0;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    messageLabel.font = [UIFont fontWithName:@"Avenir" size:20];
+    [messageLabel sizeToFit];
+    
+    return messageLabel;
+}
+
+- (void)showBlankView:(BOOL)show {
+    if (show) {
+        [self.blankView setHidden:NO];
+        self.tableView.backgroundView = self.blankView;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else {
+        [self.blankView setHidden:YES];
+    }
 }
 @end
