@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "MJPMapViewController.h"
 #import "MJPTutorialViewController.h"
+#import "MJPViewUtils.h"
 
 static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 
@@ -26,18 +27,20 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     self.searchRadius = 4.0;
     
     self.streamItemArray = [[NSArray alloc] init];
-    
-    if ([kAPIKey length] == 0) {
-        // Blow up if APIKey has not yet been set.
-        NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
-        NSString *format = @"Configure APIKey inside SDKDemoAPIKey.h for your "
-        @"bundle `%@`, see README.GoogleMapsSDKDemos for more information";
-        @throw [NSException exceptionWithName:@"SDKDemoAppDelegate"
-                                       reason:[NSString stringWithFormat:format, bundleId]
-                                     userInfo:nil];
-    }
+
     [GMSServices provideAPIKey:kAPIKey];
     services_ = [GMSServices sharedServices];
+    
+    // Whenever a person opens the app, check for a cached Facebook session for sharing.
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        
+        // If there's one, just open the session silently, without showing the user the login UI
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
+                                           allowLoginUI:NO
+                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                          // TODO: Maybe do something here?
+                                      }];
+    }
     
     // Whenever a person opens the app, check for user credentials.
     if ([self hasUserCredentials]) {
@@ -52,17 +55,6 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
         return YES;
     }
     
-    // Whenever a person opens the app, check for a cached Facebook session for sharing.
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        
-        // If there's one, just open the session silently, without showing the user the login UI
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
-                                           allowLoginUI:NO
-                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                          // TODO: Maybe do something here?
-        }];
-    }
-    
     self.shouldRefreshStreamItems = FALSE;
 }
 
@@ -70,8 +62,7 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-
-    navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
+    navController.navigationBar.barTintColor = [MJPViewUtils appColor];
     
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
@@ -135,7 +126,7 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
                               cancelButtonTitle:@"OK!"
                               otherButtonTitles:nil] show];
         } else {
-            //
+            // TODO: Handle this.
             NSLog(@"Unhandled link: %@", [[call appLinkData] targetURL]);
         }
     }];

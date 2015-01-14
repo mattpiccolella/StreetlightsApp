@@ -11,5 +11,7 @@
 @interface MJPViewUtils : NSObject
 
 + (void)setNavigationUI:(UIViewController*)viewController withTitle:(NSString*)title backButtonName:(NSString*)name;
++ (UIColor*)appColor;
++ (void)presentMapView:(MJPAppDelegate*)appDelegate;
 
 @end

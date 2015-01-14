@@ -7,6 +7,8 @@
 //
 
 #import "MJPViewUtils.h"
+#import "MJPMapViewController.h"
+#import "MJPAppDelegate.h"
 
 @implementation MJPViewUtils
 
@@ -20,5 +22,16 @@
     
     [viewController.navigationController.navigationBar setTitleTextAttributes:settings];
     [viewController.navigationItem setTitle:title];
+}
+
++ (UIColor*)appColor {
+    return [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
+}
+
++ (void)presentMapView:(MJPAppDelegate*)appDelegate {
+    MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    navController.navigationBar.barTintColor = [MJPViewUtils appColor];
+    appDelegate.window.rootViewController = navController;
 }
 @end

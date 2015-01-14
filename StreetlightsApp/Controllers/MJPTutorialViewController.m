@@ -11,6 +11,7 @@
 #import "MJPRegisterViewController.h"
 #import "MJPAppDelegate.h"
 #import "MJPLoginViewController.h"
+#import "MJPViewUtils.h"
 
 @interface MJPTutorialViewController ()
 
@@ -44,7 +45,7 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     // Do any additional setup after loading the view.
     
     [self.navigationController setNavigationBarHidden:YES];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2]];
+    [self.navigationController.navigationBar setBarTintColor:[MJPViewUtils appColor]];
     
     self.appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -80,40 +81,26 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
 }
 
 - (UIViewController*)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    
     NSUInteger index = [(MJPHomeScreenViewController*)viewController index];
-    
     if (index == 0) {
         return nil;
     }
-    
     index--;
-    
     return [self viewControllerAtIndex:index];
-    
 }
 
 - (UIViewController*)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    
     NSUInteger index = [(MJPHomeScreenViewController*)viewController index];
-    
-    
     index++;
-    
     if (index == NUMBER_OF_TUTORIAL_SCREENS) {
         return nil;
     }
-    
     return [self viewControllerAtIndex:index];
-    
 }
 
 - (MJPHomeScreenViewController*)viewControllerAtIndex:(NSUInteger)index {
-    
     MJPHomeScreenViewController *homeScreenController = [[MJPHomeScreenViewController alloc] initWithScreenText:[self.textArray objectAtIndex:index] screenImage:[self.imageArray objectAtIndex:index] index:index];
-    
     return homeScreenController;
-    
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
@@ -130,7 +117,6 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
     NSString *secondString = @"This is another sample string just to see how the text looks.";
     NSString *thirdString = @"This is another thing that we are hoping will look good.";
     return [NSMutableArray arrayWithObjects:firstString, secondString, thirdString, nil];
-    
 }
 
 - (NSMutableArray*) tutorialImages {

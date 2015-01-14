@@ -93,33 +93,25 @@ BOOL hasSelectedPhoto;
                 [parseUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
                         [self.activityIndicator setHidden:YES];
+                        MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
-                            
-                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-                            
-                            navController.navigationBar.barTintColor = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.2];
-                            
-                            [UIApplication sharedApplication].delegate.window.rootViewController = navController;
-                            
                             [self.activityIndicator setHidden:YES];
+                            [MJPViewUtils presentMapView:appDelegate];
                         });
                         PFQuery *query = [PFQuery queryWithClassName:@"User"];
                         [query whereKey:@"email" equalTo:self.emailField.text];
                         [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                            
                             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                             [userDefaults setObject:object.objectId forKey:@"userId"];
                             MJPAppDelegate *appDelegate = (MJPAppDelegate *)[[UIApplication sharedApplication] delegate];
                             [appDelegate setCurrentUser:object];
                         }];
                     } else {
-                        NSLog(@"ERROR! We couldn't register the user!");
+                        NSLog(@"ERROR! We couldn't register the user! Present a confirmation.");
                     }
                 }];
             }
         }];
-        
     }
 }
 
@@ -143,7 +135,7 @@ BOOL hasSelectedPhoto;
 }
 
 -(BOOL) isValidEmail:(NSString *)checkString {
-    BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
+    BOOL stricterFilter = NO;
     NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
     NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
     NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
