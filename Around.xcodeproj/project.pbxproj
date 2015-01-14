@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C373F661A1943C300D26022 /* MJPFileUploadUtils.m */; };
 		5C3BAD0B1A660FA1007E1E74 /* MJPAssortedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3BAD0A1A660FA1007E1E74 /* MJPAssortedUtils.m */; };
 		5C3EA4AF19A599DC007EF291 /* Pinpoint.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C3EA4AE19A599DC007EF291 /* Pinpoint.png */; };
 		5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3EA4B119A59B0E007EF291 /* MJPPostStreamItemViewController.m */; };
@@ -95,7 +94,6 @@
 		5CE8713E19AFEDA500C963AF /* MJPStreamItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */; };
 		5CE8713F19AFEDA500C963AF /* MJPStreamItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713D19AFEDA500C963AF /* MJPStreamItemViewController.xib */; };
 		5CE8714319B4EE2300C963AF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE8714219B4EE2300C963AF /* libsqlite3.dylib */; };
-		5CE871C719B4F7D700C963AF /* MJPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE871C619B4F7D700C963AF /* MJPConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +107,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5C373F651A1943C300D26022 /* MJPFileUploadUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPFileUploadUtils.h; sourceTree = "<group>"; };
-		5C373F661A1943C300D26022 /* MJPFileUploadUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPFileUploadUtils.m; sourceTree = "<group>"; };
 		5C3BAD091A660FA1007E1E74 /* MJPAssortedUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPAssortedUtils.h; sourceTree = "<group>"; };
 		5C3BAD0A1A660FA1007E1E74 /* MJPAssortedUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPAssortedUtils.m; sourceTree = "<group>"; };
 		5C3EA4AE19A599DC007EF291 /* Pinpoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pinpoint.png; sourceTree = "<group>"; };
@@ -219,8 +215,6 @@
 		5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPStreamItemViewController.m; sourceTree = "<group>"; };
 		5CE8713D19AFEDA500C963AF /* MJPStreamItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPStreamItemViewController.xib; sourceTree = "<group>"; };
 		5CE8714219B4EE2300C963AF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		5CE871C519B4F7D700C963AF /* MJPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPConstants.h; sourceTree = "<group>"; };
-		5CE871C619B4F7D700C963AF /* MJPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,7 +315,6 @@
 		5C7F743919A3BB2A0095117F /* StreetlightsApp */ = {
 			isa = PBXGroup;
 			children = (
-				5C7F746A19A3BC5D0095117F /* Models */,
 				5C7F746919A3BC510095117F /* Resources */,
 				5C7F746319A3BB740095117F /* Controllers */,
 				5C7F744219A3BB2A0095117F /* MJPAppDelegate.h */,
@@ -439,13 +432,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		5C7F746A19A3BC5D0095117F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		5CE871C419B4F78D00C963AF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,10 +439,6 @@
 				5C3BAD0A1A660FA1007E1E74 /* MJPAssortedUtils.m */,
 				5C57EC201A578365002EE8C9 /* MJPSharingUtils.h */,
 				5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */,
-				5CE871C519B4F7D700C963AF /* MJPConstants.h */,
-				5CE871C619B4F7D700C963AF /* MJPConstants.m */,
-				5C373F651A1943C300D26022 /* MJPFileUploadUtils.h */,
-				5C373F661A1943C300D26022 /* MJPFileUploadUtils.m */,
 				5CB31D2F1A56445600FCB459 /* MJPPhotoUtils.h */,
 				5CB31D301A56445600FCB459 /* MJPPhotoUtils.m */,
 				5C89015D1A265013003BCDDB /* MJPQueryUtils.h */,
@@ -612,7 +594,6 @@
 				5C3EA4B319A59B0E007EF291 /* MJPPostStreamItemViewController.m in Sources */,
 				5C57EC401A58A4D5002EE8C9 /* MJPLoginViewController.m in Sources */,
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
-				5C373F671A1943C300D26022 /* MJPFileUploadUtils.m in Sources */,
 				5C3BAD0B1A660FA1007E1E74 /* MJPAssortedUtils.m in Sources */,
 				5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */,
 				5C57EC221A578365002EE8C9 /* MJPSharingUtils.m in Sources */,
@@ -621,7 +602,6 @@
 				5C57EC261A585717002EE8C9 /* MJPHomeScreenViewController.m in Sources */,
 				5CB31D311A56445600FCB459 /* MJPPhotoUtils.m in Sources */,
 				5C7F744019A3BB2A0095117F /* main.m in Sources */,
-				5CE871C719B4F7D700C963AF /* MJPConstants.m in Sources */,
 				5C7F747319A3BDC60095117F /* MJPMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
