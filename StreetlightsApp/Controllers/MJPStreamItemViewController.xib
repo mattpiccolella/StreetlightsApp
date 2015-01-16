@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
@@ -66,13 +65,13 @@
                     <rect key="frame" x="8" y="506" width="30" height="30"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5j-BY-V1U">
-                    <rect key="frame" x="46" y="510" width="42" height="21"/>
+                    <rect key="frame" x="46" y="510" width="50" height="21"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
                     <color key="textColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTh-Ya-Aqh">
-                    <rect key="frame" x="128" y="510" width="42" height="21"/>
+                    <rect key="frame" x="133" y="510" width="30" height="21"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
                     <color key="textColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
@@ -92,15 +91,6 @@
                         <action selector="deleteStreamItem:" destination="-1" eventType="touchUpInside" id="PzG-K9-gJh"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aoj-WA-iVb">
-                    <rect key="frame" x="90" y="506" width="30" height="30"/>
-                    <state key="normal" image="Star.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="favoritePost:" destination="-1" eventType="touchUpInside" id="xNZ-qX-e1x"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVU-PE-82I">
                     <rect key="frame" x="172" y="506" width="30" height="30"/>
                     <state key="normal" image="Share.png">
@@ -108,6 +98,15 @@
                     </state>
                     <connections>
                         <action selector="sharePost:" destination="-1" eventType="touchUpInside" id="5tT-im-dld"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aoj-WA-iVb">
+                    <rect key="frame" x="98" y="506" width="30" height="30"/>
+                    <state key="normal" image="Star.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="favoritePost:" destination="-1" eventType="touchUpInside" id="xNZ-qX-e1x"/>
                     </connections>
                 </button>
             </subviews>

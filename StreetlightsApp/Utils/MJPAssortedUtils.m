@@ -13,12 +13,25 @@
 @implementation MJPAssortedUtils
 
 + (NSString*)stringForRemainingTime:(NSInteger)numberOfMinutes {
-    if (numberOfMinutes < 60) {
+    if (numberOfMinutes < 0) {
+        return [NSString stringWithFormat:@"0m"];
+    } else if (numberOfMinutes < 60) {
         return [NSString stringWithFormat:@"%dm", numberOfMinutes];
     } else {
         return [NSString stringWithFormat:@"%dh", numberOfMinutes / 60];
     }
 }
+
++ (NSString*)completeStringForRemainingTime:(NSTimeInterval)timeInterval {
+    if (timeInterval >= 3600) {
+        return [NSString stringWithFormat:@"%uh %um",
+                (int) timeInterval / 3600, ((int) timeInterval / 60) % 60];
+    } else {
+        return [NSString stringWithFormat:@"%um", (int) timeInterval / 60];
+    }
+}
+
+
 
 + (PFObject*)getPFObjectWithName:(NSString*)name email:(NSString*)email password:(NSString*)password; {
     PFObject *parseUser = [PFObject objectWithClassName:@"User"];

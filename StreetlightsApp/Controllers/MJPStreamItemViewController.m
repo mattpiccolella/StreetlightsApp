@@ -350,7 +350,7 @@
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    self.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(timeInterval / 60)];
+    self.timeRemaining.text = [MJPAssortedUtils completeStringForRemainingTime:timeInterval];
 }
 
 - (void)requestPermissionsAndPost {

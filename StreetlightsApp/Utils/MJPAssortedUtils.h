@@ -23,4 +23,6 @@
 
 + (BOOL)isValidEmail:(NSString *)checkString;
 
++ (NSString*)completeStringForRemainingTime:(NSTimeInterval)timeInterval;
+
 @end

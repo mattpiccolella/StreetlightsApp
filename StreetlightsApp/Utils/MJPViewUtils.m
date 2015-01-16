@@ -10,6 +10,7 @@
 #import "MJPMapViewController.h"
 #import "MJPAppDelegate.h"
 #import "MJPStreamItemTableViewCell.h"
+#import "MJPAssortedUtils.h"
 
 @implementation MJPViewUtils
 
@@ -67,7 +68,7 @@
     NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    cell.timeRemaining.text = [NSString stringWithFormat:@"%dm", timeInterval > 0 ? (int) timeInterval / 60 : 0];
+    cell.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(int) timeInterval / 60];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[user[@"profilePicture"] getData]];
