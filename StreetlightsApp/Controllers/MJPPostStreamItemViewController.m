@@ -8,6 +8,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MJPPhotoUtils.h"
 #import "MJPViewUtils.h"
+#import "MJPAssortedUtils.h"
 
 @interface MJPPostStreamItemViewController ()
 
@@ -26,10 +27,8 @@
 @property (strong, nonatomic) PFObject *parseStreamItem;
 @property (strong, nonatomic) UIImageView *postImageView;
 
-
 @property BOOL facebookSelected;
 @property BOOL twitterSelected;
-
 
 @end
 
@@ -62,14 +61,9 @@
     
     self.parseStreamItem = [PFObject objectWithClassName:@"StreamItem"];
     
-    // Why did I need this?
     dispatch_async(dispatch_get_main_queue(), ^{
         self.mapView.myLocationEnabled = YES;
     });
-    
-    if ([self.appDelegate currentUser] == nil) {
-        // TODO: Look into this. I don't even think this is necessary.
-    }
 
     [MJPViewUtils setNavigationUI:self withTitle:@"Post" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
@@ -91,9 +85,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"myLocation"] && !hasSetLocation_ &&
         [object isKindOfClass:[GMSMapView class]]) {
         hasSetLocation_ = YES;
@@ -106,41 +98,19 @@
 - (IBAction)post:(id)sender {
     [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
-    CLLocation *currentLocation = [self.mapView myLocation];
-    float latitude = (float) currentLocation.coordinate.latitude;
-    float longitude = (float) currentLocation.coordinate.longitude;
-    
-    long expirationOffset = [self.expirationTime countDownDuration];
-    
-    NSInteger shareCount = 0;
-    if (self.facebookSelected) {
-        shareCount++;
-    }
-    if (self.twitterSelected) {
-        shareCount++;
-    }
-    
-    [self.parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
-    [self.parseStreamItem setObject:[[self.appDelegate currentUser] objectId] forKey:@"userId"];
-    [self.parseStreamItem setObject:self.postDescription.text forKey:@"description"];
-    [self.parseStreamItem setObject:[NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]] forKey:@"postedTimestamp"];
-    [self.parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];
-    [self.parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
-    [self.parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
-    [self.parseStreamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
-    [self.parseStreamItem setObject:[NSNumber numberWithInteger:shareCount] forKey:@"shareCount"];
+
+    [self setParseStreamItem:[self newStreamItem]];
     [self.parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             self.appDelegate.shouldRefreshStreamItems = TRUE;
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.postDescription.text = @"";
                 [self.activityIndicator setHidden:YES];
-                // TODO: Work on making this transition more sensible.
                 [self.navigationController popViewControllerAnimated:YES];
             });
         } else {
             NSLog(@"Error: %@", error.localizedDescription);
-            // TODO: Notify somebody of something. We can't save stream items.
+            [MJPViewUtils genericErrorMessage:self];
         }
     }];
     
@@ -158,21 +128,18 @@
 }
 
 - (void)backButtonPushed {
-    // TODO: Make this pop from the bottom.
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
+- (void)textViewDidBeginEditing:(UITextView *)textView {
     if ([textView.text isEqualToString:@"What's up?"]) {
         textView.text = @"";
-        textView.textColor = [UIColor blackColor]; //optional
+        textView.textColor = [UIColor blackColor];
     }
     [textView becomeFirstResponder];
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
+- (void)textViewDidEndEditing:(UITextView *)textView {
     if ([textView.text isEqualToString:@""]) {
         textView.text = @"What's up?";
         textView.textColor = [UIColor lightGrayColor];
@@ -190,18 +157,13 @@
 
 - (void) facebookSharingUI:(FBSession*)session {
     if (session.state == FBSessionStateOpen) {
-        NSLog(@"Open connection.");
         [self handleFacebookPress];
     } else if (session.state == FBSessionStateCreatedTokenLoaded) {
-        // This is the state on app launch with cached access token.
         [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
             if (session.state == FBSessionStateOpen) {
-                NSLog(@"Open connection.");
                 [self handleFacebookPress];
             }
         }];
-    } else {
-        // Doesn't seem to be logged in. Do nothing.
     }
 }
 
@@ -235,34 +197,14 @@
 }
 
 - (void)takePhotoSelected {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    
+    UIImagePickerController *imagePicker = [MJPAssortedUtils getCameraImagePicker];
     imagePicker.delegate = self;
-    
-    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-    
-    imagePicker.allowsEditing = YES;
-    
-    // TODO: Make the panning on a cropped image possible.
-    
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
 - (void)photoLibrarySelected {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    
+    UIImagePickerController *imagePicker = [MJPAssortedUtils getLibraryImagePicker];
     imagePicker.delegate = self;
-    
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-    
-    imagePicker.allowsEditing = YES;
-    
-    // TODO: Make the panning on a cropped image possible.
-    
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
@@ -289,9 +231,6 @@
         [self.view addSubview:imageView];
         [self.mapView setHidden:TRUE];
         hasPickedPhoto = TRUE;
-    } else {
-        // TODO: Display an error in the case the user entered something other than an image.
-        NSLog(@"ERROR");
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -301,7 +240,7 @@
         [self.shareFacebook setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         self.facebookSelected = FALSE;
     } else {
-        [self.shareFacebook setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.shareFacebook setTitleColor:[MJPViewUtils appColor] forState:UIControlStateNormal];
         self.facebookSelected = TRUE;
     }
 }
@@ -311,7 +250,7 @@
         [self.shareTwitter setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         self.twitterSelected = FALSE;
     } else {
-        [self.shareTwitter setTitleColor:[UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.shareTwitter setTitleColor:[MJPViewUtils appColor] forState:UIControlStateNormal];
         self.twitterSelected = TRUE;
     }
 }
@@ -319,7 +258,6 @@
 - (void)getFacebookPermissionsAndPost {
     [FBRequestConnection startWithGraphPath:@"/me/permissions" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
-            // Walk the list of permissions looking to see if publish_actions has been granted
             NSArray *permissions = (NSArray *)[result data];
             BOOL publishActionsSet = FALSE;
             for (NSDictionary *perm in permissions) {
@@ -330,30 +268,12 @@
                 }
             }
             if (!publishActionsSet) {
-                // Permission hasn't been granted, so ask for publish_actions
-                [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
-                                                      defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
-                                                          if (!error) {
-                                                              if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
-                                                                  NSLog(@"No permission.");
-                                                                  // TODO: Think of what to do here. Just let it go I think.
-                                                              } else {
-                                                                  // Permission granted.
-                                                                  [self postEvent];
-                                                              }
-                                                          } else {
-                                                              NSLog(@"Error requesting permission");
-                                                              // TODO: Handle this better.
-                                                          }
-                                                      }];
-                
+                [self requestPermissionsAndPost];
             } else {
-                // Already have the permissions we need.
                 [self postEvent];
             }
         } else {
-            // TODO: Handle the error in fetching permissions.
-            NSLog(@"Error fetching permissions");
+            [self incorrectPermissionsErrorView];
         }
     }];
 }
@@ -362,7 +282,6 @@
     NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
     object.provisionedForPost = YES;
     object[@"type"] = @"streetlightsapp:event";
-    
     object[@"title"] = @"Around";
     object[@"description"] = self.postDescription.text;
     
@@ -375,21 +294,63 @@
             // create an Open Graph action
             id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
             [action setObject:objectId forKey:@"event"];
-            /*
-            // create action referencing user owned object
-            [FBRequestConnection startForPostWithGraphPath:@"/me/streetlightsapp:post" graphObject:action completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                if(!error) {
-                    NSLog(@"Story posted: %@", [result objectForKey:@"id"]);
-                } else {
-                    // An error occurred
-                    NSLog(@"Encountered an error posting to Open Graph: %@", error);
-                }
-            }];
-             */
         } else {
-            // An error occurred
             NSLog(@"Error posting the Open Graph object to the Object API: %@", error);
+            [MJPViewUtils facebookShareError:self];
         }
     }];
+}
+
+- (PFObject*)newStreamItem {
+    CLLocation *currentLocation = [self.mapView myLocation];
+    float latitude = (float) currentLocation.coordinate.latitude;
+    float longitude = (float) currentLocation.coordinate.longitude;
+    long expirationOffset = [self.expirationTime countDownDuration];
+    
+    NSInteger shareCount = 0;
+    if (self.facebookSelected) {
+        shareCount++;
+    }
+    if (self.twitterSelected) {
+        shareCount++;
+    }
+    
+    PFObject *parseStreamItem = [PFObject objectWithClassName:@"StreamItem"];
+    [parseStreamItem setObject:[self.appDelegate currentUser] forKey:@"user"];
+    [parseStreamItem setObject:[[self.appDelegate currentUser] objectId] forKey:@"userId"];
+    [parseStreamItem setObject:self.postDescription.text forKey:@"description"];
+    [parseStreamItem setObject:[NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]] forKey:@"postedTimestamp"];
+    [parseStreamItem setObject:[NSNumber numberWithLong:([NSDate timeIntervalSinceReferenceDate] + expirationOffset)] forKey:@"expiredTimestamp"];
+    [parseStreamItem setObject:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+    [parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+    [parseStreamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
+    [parseStreamItem setObject:[NSNumber numberWithInteger:shareCount] forKey:@"shareCount"];
+    return parseStreamItem;
+}
+
+- (void)requestPermissionsAndPost {
+    // Permission hasn't been granted, so ask for publish_actions
+    [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                          defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+        if (!error) {
+            if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+                NSLog(@"No permission.");
+                // TODO: Think of what to do here. Just let it go I think.
+            } else {
+                [self postEvent];
+            }
+        } else {
+            NSLog(@"Error requesting permission");
+            // TODO: Handle this better.
+        }
+    }];
+}
+
+- (void)incorrectPermissionsErrorView {
+    [[[UIAlertView alloc] initWithTitle:@"Incorrect Permissions"
+                                message:@"We were unable to fetch the necessary permissions. Please try again."
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
 }
 @end

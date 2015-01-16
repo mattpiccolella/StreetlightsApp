@@ -18,5 +18,6 @@
 + (void)genericErrorMessage:(UIViewController*)viewController;
 + (UIView*)blankViewWithMessage:(NSString*)message andBounds:(CGRect)bounds;
 + (void)setUIForStreamItem:(PFObject*)streamItem user:(PFObject*)user tableCell:(MJPStreamItemTableViewCell*)cell;
++ (void)facebookShareError:(UIViewController*)viewController;
 
 @end

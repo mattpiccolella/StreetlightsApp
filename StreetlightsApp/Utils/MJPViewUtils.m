@@ -76,4 +76,12 @@
         });
     });
 }
+
++ (void)facebookShareError:(UIViewController*)viewController {
+    [[[UIAlertView alloc] initWithTitle:@"Facebook event not posted"
+                                message:@"Sorry, but your event could not be posted on Facebook. Please try again."
+                               delegate:viewController
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
 @end
