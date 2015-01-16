@@ -172,6 +172,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     if (hasLoadedInitialMarkers_ == NO) {
+        self.currentLocation = newLocation;
         hasLoadedInitialMarkers_ = YES;
         [self loadInitialMarkers];
     }

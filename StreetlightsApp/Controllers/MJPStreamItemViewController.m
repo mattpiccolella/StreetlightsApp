@@ -78,6 +78,11 @@
     
     [self handleDeletion];
     [self setFavoriteUI];
+    
+    UISwipeGestureRecognizer *backSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonPushed)];
+    backSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    [self.view addGestureRecognizer:backSwipe];
 }
 
 - (void)didReceiveMemoryWarning {
