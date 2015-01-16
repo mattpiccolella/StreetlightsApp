@@ -107,6 +107,32 @@
     }
 }
 - (IBAction)deleteStreamItem:(id)sender {
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"Delete Stream Item?"
+                                          message:@"Are you sure you want to delete this stream item? This action is permanent."
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:@"Cancel"
+                                   style:UIAlertActionStyleCancel
+                                   handler:nil];
+    
+    UIAlertAction *deleteAction = [UIAlertAction
+                               actionWithTitle:@"Delete"
+                               style:UIAlertActionStyleDestructive
+                               handler:^(UIAlertAction *action)
+                               {
+                                   [self deleteStreamItem];
+                               }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:deleteAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+- (void) deleteStreamItem {
     [self.streamItem deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             self.appDelegate.shouldRefreshStreamItems = TRUE;

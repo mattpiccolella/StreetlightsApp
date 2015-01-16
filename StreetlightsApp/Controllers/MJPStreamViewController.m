@@ -191,7 +191,7 @@ NSMutableArray *friendItems;
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     if (hasLoadedInitialMarkers_ == NO) {
         hasLoadedInitialMarkers_ = YES;
-        [self loadInitialMarkers];
+        [self loadInitialStreamItems];
     }
     self.currentLocation = newLocation;
 }
