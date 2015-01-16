@@ -21,14 +21,14 @@
 @property (strong, nonatomic) IBOutlet UIButton *profilePicture;
 - (IBAction)changeProfilePicture:(id)sender;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
-@property (strong, nonatomic) IBOutlet UILabel *userName;
 @property (strong, nonatomic) IBOutlet UILabel *userEmail;
 - (IBAction)logout:(id)sender;
 - (IBAction)changePassword:(id)sender;
 - (IBAction)viewPostHistory:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *facebookSharing;
 - (IBAction)shareWithFacebook:(id)sender;
-
+@property (strong, nonatomic) IBOutlet UIButton *userName;
+- (IBAction)editName:(id)sender;
 @end
 
 @implementation MJPUserSettingsTableViewController
@@ -50,6 +50,8 @@
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
     
     [self setProfileUI:self.appDelegate.currentUser];
+    
+    [self.userName setEnabled:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,7 +59,7 @@
 }
 
 - (void)setProfileUI:(PFObject*) user {
-    [self.userName setText:user[@"name"]];
+    [self setName];
     [self.userEmail setText:user[@"email"]];
     if (self.appDelegate.currentUser[@"profilePicture"]) {
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -220,5 +222,53 @@
              // TODO: Handle the error in this case.
          }
      }];
+}
+
+- (IBAction)editName:(id)sender {
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"Edit Name"
+                                          message:@"Change the way your name is displayed."
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+         textField.text = self.userName.titleLabel.text;
+     }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:@"Cancel"
+                                   style:UIAlertActionStyleCancel
+                                   handler:nil];
+    
+    UIAlertAction *doneAction = [UIAlertAction
+                               actionWithTitle:@"Done"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action) {
+                                   [self changeName:[alertController.textFields.firstObject text]];
+                               }];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:doneAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)setName {
+    [self.userName setTitle:self.appDelegate.currentUser[@"name"] forState:UIControlStateNormal];
+    [self.userName setTitle:self.appDelegate.currentUser[@"name"] forState:UIControlStateSelected];
+}
+
+- (void)changeName:(NSString*)name {
+    [self.appDelegate.currentUser setObject:name forKey:@"name"];
+    [self.appDelegate.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setName];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils genericErrorMessage:self];
+            });
+        }
+    }];
 }
 @end
