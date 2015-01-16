@@ -42,8 +42,6 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
 }
 
 - (void)viewDidLoad {
-    // Do any additional setup after loading the view.
-    
     [self.navigationController setNavigationBarHidden:YES];
     [self.navigationController.navigationBar setBarTintColor:[MJPViewUtils appColor]];
     
@@ -77,7 +75,6 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (UIViewController*)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {

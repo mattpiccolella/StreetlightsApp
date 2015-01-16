@@ -33,17 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    // Round corners of the buttons.
     
     [self.screenText setText:self.screenRawText];
     [self.screenImage setImage:self.screenRawImage];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 @end

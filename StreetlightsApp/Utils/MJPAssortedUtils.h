@@ -15,4 +15,12 @@
 
 + (PFObject*) getPFObjectWithName:(NSString*)name email:(NSString*)email password:(NSString*)password;
 
++ (UIImagePickerController*)getCameraImagePicker;
+
++ (UIImagePickerController*)getLibraryImagePicker;
+
++ (UIImage*)getDefaultUserImage;
+
++ (BOOL)isValidEmail:(NSString *)checkString;
+
 @end
