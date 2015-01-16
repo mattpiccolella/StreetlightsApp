@@ -30,7 +30,9 @@
 
 @end
 
-@implementation MJPStreamViewController
+@implementation MJPStreamViewController {
+    BOOL hasLoadedInitialMarkers_;
+}
 
 static NSString *cellIdentifier = @"streamViewCell";
 static NSInteger cellHeight = 96;
@@ -182,12 +184,16 @@ NSMutableArray *friendItems;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    [self locationServicesErrorView];
+    [MJPViewUtils locationServicesErrorView:self];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
+    if (hasLoadedInitialMarkers_ == NO) {
+        hasLoadedInitialMarkers_ = YES;
+        [self loadInitialMarkers];
+    }
     self.currentLocation = newLocation;
-    [self loadInitialStreamItems];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -233,13 +239,5 @@ NSMutableArray *friendItems;
     } else {
         [self.blankView setHidden:YES];
     }
-}
-
-- (void)locationServicesErrorView {
-    [[[UIAlertView alloc] initWithTitle:@"Unable to access location"
-                                message:@"We were unable to get your current location. Please make sure your permissions are set correctly."
-                               delegate:self
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
 }
 @end

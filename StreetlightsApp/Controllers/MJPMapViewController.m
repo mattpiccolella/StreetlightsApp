@@ -13,6 +13,7 @@
 #import "MJPStreamItemViewController.h"
 #import "MJPUserSettingsTableViewController.h"
 #import "MJPPhotoUtils.h"
+#import "MJPViewUtils.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -102,18 +103,13 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if ([keyPath isEqualToString:@"myLocation"] && !hasSetLocation_ &&
-          [object isKindOfClass:[GMSMapView class]]) {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"myLocation"] && !hasSetLocation_ && [object isKindOfClass:[GMSMapView class]]) {
         hasSetLocation_ = YES;
         CLLocation *location = [change objectForKey:NSKeyValueChangeNewKey];
-        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate
-                                                         zoom:14];
+        self.mapView.camera = [GMSCameraPosition cameraWithTarget:location.coordinate zoom:14];
     }
 }
 
@@ -170,17 +166,16 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    // TODO: Try to fail gracefully.
-    NSLog(@"didFailWithError: %@", error);
+    [MJPViewUtils locationServicesErrorView:self];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     if (hasLoadedInitialMarkers_ == NO) {
-        self.currentLocation = newLocation;
         hasLoadedInitialMarkers_ = YES;
         [self loadInitialMarkers];
     }
+    self.currentLocation = newLocation;
 }
 
 - (UIImageView*)addPostButton {
@@ -224,44 +219,11 @@
 
 - (void)postButtonPushed {
     MJPPostStreamItemViewController *newPost = [[MJPPostStreamItemViewController alloc] init];
-    // TODO: Make the post transition from the bottom.
     [[self navigationController] pushViewController:newPost animated:YES];
 }
 
 - (void)currentLocationButtonPushed {
     [self.mapView animateToLocation:self.currentLocation.coordinate];
-}
-
-// Format the search bar that will be added for the initial screen.
-- (UISearchBar*)searchBar {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    float searchBarWidth = 0.6 * screenWidth;
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
-    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [searchBar setBackgroundImage:[UIImage new]];
-    [searchBar setTranslucent:YES];
-    [searchBar setPlaceholder:@"Search & Filter"];
-    return searchBar;
-}
-
-// Add a centered view that will
-- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
-    float searchBarWidth = searchBar.bounds.size.width;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
-    searchBarView.autoresizingMask = 0;
-    [searchBarView addSubview:searchBar];
-    return searchBarView;
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    // TODO: Make the selectors appear.
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    // TODO: Make the selectors disappear.
 }
 
 - (UIView*)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {

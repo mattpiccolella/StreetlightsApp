@@ -19,6 +19,7 @@
 + (UIView*)blankViewWithMessage:(NSString*)message andBounds:(CGRect)bounds;
 + (void)setUIForStreamItem:(PFObject*)streamItem user:(PFObject*)user tableCell:(MJPStreamItemTableViewCell*)cell;
 + (void)facebookShareError:(UIViewController*)viewController;
-+ (void)incorrectPermissionsErrorView:(UIViewController*)viewController'
++ (void)incorrectPermissionsErrorView:(UIViewController*)viewController;
++ (void)locationServicesErrorView:(UIViewController*)viewController;
 
 @end

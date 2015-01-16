@@ -92,4 +92,12 @@
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
 }
+
++ (void)locationServicesErrorView:(UIViewController*)viewController {
+    [[[UIAlertView alloc] initWithTitle:@"Unable to access location"
+                                message:@"We were unable to get your current location. Please make sure your permissions are set correctly."
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
 @end
