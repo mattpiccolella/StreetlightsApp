@@ -31,6 +31,7 @@
 @implementation MJPMapViewController {
     BOOL hasSetLocation_;
     BOOL hasLoadedInitialMarkers_;
+    BOOL postSelected_;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -93,8 +94,11 @@
         self.appDelegate.shouldRefreshStreamItems = FALSE;
     }
     
-    // TODO: Work on making this smarter so we don't have to refresh every time.
-    [self addMarkers];
+    if (!postSelected_) {
+        [self addMarkers];
+    } else {
+        postSelected_ = FALSE;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -240,6 +244,7 @@
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
+    postSelected_ = TRUE;
     PFObject *selectedStreamItem = marker.userData;
     MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem location:self.currentLocation];
     [self.navigationController pushViewController:dummyItem animated:YES];
