@@ -97,7 +97,9 @@ BOOL hasSelectedPhoto;
                             [appDelegate setCurrentUser:object];
                         }];
                     } else {
-                        [MJPViewUtils genericErrorMessage:self];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [MJPViewUtils genericErrorMessage:self];
+                        });
                     }
                 }];
             }

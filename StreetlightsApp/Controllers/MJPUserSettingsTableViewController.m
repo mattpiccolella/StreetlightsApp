@@ -118,7 +118,9 @@
                 [self.profilePicture setImage:[MJPAssortedUtils getDefaultUserImage] forState:UIControlStateSelected];
             });
         } else {
-            [MJPViewUtils genericErrorMessage:self];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils genericErrorMessage:self];
+            });
         }
     }];
 }
@@ -140,7 +142,9 @@
                     [MJPPhotoUtils circularCrop:self.profilePicture.imageView];
                 });
             } else {
-                [MJPViewUtils genericErrorMessage:self];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MJPViewUtils genericErrorMessage:self];
+                });
             }
         }];
     }

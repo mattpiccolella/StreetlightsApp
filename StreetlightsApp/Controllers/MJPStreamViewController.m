@@ -11,6 +11,7 @@
 #import "MJPMapViewController.h"
 #import "MJPUserSettingsTableViewController.h"
 #import "MJPAssortedUtils.h"
+#import "MJPViewUtils.h"
 
 @interface MJPStreamViewController () 
 @property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
@@ -117,28 +118,7 @@ NSMutableArray *friendItems;
     }
     PFObject *streamItem = [self.appDelegate.streamItemArray objectAtIndex:indexPath.row];
     PFObject *streamItemUser = streamItem[@"user"];
-    cell.userName.text = streamItemUser[@"name"];
-    cell.postInfo.text = streamItem[@"description"];
-    
-    cell.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)(streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0)];
-    cell.shares.text = [NSString stringWithFormat:@"%ld", (long)[[streamItem objectForKey:@"shareCount"] integerValue]];
-    
-    // Set the date of amount of time remaining.
-    NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];
-    NSDate *currentDate = [NSDate date];
-    NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    cell.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(timeInterval / 60)];
-    
-    if (streamItemUser[@"profilePicture"]) {
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            UIImage *profilePicture = [UIImage imageWithData:[streamItemUser[@"profilePicture"] getData]];
-            dispatch_async( dispatch_get_main_queue(), ^{
-                [cell.userImage setImage:profilePicture];
-            });
-        });
-    } else {
-        [cell.userImage setImage:[UIImage imageNamed:@"images.jpeg"]];
-    }
+    [MJPViewUtils setUIForStreamItem:streamItem user:streamItemUser tableCell:cell];
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
     return cell;
 }
@@ -149,11 +129,9 @@ NSMutableArray *friendItems;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)distanceChanged:(id)sender {
-    // Set the label to reflect the change
     NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
     [self.distanceLabel setText:newLabel];
 }
@@ -204,15 +182,12 @@ NSMutableArray *friendItems;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    // TODO: Try to fail gracefully.
-    NSLog(@"didFailWithError: %@", error);
+    [self locationServicesErrorView];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    // TODO: Fix this hack. We get location, load the items for that location, then stop updating it.
     self.currentLocation = newLocation;
     [self loadInitialStreamItems];
-    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -222,9 +197,6 @@ NSMutableArray *friendItems;
 }
 
 - (void)leftButtonPushed {
-    // We only push the left button in the case that we want to go back to map. Kinda hack-ish.
-    // TODO: Think of a way to make this less shitty later.
-    
     UINavigationController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
     
     [navController popViewControllerAnimated:FALSE];
@@ -239,30 +211,6 @@ NSMutableArray *friendItems;
     [navController pushViewController:settingsViewController animated:YES];
 }
 
-// Format the search bar that will be added for the initial screen.
-- (UISearchBar*)searchBar {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    float searchBarWidth = 0.6 * screenWidth;
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, searchBarWidth, 44.0)];
-    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [searchBar setBackgroundImage:[UIImage new]];
-    [searchBar setTranslucent:YES];
-    [searchBar setPlaceholder:@"Search & Filter"];
-    return searchBar;
-}
-
-// Add a centered view that will contain our search bar.
-- (UIView*) viewWithSearchBar:(UISearchBar*)searchBar {
-    float searchBarWidth = searchBar.bounds.size.width;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake((0.5 * screenWidth - (0.5 * searchBarWidth)), 0.0, searchBarWidth, 44.0)];
-    searchBarView.autoresizingMask = 0;
-    [searchBarView addSubview:searchBar];
-    return searchBarView;
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ([self.appDelegate.streamItemArray count]) {
         [self showBlankView:NO];
@@ -274,16 +222,7 @@ NSMutableArray *friendItems;
 }
 
 - (UIView*)createBlankView {
-    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height)];
-    
-    messageLabel.text = @"No items are currently available in your area. Please pull down to refresh, or post something of your own!";
-    messageLabel.textColor = [UIColor blackColor];
-    messageLabel.numberOfLines = 0;
-    messageLabel.textAlignment = NSTextAlignmentCenter;
-    messageLabel.font = [UIFont fontWithName:@"Avenir" size:20];
-    [messageLabel sizeToFit];
-    
-    return messageLabel;
+    return [MJPViewUtils blankViewWithMessage:@"No items are currently available in your area. Please pull down to refresh, or post something of your own!" andBounds:self.view.bounds];
 }
 
 - (void)showBlankView:(BOOL)show {
@@ -294,5 +233,13 @@ NSMutableArray *friendItems;
     } else {
         [self.blankView setHidden:YES];
     }
+}
+
+- (void)locationServicesErrorView {
+    [[[UIAlertView alloc] initWithTitle:@"Unable to access location"
+                                message:@"We were unable to get your current location. Please make sure your permissions are set correctly."
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
 }
 @end

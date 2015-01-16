@@ -43,7 +43,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -66,63 +66,15 @@
     self.userName.text = self.streamItem[@"user"][@"name"];
     self.postDescription.text = self.streamItem[@"description"];
     
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *profilePicture = [UIImage imageWithData:[self.streamItem[@"user"][@"profilePicture"] getData]];
-        if (self.streamItem[@"user"][@"profilePicture"]) {
-            dispatch_async( dispatch_get_main_queue(), ^{
-                [self.profilePicture setImage:profilePicture];
-                [MJPPhotoUtils circularCrop:self.profilePicture];
-            });
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.profilePicture setImage:[UIImage imageNamed:@"images.jpeg"]];
-                [MJPPhotoUtils circularCrop:self.profilePicture];
-            });
-        }
-        if (self.streamItem[@"postPicture"]) {
-            UIImage *postPicture = [UIImage imageWithData:[self.streamItem[@"postPicture"] getData]];
-            dispatch_async( dispatch_get_main_queue(), ^{
-                CGRect screenBounds = [[UIScreen mainScreen] bounds];
-                UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 256)];
-                [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                [imageView setImage:postPicture];
-                [self.view addSubview:imageView];
-                [self.mapView setHidden:TRUE];
-            });
-        }
-    });
-    
-    // Get the dates
-    NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"postedTimestamp"] doubleValue]];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    self.timePosted.text = [dateFormatter stringFromDate:date];
-    
-    double pointLatitude = [self.streamItem[@"latitude"] floatValue];
-    double pointLongitude = [self.streamItem[@"longitude"] floatValue];
-    
-    // Add a marker for the location of the point.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(pointLatitude, pointLongitude);
-    marker.map = self.mapView;
-    
-    // Move the map to the location of the marker
-    GMSCameraUpdate *update = [GMSCameraUpdate setTarget:marker.position zoom:14.0];
-    [self.mapView moveCamera:update];
+    [self setPicturesForPost];
+    [self setDateForPost];
+    [self setMapMarkerAndDistanceForPost];
+    [self setTimeRemainingForPost];
     
     [MJPViewUtils setNavigationUI:self withTitle:@"Post" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.shares.text = [NSString stringWithFormat:@"%ld", (long)[[self.streamItem objectForKey:@"shareCount"] integerValue]];
-    
-    // Set the date of amount of time remaining.
-    NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
-    NSDate *currentDate = [NSDate date];
-    NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    self.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(timeInterval / 60)];
-    
-    self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [self distanceFromLatitude:pointLatitude longitude:pointLongitude]];
     
     [self handleDeletion];
     [self setFavoriteUI];
@@ -130,14 +82,12 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)backButtonPushed {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-// Find the distance between our current location and the point in question.
 - (double)distanceFromLatitude:(double)latitude longitude:(double)longitude {
     double currentLatitude = self.currentLocation.coordinate.latitude;
     double currentLongitude = self.currentLocation.coordinate.longitude;
@@ -148,7 +98,6 @@
     
     double METERS_TO_MILES = 0.000621371;
 
-    // Find the distance between the two points.
     return [postLocation distanceFromLocation:currentLocation] * METERS_TO_MILES;
 }
 
@@ -165,7 +114,9 @@
                 [self.navigationController popViewControllerAnimated:YES];
             });
         } else {
-            // TODO: Handle this error.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils genericErrorMessage:self];
+            });
         }
     }];
 }
@@ -183,13 +134,14 @@
     [self setFavoriteUI];
     [self.streamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
-            // TODO: Handle this error.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils genericErrorMessage:self];
+            });
         }
     }];
 }
 
 - (IBAction)sharePost:(id)sender {
-    NSLog(@"HELLO");
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self shareToFacebook];
@@ -206,11 +158,6 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"The %@ button was tapped.", [actionSheet buttonTitleAtIndex:buttonIndex]);
-}
-
 
 - (void)setFavoriteUI {
     if (self.streamItem[@"favoriteIds"]) {
@@ -260,29 +207,15 @@
                 }
             }
             if (!publishActionsSet) {
-                // Permission hasn't been granted, so ask for publish_actions
-                [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
-                                                      defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
-                                                          if (!error) {
-                                                              if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
-                                                                  NSLog(@"No permission.");
-                                                                  // TODO: Think of what to do here. Just let it go I think.
-                                                              } else {
-                                                                  // Permission granted.
-                                                                  [self postFacebookEvent];
-                                                              }
-                                                          } else {
-                                                              NSLog(@"Error requesting permission");
-                                                              // TODO: Handle this better.
-                                                          }
-                                                      }];
+                [self requestPermissionsAndPost];
             } else {
                 // Already have the permissions we need.
                 [self postFacebookEvent];
             }
         } else {
-            // TODO: Handle the error in fetching permissions.
-            NSLog(@"Error fetching permissions");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils incorrectPermissionsErrorView:self];
+            });
         }
     }];
 }
@@ -303,25 +236,10 @@
             // create an Open Graph action
             id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
             [action setObject:objectId forKey:@"event"];
-            // create action referencing user owned object
-            [FBRequestConnection startForPostWithGraphPath:@"/me/streetlightsapp:share" graphObject:action completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                if(!error) {
-                    NSLog(@"Story share: %@", [result objectForKey:@"id"]);
-                    [[[UIAlertView alloc] initWithTitle:@"Your event has been shared!"
-                                                message:@"Check your Facebook profile or activity log to see it."
-                                               delegate:self
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil] show];
-                    [self incrementStreamItemShares];
-                } else {
-                    // TODO: Post a message about the error.
-                    NSLog(@"Encountered an error posting to Open Graph: %@", error);
-                    [self.activityIndicator stopAnimating];
-                }
-            }];
         } else {
-            // TODO: Post a message about the error.
-            NSLog(@"Error posting the Open Graph object to the Object API: %@", error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils facebookShareError:self];
+            });
             [self.activityIndicator stopAnimating];
         }
     }];
@@ -340,6 +258,86 @@
         } else {
             NSLog(@"Error: %@", error.localizedDescription);
             // TODO: Notify somebody of something. We can't save stream items.
+        }
+    }];
+}
+
+- (void)setPicturesForPost {
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage *profilePicture = [UIImage imageWithData:[self.streamItem[@"user"][@"profilePicture"] getData]];
+        if (self.streamItem[@"user"][@"profilePicture"]) {
+            dispatch_async( dispatch_get_main_queue(), ^{
+                [self.profilePicture setImage:profilePicture];
+                [MJPPhotoUtils circularCrop:self.profilePicture];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.profilePicture setImage:[UIImage imageNamed:@"images.jpeg"]];
+                [MJPPhotoUtils circularCrop:self.profilePicture];
+            });
+        }
+        if (self.streamItem[@"postPicture"]) {
+            UIImage *postPicture = [UIImage imageWithData:[self.streamItem[@"postPicture"] getData]];
+            dispatch_async( dispatch_get_main_queue(), ^{
+                CGRect screenBounds = [[UIScreen mainScreen] bounds];
+                UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 256)];
+                [imageView setContentMode:UIViewContentModeScaleAspectFit];
+                [imageView setImage:postPicture];
+                [self.view addSubview:imageView];
+                [self.mapView setHidden:TRUE];
+            });
+        }
+    });
+}
+
+- (void)setDateForPost {
+    NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"postedTimestamp"] doubleValue]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    self.timePosted.text = [dateFormatter stringFromDate:date];
+}
+
+- (void)setMapMarkerAndDistanceForPost {
+    double pointLatitude = [self.streamItem[@"latitude"] floatValue];
+    double pointLongitude = [self.streamItem[@"longitude"] floatValue];
+    
+    // Add a marker for the location of the point.
+    GMSMarker *marker = [[GMSMarker alloc] init];
+    marker.position = CLLocationCoordinate2DMake(pointLatitude, pointLongitude);
+    marker.map = self.mapView;
+    
+    // Move the map to the location of the marker
+    GMSCameraUpdate *update = [GMSCameraUpdate setTarget:marker.position zoom:14.0];
+    [self.mapView moveCamera:update];
+    
+    self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [self distanceFromLatitude:pointLatitude longitude:pointLongitude]];
+}
+
+- (void)setTimeRemainingForPost {
+    // Set the date of amount of time remaining.
+    NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[self.streamItem[@"expiredTimestamp"] doubleValue]];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
+    self.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(timeInterval / 60)];
+}
+
+- (void)requestPermissionsAndPost {
+    // Permission hasn't been granted, so ask for publish_actions
+    [FBSession.activeSession requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                          defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+        if (!error) {
+            if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {
+                NSLog(@"No permission.");
+                // TODO: Think of what to do here. Just let it go I think.
+            } else {
+                // Permission granted.
+                [self postFacebookEvent];
+            }
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils incorrectPermissionsErrorView:self];
+            });
         }
     }];
 }

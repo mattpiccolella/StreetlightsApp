@@ -84,4 +84,12 @@
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
 }
+
++ (void)incorrectPermissionsErrorView:(UIViewController*)viewController {
+    [[[UIAlertView alloc] initWithTitle:@"Incorrect Permissions"
+                                message:@"We were unable to fetch the necessary permissions. Please try again."
+                               delegate:viewController
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
 @end

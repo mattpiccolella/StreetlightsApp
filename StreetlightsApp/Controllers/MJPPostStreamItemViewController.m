@@ -273,7 +273,9 @@
                 [self postEvent];
             }
         } else {
-            [self incorrectPermissionsErrorView];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils incorrectPermissionsErrorView:self];
+            });
         }
     }];
 }
@@ -296,7 +298,9 @@
             [action setObject:objectId forKey:@"event"];
         } else {
             NSLog(@"Error posting the Open Graph object to the Object API: %@", error);
-            [MJPViewUtils facebookShareError:self];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils facebookShareError:self];
+            });
         }
     }];
 }
@@ -341,16 +345,10 @@
             }
         } else {
             NSLog(@"Error requesting permission");
-            // TODO: Handle this better.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MJPViewUtils incorrectPermissionsErrorView:self];
+            });
         }
     }];
-}
-
-- (void)incorrectPermissionsErrorView {
-    [[[UIAlertView alloc] initWithTitle:@"Incorrect Permissions"
-                                message:@"We were unable to fetch the necessary permissions. Please try again."
-                               delegate:self
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
 }
 @end
