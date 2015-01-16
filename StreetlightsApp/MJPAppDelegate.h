@@ -18,11 +18,10 @@
 
 @property (strong, nonatomic) CLLocation *locationManager;
 
-- (BOOL)hasUserCredentials;
-- (id)currentUserId;
-
 @property BOOL shouldRefreshStreamItems;
 
+- (BOOL)hasUserCredentials;
+- (id)currentUserId;
 - (void)loggedOutView;
 
 @end

@@ -15,6 +15,7 @@
 #import "MJPQueryUtils.h"
 #import "MJPPostHistoryTableViewController.h"
 #import "MJPViewUtils.h"
+#import "MJPAssortedUtils.h"
 
 @interface MJPUserSettingsTableViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *profilePicture;
@@ -35,7 +36,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -53,13 +54,11 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)setProfileUI:(PFObject*) user {
     [self.userName setText:user[@"name"]];
     [self.userEmail setText:user[@"email"]];
-    // TODO: Do stuff with number of friends, etc.
     if (self.appDelegate.currentUser[@"profilePicture"]) {
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
@@ -99,28 +98,14 @@
 }
 
 - (void)takePhotoSelected {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    
+    UIImagePickerController *imagePicker = [MJPAssortedUtils getCameraImagePicker];
     imagePicker.delegate = self;
-    
-    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-    
-    imagePicker.allowsEditing = YES;
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
 - (void)photoLibrarySelected {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    
+    UIImagePickerController *imagePicker = [MJPAssortedUtils getLibraryImagePicker];
     imagePicker.delegate = self;
-    
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-    
-    imagePicker.allowsEditing = YES;
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
@@ -129,12 +114,11 @@
     [self.appDelegate.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.profilePicture setImage:[UIImage imageNamed:@"images.jpeg"] forState:UIControlStateNormal];
-                [self.profilePicture setImage:[UIImage imageNamed:@"images.jpeg"] forState:UIControlStateSelected];
+                [self.profilePicture setImage:[MJPAssortedUtils getDefaultUserImage] forState:UIControlStateNormal];
+                [self.profilePicture setImage:[MJPAssortedUtils getDefaultUserImage] forState:UIControlStateSelected];
             });
         } else {
-            NSLog(@"couldn't do this!");
-            // TODO: Error. Notify.
+            [MJPViewUtils genericErrorMessage:self];
         }
     }];
 }
@@ -156,13 +140,9 @@
                     [MJPPhotoUtils circularCrop:self.profilePicture.imageView];
                 });
             } else {
-                // TODO: Display better errors.
+                [MJPViewUtils genericErrorMessage:self];
             }
         }];
-        
-    } else {
-        // TODO: Display an error in the case the user entered something other than an image.
-        NSLog(@"ERROR");
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -208,7 +188,6 @@
                                       completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
         [self facebookSharingUI:session];
     }];
-    
     // TODO: Add functionality to remove Facebook sharing.
 }
 
@@ -222,8 +201,6 @@
                 [self fetchFacebookUserName];
             }
         }];
-    } else {
-        // Doesn't seem to be logged in. Do nothing.
     }
 }
 

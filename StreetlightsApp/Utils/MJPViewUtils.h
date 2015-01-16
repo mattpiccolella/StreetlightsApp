@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MJPAppDelegate.h"
+#import "MJPStreamItemTableViewCell.h"
 
 @interface MJPViewUtils : NSObject
 
 + (void)setNavigationUI:(UIViewController*)viewController withTitle:(NSString*)title backButtonName:(NSString*)name;
 + (UIColor*)appColor;
 + (void)presentMapView:(MJPAppDelegate*)appDelegate;
++ (void)genericErrorMessage:(UIViewController*)viewController;
++ (UIView*)blankViewWithMessage:(NSString*)message andBounds:(CGRect)bounds;
++ (void)setUIForStreamItem:(PFObject*)streamItem user:(PFObject*)user tableCell:(MJPStreamItemTableViewCell*)cell;
 
 @end

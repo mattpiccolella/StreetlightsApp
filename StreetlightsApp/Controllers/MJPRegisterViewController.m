@@ -69,7 +69,7 @@ BOOL hasSelectedPhoto;
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if ([objects count] != 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self inaccuratePasswordView];
+                    [self existingUserView];
                 });
             } else {
                 PFObject *parseUser = [MJPAssortedUtils getPFObjectWithName:self.nameField.text email:self.emailField.text password:self.passwordField.text];
@@ -97,7 +97,7 @@ BOOL hasSelectedPhoto;
                             [appDelegate setCurrentUser:object];
                         }];
                     } else {
-                        [self unableToRegisterView];
+                        [MJPViewUtils genericErrorMessage:self];
                     }
                 }];
             }
@@ -155,9 +155,6 @@ BOOL hasSelectedPhoto;
         [self.profilePictureSelector setImage:croppedImage forState:UIControlStateSelected];
         [MJPPhotoUtils circularCrop:self.profilePictureSelector.imageView];
         hasSelectedPhoto = TRUE;
-    } else {
-        // TODO: Display an error in the case the user entered something other than an image.
-        NSLog(@"ERROR");
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -184,18 +181,9 @@ BOOL hasSelectedPhoto;
     hasSelectedPhoto = FALSE;
 }
 
-- (void)inaccuratePasswordView {
-    [[[UIAlertView alloc] initWithTitle:@"Passwords don't match"
-                                message:@"Sorry, but those passwords don't match. Please make sure they match."
-                               delegate:self
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
-    
-}
-
-- (void)unableToRegisterView {
-    [[[UIAlertView alloc] initWithTitle:@"Passwords don't match"
-                                message:@"Sorry, but those passwords don't match. Please make sure they match."
+- (void)existingUserView {
+    [[[UIAlertView alloc] initWithTitle:@"User Already Exists"
+                                message:@"Sorry, but an account with that email already exists. Please try logging in."
                                delegate:self
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];

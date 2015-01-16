@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *pickedPassword;
 @property (strong, nonatomic) IBOutlet UITextField *pickedPasswordConfirm;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)changePassword:(id)sender;
 
@@ -25,37 +26,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.activityIndicator setHidden:YES];
+    [self.activityIndicator hidesWhenStopped];
+
     [MJPViewUtils setNavigationUI:self withTitle:@"Change Password" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)changePassword:(id)sender {
     if ([self.oldPassword.text isEqualToString:self.appDelegate.currentUser[@"password"]]) {
         if ([self.pickedPassword.text isEqualToString:self.pickedPasswordConfirm.text]) {
             [self.appDelegate.currentUser setObject:self.pickedPassword.text forKey:@"password"];
-            // TODO: Show progress indicator.
+            [self.activityIndicator startAnimating];
             [self.appDelegate.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.activityIndicator stopAnimating];
                         [self.navigationController popViewControllerAnimated:YES];
                     });
                 } else {
-                    // TODO: Display better errors.
+                    [MJPViewUtils genericErrorMessage:self];
                 }
             }];
         } else {
-            // TODO: Present that new passwords don't match.
+            [self passwordsDontMatchView];
         }
     } else {
-        // TODO: Present that old password is wrong.
+        [self unableToRegisterView];
     }
 }
 
@@ -66,5 +69,22 @@
 
 -(void)backButtonPushed {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)passwordsDontMatchView {
+    [[[UIAlertView alloc] initWithTitle:@"Passwords don't match"
+                                message:@"Sorry, but those passwords don't match. Please make sure they match."
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    
+}
+
+- (void)unableToRegisterView {
+    [[[UIAlertView alloc] initWithTitle:@"Incorrect password"
+                                message:@"Sorry, but the password you entered is incorrect. Please try again."
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
 }
 @end

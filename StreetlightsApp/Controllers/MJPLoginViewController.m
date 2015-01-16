@@ -57,11 +57,7 @@
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"Invalid Login"
-                                            message:@"Sorry, but this is not a valid login."
-                                           delegate:self
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil] show];
+                [self incorrectLoginView];
             });
         }
     }];
@@ -86,5 +82,13 @@
 
 - (IBAction)passwordFieldChanged:(id)sender {
     [self enableLoginButton];
+}
+
+- (void)incorrectLoginView {
+    [[[UIAlertView alloc] initWithTitle:@"Invalid Login"
+                                message:@"Sorry, but this is not a valid login."
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
 }
 @end

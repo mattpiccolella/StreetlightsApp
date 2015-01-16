@@ -66,7 +66,6 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
-    return;
 }
 
 - (void)loggedOutView {
@@ -111,15 +110,10 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
     BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication fallbackHandler:^(FBAppCall *call) {
         if([[call appLinkData] targetURL] != nil) {
-            // get the object ID string from the deep link URL
             // we use the substringFromIndex so that we can delete the leading '/' from the targetURL
             NSString *objectId = [[[call appLinkData] targetURL].path substringFromIndex:1];
-            
-            // now handle the deep link
-            // write whatever code you need to show a view controller that displays the object, etc.
             [[[UIAlertView alloc] initWithTitle:@"Directed from Facebook"
                                         message:[NSString stringWithFormat:@"Deep link to %@", objectId]
                                        delegate:self

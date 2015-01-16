@@ -57,25 +57,7 @@ static NSInteger cellHeight = 96;
         cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
     PFObject *streamItem = [self.postHistoryArray objectAtIndex:indexPath.row];
-    cell.userName.text = self.appDelegate.currentUser[@"name"];
-    cell.postInfo.text = streamItem[@"description"];
-    
-    cell.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)(streamItem[@"favoriteIds"] ? [streamItem[@"favoriteIds"] count] : 0)];
-    // TODO: Fix once we actually share.
-    cell.shares.text = [NSString stringWithFormat:@"0"];
-    
-    // Set the date of amount of time remaining.
-    NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"expiredTimestamp"] doubleValue]];
-    NSDate *currentDate = [NSDate date];
-    NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
-    cell.timeRemaining.text = [NSString stringWithFormat:@"%dm", timeInterval > 0 ? (int) timeInterval / 60 : 0];
-    
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *profilePicture = [UIImage imageWithData:[self.appDelegate.currentUser[@"profilePicture"] getData]];
-        dispatch_async( dispatch_get_main_queue(), ^{
-            [cell.userImage setImage:profilePicture];
-        });
-    });
+    [MJPViewUtils setUIForStreamItem:streamItem user:self.appDelegate.currentUser tableCell:cell];
     cell.userImage.contentMode = UIViewContentModeScaleAspectFill;
     return cell;
 }
@@ -98,16 +80,8 @@ static NSInteger cellHeight = 96;
 }
 
 - (UIView*)createBlankView {
-    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height)];
-    
-    messageLabel.text = @"You haven't posted anything yet. Post something to get started!";
-    messageLabel.textColor = [UIColor blackColor];
-    messageLabel.numberOfLines = 0;
-    messageLabel.textAlignment = NSTextAlignmentCenter;
-    messageLabel.font = [UIFont fontWithName:@"Avenir" size:20];
-    [messageLabel sizeToFit];
-    
-    return messageLabel;
+    NSString *placeHolder = @"You haven't posted anything yet. Post something to get started!";
+    return [MJPViewUtils blankViewWithMessage:placeHolder andBounds:self.view.bounds];
 }
 
 - (void)showBlankView:(BOOL)show {
