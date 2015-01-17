@@ -83,6 +83,8 @@
     backSwipe.direction = UISwipeGestureRecognizerDirectionRight;
     
     [self.view addGestureRecognizer:backSwipe];
+    
+    [self.mapView setUserInteractionEnabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
