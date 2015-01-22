@@ -25,6 +25,7 @@
 
 - (IBAction)addPhoto:(id)sender;
 @property (strong, nonatomic) PFObject *parseStreamItem;
+@property (strong, nonatomic) PFFile *postPicture;
 @property (strong, nonatomic) UIImageView *postImageView;
 
 @property BOOL facebookSelected;
@@ -100,6 +101,7 @@
     [self.activityIndicator startAnimating];
 
     [self setParseStreamItem:[self newStreamItem]];
+    NSLog(@"%@", self.parseStreamItem[@"postPicture"]);
     [self.parseStreamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             self.appDelegate.shouldRefreshStreamItems = TRUE;
@@ -209,7 +211,7 @@
 }
 
 - (void)removePhoto {
-    [self.parseStreamItem removeObjectForKey:@"postPicture"];
+    self.postPicture = nil;
     [self.postImageView setHidden:YES];
     [self.mapView setHidden:NO];
     hasPickedPhoto = FALSE;
@@ -222,7 +224,7 @@
         UIImage *croppedImage = [MJPPhotoUtils croppedImageWithInfo:info];
         NSData *imageData = UIImageJPEGRepresentation(croppedImage, 0.7);
         PFFile *postPhoto = [PFFile fileWithData:imageData];
-        self.parseStreamItem[@"postPicture"] = postPhoto;
+        self.postPicture = postPhoto;
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 154)];
         [imageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -280,7 +282,7 @@
     }];
 }
 
-- (void) postEvent {
+- (void)postEvent {
     NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
     object.provisionedForPost = YES;
     object[@"type"] = @"streetlightsapp:event";
@@ -329,6 +331,9 @@
     [parseStreamItem setObject:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
     [parseStreamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
     [parseStreamItem setObject:[NSNumber numberWithInteger:shareCount] forKey:@"shareCount"];
+    if (self.postPicture) {
+        [parseStreamItem setObject:self.postPicture forKey:@"postPicture"];
+    }
     return parseStreamItem;
 }
 
