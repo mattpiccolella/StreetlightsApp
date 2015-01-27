@@ -62,8 +62,11 @@ static NSString *const kAPIKey = @"AIzaSyA0kdLnccEvocgHk8pYiegU4l0EhDyZBI0";
     MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    //navController.navigationBar.barTintColor = [MJPViewUtils appColor];
+
     navController.navigationBar.barTintColor = [MJPViewUtils appColor];
-    
+    navController.navigationBar.tintColor = [UIColor whiteColor];
+
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
 }

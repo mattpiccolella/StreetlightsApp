@@ -88,7 +88,6 @@
 		5CE4584A1A47A9F000EFF937 /* Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458491A47A9F000EFF937 /* Share.png */; };
 		5CE4584C1A47AB8C00EFF937 /* Clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4584B1A47AB8C00EFF937 /* Clock.png */; };
 		5CE4584E1A47AB9A00EFF937 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE4584D1A47AB9A00EFF937 /* Star.png */; };
-		5CE458571A49C0E700EFF937 /* Post.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458561A49C0E700EFF937 /* Post.png */; };
 		5CE458591A49C2D700EFF937 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE458581A49C2D700EFF937 /* Camera.png */; };
 		5CE8713A19AC263400C963AF /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5CE8713919AC263400C963AF /* images.jpeg */; };
 		5CE8713E19AFEDA500C963AF /* MJPStreamItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE8713C19AFEDA500C963AF /* MJPStreamItemViewController.m */; };
@@ -209,7 +208,6 @@
 		5CE458491A47A9F000EFF937 /* Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Share.png; sourceTree = "<group>"; };
 		5CE4584B1A47AB8C00EFF937 /* Clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clock.png; sourceTree = "<group>"; };
 		5CE4584D1A47AB9A00EFF937 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
-		5CE458561A49C0E700EFF937 /* Post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Post.png; sourceTree = "<group>"; };
 		5CE458581A49C2D700EFF937 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera.png; sourceTree = "<group>"; };
 		5CE8713919AC263400C963AF /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
 		5CE8713B19AFEDA500C963AF /* MJPStreamItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPStreamItemViewController.h; sourceTree = "<group>"; };
@@ -458,7 +456,6 @@
 				5C3EA4AE19A599DC007EF291 /* Pinpoint.png */,
 				5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */,
 				5C7F74A719A4F0980095117F /* NotificationIcon.png */,
-				5CE458561A49C0E700EFF937 /* Post.png */,
 				5C7F749919A4ED550095117F /* MapIcon.png */,
 			);
 			path = Resources;
@@ -560,7 +557,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CE458571A49C0E700EFF937 /* Post.png in Resources */,
 				5CE4584E1A47AB9A00EFF937 /* Star.png in Resources */,
 				5CE4582F1A4763A400EFF937 /* CurrentLocation.png in Resources */,
 				5C8710EF1A51BD20008E117A /* GoldStar.png in Resources */,

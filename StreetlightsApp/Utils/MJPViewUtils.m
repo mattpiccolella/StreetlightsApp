@@ -33,7 +33,6 @@
 + (void)presentMapView:(MJPAppDelegate*)appDelegate {
     MJPMapViewController *mapViewController = [[MJPMapViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-    navController.navigationBar.barTintColor = [MJPViewUtils appColor];
     appDelegate.window.rootViewController = navController;
 }
 
@@ -69,6 +68,7 @@
     NSDate *currentDate = [NSDate date];
     NSTimeInterval timeInterval = [expirationDate timeIntervalSinceDate:currentDate];
     cell.timeRemaining.text = [MJPAssortedUtils stringForRemainingTime:(int) timeInterval / 60];
+
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *profilePicture = [UIImage imageWithData:[user[@"profilePicture"] getData]];
@@ -100,5 +100,19 @@
                                delegate:self
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
+}
+
++ (UIImage *)imageNavBarBackground {
+    UIColor *color = [UIColor colorWithRed:0 green:204/255.0 blue:102/255.0 alpha:0.8];
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    // create a 1 by 1 pixel context
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    [color setFill];
+    UIRectFill(rect);
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return image;
 }
 @end

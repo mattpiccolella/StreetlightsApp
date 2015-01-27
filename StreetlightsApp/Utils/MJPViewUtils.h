@@ -21,5 +21,6 @@
 + (void)facebookShareError:(UIViewController*)viewController;
 + (void)incorrectPermissionsErrorView:(UIViewController*)viewController;
 + (void)locationServicesErrorView:(UIViewController*)viewController;
++ (UIImage *)imageNavBarBackground;
 
 @end

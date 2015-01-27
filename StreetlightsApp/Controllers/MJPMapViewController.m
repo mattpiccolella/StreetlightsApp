@@ -55,6 +55,8 @@
                                NSForegroundColorAttributeName          :  [UIColor whiteColor]};
     
     [self.navigationController.navigationBar setTitleTextAttributes:settings];
+    [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setBackgroundImage:[MJPViewUtils imageNavBarBackground] forBarMetrics:UIBarMetricsDefault];
     [self.navigationItem setTitle:@"Around"];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
