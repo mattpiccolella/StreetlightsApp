@@ -66,7 +66,7 @@
         self.mapView.myLocationEnabled = YES;
     });
 
-    [MJPViewUtils setNavigationUI:self withTitle:@"Post" backButtonName:@"Back.png"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"POST" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.postDescription.text = @"What's up?";

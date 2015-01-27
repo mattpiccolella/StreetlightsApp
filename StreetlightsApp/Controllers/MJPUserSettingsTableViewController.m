@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [MJPViewUtils setNavigationUI:self withTitle:@"Profile" backButtonName:@"X.png"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"PROFILE" backButtonName:@"X.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;

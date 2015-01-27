@@ -50,14 +50,10 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"StreamIcon.png"] landscapeImagePhone:[UIImage imageNamed:@"StreamIcon.png"] style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile.png"] landscapeImagePhone:[UIImage imageNamed:@"Profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
     
-    NSDictionary *settings = @{
-                               NSFontAttributeName                :  [UIFont fontWithName:@"PathwayGothicOne-Book" size:30.0],
-                               NSForegroundColorAttributeName          :  [UIColor whiteColor]};
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:settings];
+    [self.navigationController.navigationBar setTitleTextAttributes:[MJPViewUtils fontSettings]];
     [self.navigationController.navigationBar setTranslucent:YES];
     [self.navigationController.navigationBar setBackgroundImage:[MJPViewUtils imageNavBarBackground] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationItem setTitle:@"Around"];
+    [self.navigationItem setTitle:@"AROUND"];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
@@ -187,8 +183,8 @@
 
 - (UIImageView*)addPostButton {
     // TODO: Work on making this less hard-coded. Think of proportions.
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(120.0, 425.0, 80.0, 92.0)];
-    [imageView setImage:[UIImage imageNamed:@"Post.png"]];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(100.0, 475.0, 120.0, 120.0)];
+    [imageView setImage:[UIImage imageNamed:@"Add.png"]];
     [imageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postButtonPushed)];
     [postTap setNumberOfTapsRequired:1];
@@ -198,7 +194,7 @@
 
 - (UIImageView*)addCurrentLocationButton {
     // TODO: Work on making this less hard-coded. Think of proportions.
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(220.0, 450.0, 120.0, 120.0)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(220.0, 510.0, 120.0, 120.0)];
     [imageView setImage:[UIImage imageNamed:@"CurrentLocation.png"]];
     [imageView setUserInteractionEnabled:YES];
     UITapGestureRecognizer *postTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(currentLocationButtonPushed)];

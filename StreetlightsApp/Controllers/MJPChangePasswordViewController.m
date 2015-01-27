@@ -29,7 +29,7 @@
     [self.activityIndicator setHidden:YES];
     [self.activityIndicator hidesWhenStopped];
 
-    [MJPViewUtils setNavigationUI:self withTitle:@"Change Password" backButtonName:@"Back.png"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"CHANGE PASSWORD" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;

@@ -22,5 +22,6 @@
 + (void)incorrectPermissionsErrorView:(UIViewController*)viewController;
 + (void)locationServicesErrorView:(UIViewController*)viewController;
 + (UIImage *)imageNavBarBackground;
++ (NSDictionary *)fontSettings;
 
 @end

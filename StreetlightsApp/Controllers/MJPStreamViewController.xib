@@ -7,8 +7,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPStreamViewController">
             <connections>
                 <outlet property="activityIndicator" destination="fLx-La-faw" id="NP7-F8-CvI"/>
-                <outlet property="distanceLabel" destination="bD7-yn-v58" id="93D-qH-oA7"/>
-                <outlet property="distanceSlider" destination="iyq-Wu-gxl" id="u3G-2C-p7Z"/>
                 <outlet property="streamItemView" destination="jyt-Co-ffW" id="pzt-Fc-reU"/>
                 <outlet property="tableView" destination="jyt-Co-ffW" id="0Ce-x8-jTb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -20,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jyt-Co-ffW">
-                    <rect key="frame" x="0.0" y="0.0" width="321" height="527"/>
+                    <rect key="frame" x="0.0" y="0.0" width="321" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="g0B-Wu-OyJ"/>
@@ -30,26 +28,6 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fLx-La-faw">
                     <rect key="frame" x="150" y="274" width="20" height="20"/>
                 </activityIndicatorView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X95-CZ-Lpm">
-                    <rect key="frame" x="0.0" y="527" width="321" height="41"/>
-                    <subviews>
-                        <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="iyq-Wu-gxl">
-                            <rect key="frame" x="18" y="6" width="174" height="31"/>
-                            <color key="tintColor" red="1" green="0.16366779889999999" blue="0.16735195420000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="distanceChanged:" destination="-1" eventType="valueChanged" id="cBA-s0-DU4"/>
-                                <action selector="sliderChangeEnded:" destination="-1" eventType="touchUpInside" id="zre-PZ-7sv"/>
-                            </connections>
-                        </slider>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3.0 mi. away" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bD7-yn-v58">
-                            <rect key="frame" x="199" y="10" width="102" height="21"/>
-                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>

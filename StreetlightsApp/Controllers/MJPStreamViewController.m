@@ -54,12 +54,8 @@ NSMutableArray *friendItems;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Map.png"] landscapeImagePhone:[UIImage imageNamed:@"Map.png"] style:UIBarButtonItemStyleDone target:self action:@selector(leftButtonPushed)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Profile.png"] landscapeImagePhone:[UIImage imageNamed:@"Profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(rightButtonPushed)];
     
-    NSDictionary *settings = @{
-                               NSFontAttributeName                :  [UIFont fontWithName:@"PathwayGothicOne-Book" size:30.0],
-                               NSForegroundColorAttributeName          :  [UIColor whiteColor]};
-    
-    [self.navigationController.navigationBar setTitleTextAttributes:settings];
-    [self.navigationItem setTitle:@"Around"];
+    [self.navigationController.navigationBar setTitleTextAttributes:[MJPViewUtils fontSettings]];
+    [self.navigationItem setTitle:@"AROUND"];
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;

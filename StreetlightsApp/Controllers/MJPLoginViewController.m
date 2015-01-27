@@ -35,7 +35,7 @@
     
     [self.activityIndicator setHidden:TRUE];
     
-    [MJPViewUtils setNavigationUI:self withTitle:@"Login" backButtonName:@"X.png"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"LOGIN" backButtonName:@"X.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
 }
 

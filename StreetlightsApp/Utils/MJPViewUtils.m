@@ -18,11 +18,7 @@
     [viewController.navigationController setNavigationBarHidden:NO];
     viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:name] landscapeImagePhone:[UIImage imageNamed:name] style:UIBarButtonItemStyleDone target:viewController action:nil];
     
-    NSDictionary *settings = @{
-                               NSFontAttributeName                :  [UIFont fontWithName:@"PathwayGothicOne-Book" size:30.0],
-                               NSForegroundColorAttributeName          :  [UIColor whiteColor]};
-    
-    [viewController.navigationController.navigationBar setTitleTextAttributes:settings];
+    [viewController.navigationController.navigationBar setTitleTextAttributes:[MJPViewUtils fontSettings]];
     [viewController.navigationItem setTitle:title];
 }
 
@@ -114,5 +110,11 @@
     UIGraphicsEndImageContext();
 
     return image;
+}
+
++ (NSDictionary *)fontSettings {
+    return @{
+                                          NSFontAttributeName                :  [UIFont fontWithName:@"Avenir" size:20.0],
+                                          NSForegroundColorAttributeName          :  [UIColor whiteColor]};
 }
 @end

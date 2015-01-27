@@ -43,7 +43,7 @@ BOOL hasSelectedPhoto;
     
     [self.activityIndicator setHidden:TRUE];
     
-    [MJPViewUtils setNavigationUI:self withTitle:@"Register" backButtonName:@"X.png"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"REGISTER" backButtonName:@"X.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     hasSelectedPhoto = false;

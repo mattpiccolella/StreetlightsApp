@@ -29,7 +29,7 @@ static NSInteger cellHeight = 96;
     
     self.postHistoryArray = posts;
     
-    [MJPViewUtils setNavigationUI:self withTitle:@"Post History" backButtonName:@"Back.png"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"POST HISTORY" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     return self;
