@@ -185,6 +185,8 @@
 - (void)leftButtonPushed {
     MJPStreamViewController *streamViewController = [[MJPStreamViewController alloc] init];
     
+    postSelected_ = TRUE;
+    
     UINavigationController *navController = (UINavigationController*) self.appDelegate.window.rootViewController;
     
     [navController pushViewController:streamViewController animated:FALSE];
