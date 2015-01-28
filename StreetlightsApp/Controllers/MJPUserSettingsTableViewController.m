@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [MJPViewUtils setNavigationUI:self withTitle:@"PROFILE" backButtonName:@"X.png"];
+    [MJPViewUtils setNavigationUI:self withTitle:@"PROFILE" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
     self.appDelegate = (MJPAppDelegate*)[UIApplication sharedApplication].delegate;
@@ -270,5 +270,9 @@
             });
         }
     }];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return (section == 0) ? 0.1f : 20.f;
 }
 @end

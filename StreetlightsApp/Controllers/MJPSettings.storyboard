@@ -8,12 +8,12 @@
         <scene sceneID="nkg-6t-8Cc">
             <objects>
                 <tableViewController storyboardIdentifier="MJPSettings" id="cgK-eq-3fG" customClass="MJPUserSettingsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="FZk-vP-FFF">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="9" sectionFooterHeight="10" id="FZk-vP-FFF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Profile" id="a6r-gZ-yBj">
+                            <tableViewSection headerTitle="" id="a6r-gZ-yBj">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="ZpQ-PH-ndf">
                                         <autoresizingMask key="autoresizingMask"/>
