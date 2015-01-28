@@ -26,6 +26,24 @@
     return streamItemQuery;
 }
 
++ (PFQuery*) getStreamItemsForMinPoint:(CLLocationCoordinate2D)minPoint maxPoint:(CLLocationCoordinate2D)maxPoint {
+    PFQuery *streamItemQuery = [PFQuery queryWithClassName:@"StreamItem"];
+    NSNumber *max_long = [NSNumber numberWithFloat:maxPoint.longitude];
+    NSNumber *min_long = [NSNumber numberWithFloat:minPoint.longitude];
+    NSNumber *max_lat = [NSNumber numberWithFloat:maxPoint.latitude];
+    NSNumber *min_lat = [NSNumber numberWithFloat:minPoint.latitude];
+    NSNumber *currentTime = [NSNumber numberWithLong:[NSDate timeIntervalSinceReferenceDate]];
+    [streamItemQuery whereKey:@"longitude" lessThan:max_long];
+    [streamItemQuery whereKey:@"longitude" greaterThan:min_long];
+    [streamItemQuery whereKey:@"latitude" lessThan:min_lat];
+    [streamItemQuery whereKey:@"latitude" greaterThan:max_lat];
+    [streamItemQuery whereKey:@"expiredTimestamp" greaterThan:currentTime];
+    [streamItemQuery includeKey:@"user"];
+    [streamItemQuery includeKey:@"profilePicture"];
+    [streamItemQuery addDescendingOrder:@"postedTimestamp"];
+    return streamItemQuery;
+}
+
 + (PFQuery*) getStreamItemsForUser:(PFObject*) user {
     PFQuery *streamItemQuery = [PFQuery queryWithClassName:@"StreamItem"];
     [streamItemQuery whereKey:@"userId" equalTo:[user objectId]];

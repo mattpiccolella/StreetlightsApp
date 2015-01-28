@@ -16,23 +16,26 @@
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timePosted;
 @property (strong, nonatomic) IBOutlet UILabel *timeRemaining;
+@property (strong, nonatomic) IBOutlet UILabel *timePost;
 
 @property (strong, nonatomic) PFObject *streamItem;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
-@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
-@property (strong, nonatomic) IBOutlet UILabel *favorites;
-@property (strong, nonatomic) IBOutlet UILabel *shares;
+@property (strong, nonatomic) IBOutlet UIImageView *postPicture;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @property (strong, nonatomic) IBOutlet UIButton *trashButton;
 - (IBAction)deleteStreamItem:(id)sender;
+@property (strong, nonatomic) IBOutlet UIView *infoView;
 
-@property (strong, nonatomic) IBOutlet UIButton *favoriteButton;
-- (IBAction)favoritePost:(id)sender;
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 - (IBAction)sharePost:(id)sender;
+- (IBAction)stillThereButton:(id)sender;
+- (IBAction)notThereButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *stillThere;
+@property (strong, nonatomic) IBOutlet UIButton *notThere;
 
 
 
@@ -74,10 +77,7 @@
     [MJPViewUtils setNavigationUI:self withTitle:@"Post" backButtonName:@"Back.png"];
     [self.navigationItem.leftBarButtonItem setAction:@selector(backButtonPushed)];
     
-    self.shares.text = [NSString stringWithFormat:@"%ld", (long)[[self.streamItem objectForKey:@"shareCount"] integerValue]];
-    
     [self handleDeletion];
-    [self setFavoriteUI];
     
     UISwipeGestureRecognizer *backSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backButtonPushed)];
     backSwipe.direction = UISwipeGestureRecognizerDirectionRight;
@@ -85,6 +85,17 @@
     [self.view addGestureRecognizer:backSwipe];
     
     [self.mapView setUserInteractionEnabled:NO];
+    
+    [self.stillThere.layer setBorderWidth:1.0];
+    [self.stillThere.layer setBorderColor:[[UIColor grayColor] CGColor]];
+    [self.stillThere.layer setCornerRadius:10]; // this value vary as per your desire
+    [self.stillThere setClipsToBounds:YES];
+    [self.notThere.layer setBorderWidth:1.0];
+    [self.notThere.layer setBorderColor:[[UIColor grayColor] CGColor]];
+    [self.notThere.layer setCornerRadius:10]; // this value vary as per your desire
+    [self.notThere setClipsToBounds:YES];
+    
+    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:self.infoView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,26 +164,6 @@
         }
     }];
 }
-- (IBAction)favoritePost:(id)sender {
-    if (!self.streamItem[@"favoriteIds"]) {
-        [self.streamItem setObject:[[NSMutableArray alloc] init] forKey:@"favoriteIds"];
-    }
-    if (![self.streamItem[@"favoriteIds"] containsObject:self.appDelegate.currentUser.objectId]) {
-        // This user hasn't favorited the post, favorite it.
-        [self.streamItem[@"favoriteIds"] addObject:[self.appDelegate.currentUser objectId]];
-    } else {
-        // This user has favorited the post, un-favorite it.
-        [self.streamItem[@"favoriteIds"] removeObject:[self.appDelegate.currentUser objectId]];
-    }
-    [self setFavoriteUI];
-    [self.streamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MJPViewUtils genericErrorMessage:self];
-            });
-        }
-    }];
-}
 
 - (IBAction)sharePost:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -192,18 +183,12 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)setFavoriteUI {
-    if (self.streamItem[@"favoriteIds"]) {
-        if ([self.streamItem[@"favoriteIds"] containsObject:self.appDelegate.currentUser.objectId]) {
-            [self.favoriteButton setImage:[UIImage imageNamed:@"GoldStar.png"] forState:UIControlStateNormal];
-        } else {
-            [self.favoriteButton setImage:[UIImage imageNamed:@"Star.png"] forState:UIControlStateNormal];
-        }
-        self.favorites.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.streamItem[@"favoriteIds"] count]];
-    } else {
-        [self.favoriteButton setImage:[UIImage imageNamed:@"Star.png"] forState:UIControlStateNormal];
-        self.favorites.text = [NSString stringWithFormat:@"0"];
-    }
+- (IBAction)stillThereButton:(id)sender {
+    // TODO: Implement this.
+}
+
+- (IBAction)notThereButton:(id)sender {
+    // TODO: Implement this.
 }
 
 - (void) shareToFacebook {
@@ -285,7 +270,6 @@
     [self.streamItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.shares.text = [NSString stringWithFormat:@"%ld", (long)[[self.streamItem objectForKey:@"shareCount"] integerValue]];
                 [self.activityIndicator stopAnimating];
             });
         } else {
@@ -312,12 +296,9 @@
         if (self.streamItem[@"postPicture"]) {
             UIImage *postPicture = [UIImage imageWithData:[self.streamItem[@"postPicture"] getData]];
             dispatch_async( dispatch_get_main_queue(), ^{
-                CGRect screenBounds = [[UIScreen mainScreen] bounds];
-                UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, screenBounds.size.width, 256)];
-                [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                [imageView setImage:postPicture];
-                [self.view addSubview:imageView];
-                [self.mapView setHidden:TRUE];
+                [self.postPicture setContentMode:UIViewContentModeScaleAspectFit];
+                [self.postPicture setImage:postPicture];
+                [self.view bringSubviewToFront:self.infoView];
             });
         }
     });

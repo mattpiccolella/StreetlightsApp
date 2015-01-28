@@ -17,11 +17,7 @@
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
-@property (strong, nonatomic) IBOutlet UISlider *distanceSlider;
-@property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-- (IBAction)distanceChanged:(id)sender;
-- (IBAction)sliderChangeEnded:(id)sender;
 @property (strong, nonatomic) MJPAppDelegate *appDelegate;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
@@ -32,6 +28,7 @@
     BOOL hasSetLocation_;
     BOOL hasLoadedInitialMarkers_;
     BOOL postSelected_;
+    BOOL hasTappedMarker_;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -72,15 +69,13 @@
     
     self.mapView.delegate = self;
     
+    [self updateLocation:self.mapView];
     
     [self.view addSubview:[self addPostButton]];
     [self.view addSubview:[self addCurrentLocationButton]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.distanceSlider.value = [((MJPAppDelegate *)[UIApplication sharedApplication].delegate) searchRadius];
-    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
-    [self.distanceLabel setText:newLabel];
     
     [self.mapView addObserver:self
                    forKeyPath:@"myLocation"
@@ -115,18 +110,6 @@
     }
 }
 
-- (IBAction)distanceChanged:(id)sender {
-    // Set the label to reflect the change
-    NSString *newLabel = [NSString stringWithFormat:@"%1.1f mi away", self.distanceSlider.value];
-    [self.distanceLabel setText:newLabel];
-}
-
-- (IBAction)sliderChangeEnded:(id)sender {
-    [self.appDelegate setSearchRadius:self.distanceSlider.value];
-    [self.activityIndicator startAnimating];
-    [self fetchNewStreamItems];
-}
-
 - (void) addMarkers {
     [self.mapView clear];
     // TODO: Add custom markers.
@@ -143,10 +126,7 @@
 - (void)fetchNewStreamItems {
     [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
-    float longitude = self.currentLocation.coordinate.longitude;
-    float latitude = self.currentLocation.coordinate.latitude;
-    float radius = self.distanceSlider.value;
-    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForLatitude:latitude longitude:longitude radius:radius];
+    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForMinPoint:self.appDelegate.minPoint maxPoint:self.appDelegate.maxPoint];
     [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.appDelegate setStreamItemArray:objects];
         [self addMarkers];
@@ -159,7 +139,6 @@
 - (void)loadInitialMarkers {
     // Bad hack. We try to load only based off of whether there are any objects available.
     if ([self.appDelegate.streamItemArray count] == 0) {
-        [self fetchNewStreamItems];
         [self.activityIndicator setHidden:YES];
     } else {
         [self.activityIndicator setHidden:YES];
@@ -246,5 +225,33 @@
     PFObject *selectedStreamItem = marker.userData;
     MJPStreamItemViewController *dummyItem = [[MJPStreamItemViewController alloc] initWithStreamItem:selectedStreamItem location:self.currentLocation];
     [self.navigationController pushViewController:dummyItem animated:YES];
+}
+
+- (CLLocationCoordinate2D)minLocation {
+    return self.mapView.projection.visibleRegion.farLeft;
+}
+
+- (CLLocationCoordinate2D)maxLocation {
+    return self.mapView.projection.visibleRegion.nearRight;
+}
+
+- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
+    if (!hasTappedMarker_) {
+        [self updateLocation:mapView];
+        [self fetchNewStreamItems];
+    } else {
+        hasTappedMarker_ = FALSE;
+    }
+}
+
+- (void)updateLocation:(GMSMapView*)mapView {
+    self.appDelegate.minPoint = mapView.projection.visibleRegion.farLeft;
+    self.appDelegate.maxPoint = mapView.projection.visibleRegion.nearRight;
+    [self fetchNewStreamItems];
+}
+
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
+    hasTappedMarker_ = TRUE;
+    return NO;
 }
 @end

@@ -72,6 +72,10 @@
 		5C89015B1A262C2B003BCDDB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901561A262C2B003BCDDB /* Security.framework */; };
 		5C89015C1A262C2B003BCDDB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C8901571A262C2B003BCDDB /* StoreKit.framework */; };
 		5C89015F1A265013003BCDDB /* MJPQueryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C89015E1A265013003BCDDB /* MJPQueryUtils.m */; };
+		5C916C2A1A79589200AC12F2 /* Frown.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C916C281A79589200AC12F2 /* Frown.png */; };
+		5C916C2B1A79589200AC12F2 /* Smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C916C291A79589200AC12F2 /* Smile.png */; };
+		5C916C2E1A7959BA00AC12F2 /* Frown-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C916C2C1A7959BA00AC12F2 /* Frown-1.png */; };
+		5C916C2F1A7959BA00AC12F2 /* Smile-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C916C2D1A7959BA00AC12F2 /* Smile-1.png */; };
 		5CB31D311A56445600FCB459 /* MJPPhotoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB31D301A56445600FCB459 /* MJPPhotoUtils.m */; };
 		5CB31D3B1A5653A700FCB459 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CB31D3A1A5653A700FCB459 /* GoogleMaps.framework */; };
 		5CB31D3D1A56541100FCB459 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5CB31D3C1A56541100FCB459 /* GoogleMaps.bundle */; };
@@ -190,6 +194,10 @@
 		5C8901571A262C2B003BCDDB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5C89015D1A265013003BCDDB /* MJPQueryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPQueryUtils.h; sourceTree = "<group>"; };
 		5C89015E1A265013003BCDDB /* MJPQueryUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPQueryUtils.m; sourceTree = "<group>"; };
+		5C916C281A79589200AC12F2 /* Frown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Frown.png; sourceTree = "<group>"; };
+		5C916C291A79589200AC12F2 /* Smile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Smile.png; sourceTree = "<group>"; };
+		5C916C2C1A7959BA00AC12F2 /* Frown-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Frown-1.png"; sourceTree = "<group>"; };
+		5C916C2D1A7959BA00AC12F2 /* Smile-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Smile-1.png"; sourceTree = "<group>"; };
 		5CB31D2F1A56445600FCB459 /* MJPPhotoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPPhotoUtils.h; sourceTree = "<group>"; };
 		5CB31D301A56445600FCB459 /* MJPPhotoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPPhotoUtils.m; sourceTree = "<group>"; };
 		5CB31D3A1A5653A700FCB459 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
@@ -437,8 +445,12 @@
 		5C7F746919A3BC510095117F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5C916C2C1A7959BA00AC12F2 /* Frown-1.png */,
+				5C916C2D1A7959BA00AC12F2 /* Smile-1.png */,
 				5C3CA1881A7849C700C8E322 /* Add.png */,
 				5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */,
+				5C916C281A79589200AC12F2 /* Frown.png */,
+				5C916C291A79589200AC12F2 /* Smile.png */,
 				5CE4583C1A47783A00EFF937 /* Back.png */,
 				5CE458471A47A7C100EFF937 /* Compass.png */,
 				5C8710EE1A51BD20008E117A /* GoldStar.png */,
@@ -579,12 +591,14 @@
 				5C57EC1D1A577EE5002EE8C9 /* FBLogo.png in Resources */,
 				5CE8713A19AC263400C963AF /* images.jpeg in Resources */,
 				5C3CA1891A7849C700C8E322 /* Add.png in Resources */,
+				5C916C2F1A7959BA00AC12F2 /* Smile-1.png in Resources */,
 				5C7F74A819A4F0980095117F /* NotificationIcon.png in Resources */,
 				5CE458481A47A7C200EFF937 /* Compass.png in Resources */,
 				5CE458431A47960300EFF937 /* MJPStreamItemWindow.xib in Resources */,
 				5CB31D3F1A56625000FCB459 /* MJPSettings.storyboard in Resources */,
 				5C7F746F19A3BD980095117F /* MJPStreamViewController.xib in Resources */,
 				5CE4584C1A47AB8C00EFF937 /* Clock.png in Resources */,
+				5C916C2B1A79589200AC12F2 /* Smile.png in Resources */,
 				5C57EC371A5868AB002EE8C9 /* MJPTutorialViewController.xib in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
 				5CE458331A47713500EFF937 /* X.png in Resources */,
@@ -592,8 +606,10 @@
 				5CE8713F19AFEDA500C963AF /* MJPStreamItemViewController.xib in Resources */,
 				5C3EA4AF19A599DC007EF291 /* Pinpoint.png in Resources */,
 				5C7F744619A3BB2A0095117F /* Images.xcassets in Resources */,
+				5C916C2A1A79589200AC12F2 /* Frown.png in Resources */,
 				5C57EC0D1A567749002EE8C9 /* MJPChangePasswordViewController.xib in Resources */,
 				5C57EC411A58A4D5002EE8C9 /* MJPLoginViewController.xib in Resources */,
+				5C916C2E1A7959BA00AC12F2 /* Frown-1.png in Resources */,
 				5C57EC271A585717002EE8C9 /* MJPHomeScreenViewController.xib in Resources */,
 				5C57EC2F1A5860C8002EE8C9 /* TutorialImage2.jpg in Resources */,
 				5CE4583D1A47783A00EFF937 /* Back.png in Resources */,

@@ -24,4 +24,7 @@
 - (id)currentUserId;
 - (void)loggedOutView;
 
+@property (nonatomic) CLLocationCoordinate2D minPoint;
+@property (nonatomic) CLLocationCoordinate2D maxPoint;
+
 @end

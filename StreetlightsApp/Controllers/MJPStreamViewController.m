@@ -141,10 +141,7 @@ NSMutableArray *friendItems;
 }
 
 - (void)fetchNewStreamItems {
-    float longitude = self.currentLocation.coordinate.longitude;
-    float latitude = self.currentLocation.coordinate.latitude;
-    float radius = self.distanceSlider.value;
-    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForLatitude:latitude longitude:longitude radius:radius];
+    PFQuery *streamItemQuery = [MJPQueryUtils getStreamItemsForMinPoint:self.appDelegate.minPoint maxPoint:self.appDelegate.maxPoint];
     [streamItemQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.appDelegate setStreamItemArray:objects];
         dispatch_async(dispatch_get_main_queue(), ^{
