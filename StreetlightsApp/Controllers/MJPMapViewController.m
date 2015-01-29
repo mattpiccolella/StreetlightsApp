@@ -51,6 +51,9 @@
     [self.navigationController.navigationBar setTranslucent:YES];
     [self.navigationController.navigationBar setBackgroundImage:[MJPViewUtils imageNavBarBackground] forBarMetrics:UIBarMetricsDefault];
     [self.navigationItem setTitle:@"AROUND"];
+    
+    self.navigationController.navigationBar.barTintColor = [MJPViewUtils appColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.8075
                                                             longitude:-73.9619
@@ -120,6 +123,7 @@
         marker.position = CLLocationCoordinate2DMake([streamItem[@"latitude"] floatValue], [streamItem[@"longitude"] floatValue]);
         marker.map = self.mapView;
         marker.userData = streamItem;
+        marker.icon = [UIImage imageNamed:@"Marker.png"];
     }
 }
 

@@ -29,6 +29,7 @@
 		5C57EC371A5868AB002EE8C9 /* MJPTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC351A5868AB002EE8C9 /* MJPTutorialViewController.xib */; };
 		5C57EC401A58A4D5002EE8C9 /* MJPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC3E1A58A4D5002EE8C9 /* MJPLoginViewController.m */; };
 		5C57EC411A58A4D5002EE8C9 /* MJPLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC3F1A58A4D5002EE8C9 /* MJPLoginViewController.xib */; };
+		5C5CACD11A7ACB020058BCD6 /* Marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C5CACD01A7ACB020058BCD6 /* Marker.png */; };
 		5C7F743419A3BB2A0095117F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743319A3BB2A0095117F /* Foundation.framework */; };
 		5C7F743619A3BB2A0095117F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743519A3BB2A0095117F /* CoreGraphics.framework */; };
 		5C7F743819A3BB2A0095117F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7F743719A3BB2A0095117F /* UIKit.framework */; };
@@ -138,6 +139,7 @@
 		5C57EC3D1A58A4D5002EE8C9 /* MJPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPLoginViewController.h; sourceTree = "<group>"; };
 		5C57EC3E1A58A4D5002EE8C9 /* MJPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPLoginViewController.m; sourceTree = "<group>"; };
 		5C57EC3F1A58A4D5002EE8C9 /* MJPLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPLoginViewController.xib; sourceTree = "<group>"; };
+		5C5CACD01A7ACB020058BCD6 /* Marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marker.png; sourceTree = "<group>"; };
 		5C7F743019A3BB2A0095117F /* StreetlightsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetlightsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7F743319A3BB2A0095117F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C7F743519A3BB2A0095117F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -443,6 +445,7 @@
 				5C3CA1881A7849C700C8E322 /* Add.png */,
 				5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */,
 				5CE4583C1A47783A00EFF937 /* Back.png */,
+				5C5CACD01A7ACB020058BCD6 /* Marker.png */,
 				5CE458471A47A7C100EFF937 /* Compass.png */,
 				5C8710EE1A51BD20008E117A /* GoldStar.png */,
 				5CE458361A4773BF00EFF937 /* Profile.png */,
@@ -590,6 +593,7 @@
 				5C57EC371A5868AB002EE8C9 /* MJPTutorialViewController.xib in Resources */,
 				5C7F749B19A4ED550095117F /* MapIcon.png in Resources */,
 				5CE458331A47713500EFF937 /* X.png in Resources */,
+				5C5CACD11A7ACB020058BCD6 /* Marker.png in Resources */,
 				5CE4584A1A47A9F000EFF937 /* Share.png in Resources */,
 				5CE8713F19AFEDA500C963AF /* MJPStreamItemViewController.xib in Resources */,
 				5C3EA4AF19A599DC007EF291 /* Pinpoint.png in Resources */,
