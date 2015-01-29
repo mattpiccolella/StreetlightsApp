@@ -124,12 +124,16 @@ const int NUMBER_OF_TUTORIAL_SCREENS = 3;
 - (IBAction)registerButtonPressed:(id)sender {
     MJPRegisterViewController *registerViewController = [[MJPRegisterViewController alloc] init];
     
+    self.navigationController.navigationBar.barTintColor = [MJPViewUtils appColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController pushViewController:registerViewController animated:YES];
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
     MJPLoginViewController *loginViewController = [[MJPLoginViewController alloc] init];
     
+    self.navigationController.navigationBar.barTintColor = [MJPViewUtils appColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController pushViewController:loginViewController animated:YES];
 }
 @end

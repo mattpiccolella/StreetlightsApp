@@ -49,6 +49,8 @@ BOOL hasSelectedPhoto;
     hasSelectedPhoto = false;
     
     [MJPPhotoUtils circularCrop:self.profilePictureSelector.imageView];
+    
+    [self enableRegisterButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,7 +124,7 @@ BOOL hasSelectedPhoto;
 }
 
 - (void)enableRegisterButton {
-    BOOL enabled = ([MJPAssortedUtils isValidEmail:[self.emailField text]] && ([[self.nameField text] length] != 0) && ([[self.passwordField text] length] != 0));
+    BOOL enabled = ([MJPAssortedUtils isValidEmail:[self.emailField text]] && ([[self.nameField text] length] != 0) && ([[self.passwordField text] length] != 0) && ([[self.confirmPasswordField text] length] != 0));
     [self.registerButton setEnabled:enabled];
 }
 
