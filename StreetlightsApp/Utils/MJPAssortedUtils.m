@@ -16,7 +16,7 @@
     if (numberOfMinutes < 0) {
         return [NSString stringWithFormat:@"0m"];
     } else if (numberOfMinutes < 60) {
-        return [NSString stringWithFormat:@"%dm", numberOfMinutes];
+        return [NSString stringWithFormat:@"%ldm", (long)numberOfMinutes];
     } else {
         return [NSString stringWithFormat:@"%dh", numberOfMinutes / 60];
     }

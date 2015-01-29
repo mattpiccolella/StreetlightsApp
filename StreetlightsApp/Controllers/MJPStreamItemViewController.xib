@@ -40,7 +40,7 @@
                             <rect key="frame" x="8" y="11" width="40" height="40"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="StreamItem" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pD-BO-Z2y">
-                            <rect key="frame" x="56" y="10" width="162" height="21"/>
+                            <rect key="frame" x="56" y="10" width="162" height="20"/>
                             <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -60,12 +60,21 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVU-PE-82I">
+                    <rect key="frame" x="277" y="342" width="30" height="30"/>
+                    <state key="normal" image="Share.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="sharePost:" destination="-1" eventType="touchUpInside" id="5tT-im-dld"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v6h-4x-e37" customClass="GMSMapView">
                     <rect key="frame" x="0.0" y="393" width="320" height="110"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="if2-Sh-SWj">
-                    <rect key="frame" x="33" y="515" width="117" height="41"/>
+                    <rect key="frame" x="30" y="515" width="120" height="41"/>
                     <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Still there!" image="Smile-1.png">
                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,7 +85,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KW7-bS-jDp">
-                    <rect key="frame" x="158" y="515" width="117" height="41"/>
+                    <rect key="frame" x="170" y="515" width="120" height="41"/>
                     <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Not there." image="Frown-1.png">
                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -85,15 +94,6 @@
                     <connections>
                         <action selector="notThereButton:" destination="-1" eventType="touchUpInside" id="GYY-6t-IYx"/>
                         <action selector="stillThereButton:" destination="-1" eventType="touchUpInside" id="g7Z-sv-z9r"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVU-PE-82I">
-                    <rect key="frame" x="277" y="342" width="30" height="30"/>
-                    <state key="normal" image="Share.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="sharePost:" destination="-1" eventType="touchUpInside" id="5tT-im-dld"/>
                     </connections>
                 </button>
             </subviews>

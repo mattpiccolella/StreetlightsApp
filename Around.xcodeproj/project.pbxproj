@@ -20,7 +20,6 @@
 		5C57EC141A574ACB002EE8C9 /* PathwayGothicOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */; };
 		5C57EC1D1A577EE5002EE8C9 /* FBLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */; };
 		5C57EC1F1A57800C002EE8C9 /* TwitterLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */; };
-		5C57EC221A578365002EE8C9 /* MJPSharingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */; };
 		5C57EC261A585717002EE8C9 /* MJPHomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57EC241A585717002EE8C9 /* MJPHomeScreenViewController.m */; };
 		5C57EC271A585717002EE8C9 /* MJPHomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC251A585717002EE8C9 /* MJPHomeScreenViewController.xib */; };
 		5C57EC2E1A5860C8002EE8C9 /* TutorialImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C57EC2B1A5860C8002EE8C9 /* TutorialImage1.jpg */; };
@@ -127,8 +126,6 @@
 		5C57EC131A574A71002EE8C9 /* PathwayGothicOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PathwayGothicOne-Regular.ttf"; sourceTree = "<group>"; };
 		5C57EC1C1A577EE5002EE8C9 /* FBLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FBLogo.png; sourceTree = "<group>"; };
 		5C57EC1E1A57800C002EE8C9 /* TwitterLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterLogo.png; sourceTree = "<group>"; };
-		5C57EC201A578365002EE8C9 /* MJPSharingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPSharingUtils.h; sourceTree = "<group>"; };
-		5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPSharingUtils.m; sourceTree = "<group>"; };
 		5C57EC231A585717002EE8C9 /* MJPHomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPHomeScreenViewController.h; sourceTree = "<group>"; };
 		5C57EC241A585717002EE8C9 /* MJPHomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPHomeScreenViewController.m; sourceTree = "<group>"; };
 		5C57EC251A585717002EE8C9 /* MJPHomeScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJPHomeScreenViewController.xib; sourceTree = "<group>"; };
@@ -477,8 +474,6 @@
 				5C3BAD111A6618E1007E1E74 /* MJPViewUtils.m */,
 				5C3BAD091A660FA1007E1E74 /* MJPAssortedUtils.h */,
 				5C3BAD0A1A660FA1007E1E74 /* MJPAssortedUtils.m */,
-				5C57EC201A578365002EE8C9 /* MJPSharingUtils.h */,
-				5C57EC211A578365002EE8C9 /* MJPSharingUtils.m */,
 				5CB31D2F1A56445600FCB459 /* MJPPhotoUtils.h */,
 				5CB31D301A56445600FCB459 /* MJPPhotoUtils.m */,
 				5C89015D1A265013003BCDDB /* MJPQueryUtils.h */,
@@ -638,7 +633,6 @@
 				5C7F74AE19A5266B0095117F /* MJPStreamItemTableViewCell.m in Sources */,
 				5C3BAD0B1A660FA1007E1E74 /* MJPAssortedUtils.m in Sources */,
 				5C57EC101A567CE4002EE8C9 /* MJPPostHistoryTableViewController.m in Sources */,
-				5C57EC221A578365002EE8C9 /* MJPSharingUtils.m in Sources */,
 				5CB31D421A566CD800FCB459 /* MJPUserSettingsTableViewController.m in Sources */,
 				5C57EC361A5868AB002EE8C9 /* MJPTutorialViewController.m in Sources */,
 				5C57EC261A585717002EE8C9 /* MJPHomeScreenViewController.m in Sources */,
