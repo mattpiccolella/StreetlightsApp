@@ -227,6 +227,11 @@
     double distance = [MJPAssortedUtils distanceFromLatitude:pointLatitude longitude:pointLongitude currentLocation:mapView.myLocation.coordinate];
     customWindow.distanceAway.text = [NSString stringWithFormat:@"%.02f mi", distance];
     
+    NSDate *postedDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[streamItem[@"postedTimestamp"] doubleValue]];
+    NSDate *currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:postedDate];
+    customWindow.timePosted.text = [MJPAssortedUtils stringForRemainingTime:(int) timeInterval / 60];
+    
     // TODO: Work on setting user images.
     
     return customWindow;
