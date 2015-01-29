@@ -106,19 +106,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (double)distanceFromLatitude:(double)latitude longitude:(double)longitude {
-    double currentLatitude = self.currentLocation.coordinate.latitude;
-    double currentLongitude = self.currentLocation.coordinate.longitude;
-    
-    CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-    
-    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:currentLatitude longitude:currentLongitude];
-    
-    double METERS_TO_MILES = 0.000621371;
-
-    return [postLocation distanceFromLocation:currentLocation] * METERS_TO_MILES;
-}
-
 - (void)handleDeletion {
     if (![self.appDelegate.currentUser.objectId isEqualToString:[self.streamItem[@"user"] objectId]]) {
         [self.trashButton setHidden:YES];
@@ -325,7 +312,7 @@
     GMSCameraUpdate *update = [GMSCameraUpdate setTarget:marker.position zoom:14.0];
     [self.mapView moveCamera:update];
     
-    self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [self distanceFromLatitude:pointLatitude longitude:pointLongitude]];
+    self.distanceLabel.text = [NSString stringWithFormat:@"%.02f mi", [MJPAssortedUtils distanceFromLatitude:pointLatitude longitude:pointLongitude currentLocation:self.currentLocation.coordinate]];
 }
 
 - (void)setTimeRemainingForPost {

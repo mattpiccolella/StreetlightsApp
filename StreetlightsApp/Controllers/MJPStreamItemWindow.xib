@@ -7,38 +7,53 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MJPStreamItemWindow"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MJPStreamItemWindow">
-            <rect key="frame" x="0.0" y="0.0" width="241" height="66"/>
+            <rect key="frame" x="0.0" y="0.0" width="241" height="118"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQb-e9-4fr">
-                    <rect key="frame" x="0.0" y="0.0" width="43" height="72"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="ze2-DB-RDx">
-                            <rect key="frame" x="6" y="21" width="30" height="30"/>
-                        </imageView>
-                    </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
-                </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFX-El-1YR">
-                    <rect key="frame" x="51" y="0.0" width="182" height="47"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFX-El-1YR">
+                    <rect key="frame" x="8" y="51" width="225" height="47"/>
                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEG-ad-j41">
-                    <rect key="frame" x="51" y="45" width="182" height="21"/>
-                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQb-e9-4fr">
+                    <rect key="frame" x="0.0" y="0.0" width="241" height="43"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oEG-ad-j41">
+                            <rect key="frame" x="46" y="5" width="131" height="18"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Compass.png" translatesAutoresizingMaskIntoConstraints="NO" id="ze2-DB-RDx">
+                            <rect key="frame" x="8" y="7" width="30" height="30"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08a-HB-Wk2">
+                            <rect key="frame" x="46" y="25" width="131" height="18"/>
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10.2 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaN-4R-Wwh">
+                            <rect key="frame" x="185" y="13" width="48" height="17"/>
+                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.80078125" blue="0.39840898720000001" alpha="1" colorSpace="deviceRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="distanceAway" destination="eaN-4R-Wwh" id="n3o-mp-qZY"/>
                 <outlet property="posterImage" destination="ze2-DB-RDx" id="DeO-fb-Tq0"/>
                 <outlet property="posterName" destination="oEG-ad-j41" id="TsS-MW-t2Q"/>
                 <outlet property="streamItemDescription" destination="JFX-El-1YR" id="UeH-iO-G29"/>
+                <outlet property="timePosted" destination="08a-HB-Wk2" id="MgZ-V0-hEb"/>
             </connections>
-            <point key="canvasLocation" x="113.5" y="709"/>
+            <point key="canvasLocation" x="132.5" y="278"/>
         </view>
     </objects>
     <resources>

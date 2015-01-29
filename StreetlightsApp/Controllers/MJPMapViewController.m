@@ -14,6 +14,7 @@
 #import "MJPUserSettingsTableViewController.h"
 #import "MJPPhotoUtils.h"
 #import "MJPViewUtils.h"
+#import "MJPAssortedUtils.h"
 
 @interface MJPMapViewController ()
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -220,6 +221,11 @@
     customWindow.layer.masksToBounds = YES;
     customWindow.streamItemDescription.text = marker.snippet;
     customWindow.posterName.text = marker.title;
+    PFObject *streamItem = marker.userData;
+    double pointLatitude = [streamItem[@"latitude"] floatValue];
+    double pointLongitude = [streamItem[@"longitude"] floatValue];
+    double distance = [MJPAssortedUtils distanceFromLatitude:pointLatitude longitude:pointLongitude currentLocation:mapView.myLocation.coordinate];
+    customWindow.distanceAway.text = [NSString stringWithFormat:@"%.02f mi", distance];
     
     // TODO: Work on setting user images.
     

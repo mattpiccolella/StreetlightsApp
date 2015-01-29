@@ -70,4 +70,17 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
++ (double)distanceFromLatitude:(double)latitude longitude:(double)longitude currentLocation:(CLLocationCoordinate2D)currentLocation {
+    double currentLatitude = currentLocation.latitude;
+    double currentLongitude = currentLocation.longitude;
+    
+    CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    
+    CLLocation *currentLoc = [[CLLocation alloc] initWithLatitude:currentLatitude longitude:currentLongitude];
+    
+    double METERS_TO_MILES = 0.000621371;
+    
+    return [postLocation distanceFromLocation:currentLoc] * METERS_TO_MILES;
+}
+
 @end

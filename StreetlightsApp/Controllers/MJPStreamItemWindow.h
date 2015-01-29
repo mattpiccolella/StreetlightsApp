@@ -13,5 +13,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *streamItemDescription;
 @property (strong, nonatomic) IBOutlet UILabel *posterName;
 @property (strong, nonatomic) IBOutlet UIImageView *posterImage;
+@property (strong, nonatomic) IBOutlet UILabel *timePosted;
+@property (strong, nonatomic) IBOutlet UILabel *distanceAway;
 
 @end

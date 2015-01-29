@@ -25,4 +25,6 @@
 
 + (NSString*)completeStringForRemainingTime:(NSTimeInterval)timeInterval;
 
++ (double)distanceFromLatitude:(double)latitude longitude:(double)longitude currentLocation:(CLLocationCoordinate2D)currentLocation;
+
 @end
